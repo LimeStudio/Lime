@@ -1,8 +1,8 @@
 apply plugin: 'com.android.application'
-
 apply plugin: 'kotlin-android'
-
+apply plugin: 'kotlin-kapt'
 apply plugin: 'kotlin-android-extensions'
+apply plugin: 'androidx.navigation.safeargs'
 
 android {
     signingConfigs {
@@ -34,9 +34,26 @@ android {
 dependencies {
     implementation fileTree(include: ['*.jar'], dir: 'libs')
     implementation "org.jetbrains.kotlin:kotlin-stdlib-jdk7:$kotlin_version"
-    implementation 'com.android.support:appcompat-v7:28.0.0-rc02'
-    implementation 'com.android.support.constraint:constraint-layout:1.1.3'
+    //lifecycle
+    implementation deps.lifecycle.runtime
+    implementation deps.lifecycle.extensions
+    kapt deps.lifecycle.compiler
+    //room
+    implementation deps.room.runtime
+    implementation deps.room.rxjava2
+    kapt deps.room.compiler
+    //navigation
+    implementation deps.navigation.fragment_ktx
+    implementation deps.navigation.ui_ktx
     testImplementation 'junit:junit:4.12'
-    androidTestImplementation 'com.android.support.test:runner:1.0.2'
-    androidTestImplementation 'com.android.support.test.espresso:espresso-core:3.0.2'
+    //constraintLayout
+    implementation deps.constraintlayout.constraintlayout_solver
+    implementation deps.constraintlayout.constraintlayout
+    //support
+    implementation deps.support.material
+    implementation deps.support.appcompat
+    implementation deps.support.recyclerview
+    implementation deps.support.annotation
+    implementation deps.support.legacy_support_core_utils
+    implementation deps.support.legacy_support_v4
 }
