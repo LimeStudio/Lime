@@ -33,7 +33,8 @@ android {
 
 dependencies {
     implementation fileTree(include: ['*.jar'], dir: 'libs')
-    implementation "org.jetbrains.kotlin:kotlin-stdlib-jdk7:$kotlin_version"
+    //kotlin
+    implementation deps.kotlin.stdlib
     //lifecycle
     implementation deps.lifecycle.runtime
     implementation deps.lifecycle.extensions
@@ -56,4 +57,20 @@ dependencies {
     implementation deps.support.annotation
     implementation deps.support.legacy_support_core_utils
     implementation deps.support.legacy_support_v4
+    //glide
+    implementation deps.glide.core
+    kapt deps.glide.compiler
+    //rxJava
+    implementation deps.rxjava2
+    //rxAndroid
+    implementation deps.rx_android
+    //retrofit
+    implementation deps.retrofit.runtime
+    implementation deps.retrofit.gson
+    implementation deps.retrofit.mock
+    implementation deps.retrofit.rxjava2
+    //dagger
+    implementation deps.dagger.runtime
+    implementation deps.dagger.android
+    kapt deps.dagger.compiler
 }
