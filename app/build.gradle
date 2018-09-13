@@ -73,4 +73,28 @@ dependencies {
     implementation deps.dagger.runtime
     implementation deps.dagger.android
     kapt deps.dagger.compiler
+    //test
+    testImplementation deps.kotlin.test
+    testImplementation deps.junit
+    testImplementation deps.retrofit.mock
+    testImplementation deps.room.testing
+    testImplementation deps.mock_web_server
+    testImplementation deps.mockito.core
+    testImplementation(deps.arch_core.testing, {
+        exclude group: 'com.android.support', module: 'support-compat'
+        exclude group: 'com.android.support', module: 'support-annotations'
+        exclude group: 'com.android.support', module: 'support-core-utils'
+    })
+    androidTestImplementation(deps.espresso.core, {
+        exclude group: 'com.android.support', module: 'support-annotations'
+        exclude group: 'com.google.code.findbugs', module: 'jsr305'
+    })
+    androidTestImplementation(deps.espresso.contrib, {
+        exclude group: 'com.android.support', module: 'support-annotations'
+        exclude group: 'com.google.code.findbugs', module: 'jsr305'
+    })
+    androidTestImplementation deps.navigation.testing_ktx
+    androidTestImplementation deps.arch_core.testing
+    androidTestImplementation deps.mockito.core
+
 }
