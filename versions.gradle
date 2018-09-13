@@ -6,7 +6,20 @@ versions.lifecycle = "2.0.0-beta01"
 versions.navigation = "1.0.0-alpha05"
 versions.work = "1.0.0-alpha08"
 versions.support = "1.0.0-alpha1"
-versions.constraintlayout = "1.1.0"
+versions.constraintlayout = "1.1.3"
+versions.glide = "4.8.0"
+versions.rxjava2 = "2.2.2"
+versions.retrofit = "2.4.0"
+versions.rx_android = "2.1.0"
+versions.kotlin = "1.2.61"
+versions.android_gradle_plugin = "3.2.0-rc02"
+versions.dagger = "2.17"
+versions.junit = "4.12"
+versions.mockwebserver = "3.8.1"
+versions.mockito = "2.7.19"
+versions.mockito_all = "1.10.19"
+versions.espresso = "3.0.1"
+
 def deps = [:]
 
 def constraintlayout = [:]
@@ -21,6 +34,7 @@ support.recyclerview = "androidx.recyclerview:recyclerview:$versions.support"
 support.annotation = "androidx.annotation:annotation:$versions.support"
 support.legacy_support_core_utils = "androidx.legacy:legacy-support-core-utils:$versions.support"
 support.legacy_support_v4 = "androidx.legacy:legacy-support-v4:$versions.support"
+support.ktx = "androidx.core:core-ktx:$versions.support"
 deps.support = support
 
 def lifecycle = [:]
@@ -53,4 +67,46 @@ work.runtime_ktx = "android.arch.work:work-runtime-ktx:$versions.work"
 work.testing = "android.arch.work:work-testing:$versions.work"
 deps.work = work
 
+def glide = [:]
+glide.core = "com.github.bumptech.glide:glide:$versions.glide"
+glide.compiler = "com.github.bumptech.glide:compiler:$versions.glide"
+deps.glide = glide
+
+def retrofit = [:]
+retrofit.runtime = "com.squareup.retrofit2:retrofit:$versions.retrofit"
+retrofit.gson = "com.squareup.retrofit2:converter-gson:$versions.retrofit"
+retrofit.mock = "com.squareup.retrofit2:retrofit-mock:$versions.retrofit"
+retrofit.rxjava2 = "com.squareup.retrofit2:adapter-rxjava2:$versions.retrofit"
+deps.retrofit = retrofit
+
+def kotlin = [:]
+kotlin.stdlib = "org.jetbrains.kotlin:kotlin-stdlib-jdk7:$versions.kotlin"
+kotlin.test = "org.jetbrains.kotlin:kotlin-test-junit:$versions.kotlin"
+kotlin.plugin = "org.jetbrains.kotlin:kotlin-gradle-plugin:$versions.kotlin"
+deps.kotlin = kotlin
+
+def dagger = [:]
+dagger.runtime = "com.google.dagger:dagger:$versions.dagger"
+dagger.android = "com.google.dagger:dagger-android:$versions.dagger"
+dagger.android_support = "com.google.dagger:dagger-android-support:$versions.dagger"
+dagger.compiler = "com.google.dagger:dagger-compiler:$versions.dagger"
+dagger.android_support_compiler = "com.google.dagger:dagger-android-processor:$versions.dagger"
+deps.dagger = dagger
+
+def mockito = [:]
+mockito.core = "org.mockito:mockito-core:$versions.mockito"
+mockito.all = "org.mockito:mockito-all:$versions.mockito_all"
+deps.mockito = mockito
+
+def espresso = [:]
+espresso.core = "com.android.support.test.espresso:espresso-core:$versions.espresso"
+espresso.contrib = "com.android.support.test.espresso:espresso-contrib:$versions.espresso"
+espresso.intents = "com.android.support.test.espresso:espresso-intents:$versions.espresso"
+deps.espresso = espresso
+
+deps.rxjava2 = "io.reactivex.rxjava2:rxjava:$versions.rxjava2"
+deps.rx_android = "io.reactivex.rxjava2:rxandroid:$versions.rx_android"
+deps.junit = "junit:junit:$versions.junit"
+deps.android_gradle_plugin = "com.android.tools.build:gradle:$versions.android_gradle_plugin"
+deps.mock_web_server = "com.squareup.okhttp3:mockwebserver:$versions.mockwebserver"
 ext.deps = deps

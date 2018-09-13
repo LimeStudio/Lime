@@ -33,7 +33,8 @@ android {
 
 dependencies {
     implementation fileTree(include: ['*.jar'], dir: 'libs')
-    implementation "org.jetbrains.kotlin:kotlin-stdlib-jdk7:$kotlin_version"
+    //kotlin
+    implementation deps.kotlin.stdlib
     //lifecycle
     implementation deps.lifecycle.runtime
     implementation deps.lifecycle.extensions
@@ -56,4 +57,45 @@ dependencies {
     implementation deps.support.annotation
     implementation deps.support.legacy_support_core_utils
     implementation deps.support.legacy_support_v4
+    implementation deps.support.ktx
+    //glide
+    implementation deps.glide.core
+    kapt deps.glide.compiler
+    //rxJava
+    implementation deps.rxjava2
+    //rxAndroid
+    implementation deps.rx_android
+    //retrofit
+    implementation deps.retrofit.runtime
+    implementation deps.retrofit.gson
+    implementation deps.retrofit.mock
+    implementation deps.retrofit.rxjava2
+    //dagger
+    implementation deps.dagger.runtime
+    implementation deps.dagger.android
+    kapt deps.dagger.compiler
+    //test
+    testImplementation deps.kotlin.test
+    testImplementation deps.junit
+    testImplementation deps.retrofit.mock
+    testImplementation deps.room.testing
+    testImplementation deps.mock_web_server
+    testImplementation deps.mockito.core
+    testImplementation(deps.arch_core.testing, {
+        exclude group: 'com.android.support', module: 'support-compat'
+        exclude group: 'com.android.support', module: 'support-annotations'
+        exclude group: 'com.android.support', module: 'support-core-utils'
+    })
+    androidTestImplementation(deps.espresso.core, {
+        exclude group: 'com.android.support', module: 'support-annotations'
+        exclude group: 'com.google.code.findbugs', module: 'jsr305'
+    })
+    androidTestImplementation(deps.espresso.contrib, {
+        exclude group: 'com.android.support', module: 'support-annotations'
+        exclude group: 'com.google.code.findbugs', module: 'jsr305'
+    })
+    androidTestImplementation deps.navigation.testing_ktx
+    androidTestImplementation deps.arch_core.testing
+    androidTestImplementation deps.mockito.core
+
 }
