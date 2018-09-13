@@ -57,6 +57,7 @@ dependencies {
     implementation deps.support.annotation
     implementation deps.support.legacy_support_core_utils
     implementation deps.support.legacy_support_v4
+    implementation deps.support.ktx
     //glide
     implementation deps.glide.core
     kapt deps.glide.compiler

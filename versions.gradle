@@ -34,6 +34,7 @@ support.recyclerview = "androidx.recyclerview:recyclerview:$versions.support"
 support.annotation = "androidx.annotation:annotation:$versions.support"
 support.legacy_support_core_utils = "androidx.legacy:legacy-support-core-utils:$versions.support"
 support.legacy_support_v4 = "androidx.legacy:legacy-support-v4:$versions.support"
+support.ktx = "androidx.core:core-ktx:$versions.support"
 deps.support = support
 
 def lifecycle = [:]
@@ -70,7 +71,6 @@ def glide = [:]
 glide.core = "com.github.bumptech.glide:glide:$versions.glide"
 glide.compiler = "com.github.bumptech.glide:compiler:$versions.glide"
 deps.glide = glide
-
 
 def retrofit = [:]
 retrofit.runtime = "com.squareup.retrofit2:retrofit:$versions.retrofit"
