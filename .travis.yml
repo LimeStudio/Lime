@@ -27,10 +27,10 @@ android:             #Android 环境要求
 
 before_script:
   - chmod +x gradlew
-#  - echo no | android create avd --force -n test -t android-22 --abi armeabi-v7a
-#  - emulator -avd test -no-audio -no-window &
-#  - android-wait-for-emulator
-#  - adb shell input keyevent 82 &
+  - echo no | android create avd --force -n test -t android-$EMULATOR_API --abi armeabi-v7a
+  - emulator -avd test -no-audio -no-window &
+  - android-wait-for-emulator
+  - adb shell input keyevent 82 &
 
 before_cache:
   - rm -f $HOME/.gradle/caches/modules-2/modules-2.lock
