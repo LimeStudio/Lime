@@ -8,9 +8,9 @@ global:
 - ANDROID_BUILD_TOOLS=28.0.2
 - ADB_INSTALL_TIMEOUT=5 # minutes
 
-env:
-  matrix:
-    - ANDROID_TARGET=android-28  ANDROID_ABI=armeabi-v7a
+#env:
+#  matrix:
+#    - ANDROID_TARGET=android-28  ANDROID_ABI=armeabi-v7a
 
 android:             #Android 环境要求
   components:
