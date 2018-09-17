@@ -16,7 +16,7 @@ android:             #Android 环境要求
    - android-$EMULATOR_API
    - extra-google-m2repository
    - extra-android-m2repository        # 配置design 库
-   - addon-google_apis-google-19       # 配置google play services
+   - addon-google_apis-google-$ANDROID_API      # 配置google play services
    - sys-img-armeabi-v7a-android-$ANDROID_API
    - sys-img-armeabi-v7a-android-$EMULATOR_API
   licenses:               #内容许可添加
@@ -39,9 +39,8 @@ cache:
     - $HOME/.gradle/caches/
     - $HOME/.gradle/wrapper/
 
-#before_install:
-#   - chmod +x gradlew
-#   - yes | $ANDROID_HOME/tools/bin/sdkmanager "build-tools;28.0.2"
-#
+before_install:
+   - yes | $ANDROID_HOME/tools/bin/sdkmanager "build-tools;28.0.2"
+
 #script:
 #  - ./gradlew build connectedCheck --info
