@@ -24,6 +24,7 @@ android:             #Android 环境要求
    - addon-google_apis-google-$ANDROID_API      # 配置google play services
    - sys-img-armeabi-v7a-android-$ANDROID_API
    - sys-img-armeabi-v7a-android-$EMULATOR_API
+   - armeabi-v7a
   licenses:               #内容许可添加
    - android-sdk-preview-license-.+
    - android-sdk-license-.+
