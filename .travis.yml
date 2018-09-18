@@ -26,13 +26,27 @@ android:
   - android-sdk-preview-license-.+
   - android-sdk-license-.+
   - google-gdk-license-.+
+
+before_cache:
+- rm -f $HOME/.gradle/caches/modules-2/modules-2.lock
+- rm -fr $HOME/.gradle/caches/*/plugin-resolution/
+
+cache:                   #指定缓存目录
+ directories:
+ - $HOME/.gradle/caches/
+ - $HOME/.gradle/wrapper/
+
+
 before_script:
   - echo no | android create avd --force -n test -t android-21 --abi armeabi-v7a
   - emulator -avd test -no-audio -no-window &
   - android-wait-for-emulator
-  - adb shell input keyevent 82
+  #- adb shell input keyevent 82
+
 script:
+  #- ./gradlew clean build connectedCheck -PdisablePreDex --stacktrace"
   - "./gradlew assembleRelease"
+
 after_success:
   - cp $TRAVIS_BUILD_DIR/appkey.jks $HOME
   - cd $TRAVIS_BUILD_DIR/app/build/outputs/apk/release
@@ -48,3 +62,13 @@ before_install:
   - in appkey.jks.enc -out appkey.jks -d
   # let gradlew access permission
   - chmod +x gradlew
+  - cd $TRAVIS_BUILD_DIR
+  - wget -c https://raw.githubusercontent.com/Pgyer/TravisFile/master/pgyer_upload.sh
+    -O pgyer_upload.sh
+  - chmod +x pgyer_upload.sh
+
+after_script:
+- set -e
+- $TRAVIS_BUILD_DIR/pgyer_upload.sh "${TRAVIS_BUILD_DIR}/app/build/outputs/apk/release/lime.apk"
+  "318e91cdb7e069286d1dcc56acfe203a"
+- rm $TRAVIS_BUILD_DIR/pgyer_upload.sh
