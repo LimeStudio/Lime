@@ -7,10 +7,8 @@ env:
   - EMULATOR_API=21
   - ANDROID_BUILD_TOOLS=28.0.2
   - ADB_INSTALL_TIMEOUT=5
-  # auto-create ->   travis encrypt storepass=YOUR_STORE_PASSWORD --add env.global
-  #                  travis encrypt keypass=YOUR_KEY_PASSWORD --add env.global
-  - secure: HGoHbd0ZO8RJjDJGKJfG/KYKlm8BEsAa8r6CaDovt6lSWOnsO+uZ8KPZA4hgHAPd+9TJCYZb0LvvP+AlCLvRhBgjjF925tnY8JRay0ImUlvK+p/jdeK2ywlQe/c2AGPGmik/ZfBxaH59vwBwmTfO5pW7edLqAH2C2jTdgPEL1eDUc6/rvVo7PJ8XtGQKgtF79VZFabp0mEpgjT4IU41Jv/JTy9Bfm8RWdOK24oxXxYCf+FqBRQeHXxzvgj1r5Nv0aNuQOc5az0wJOtpfWtq1+69DlVpz8c/1x6J73QW9Vr8M5ohWJYwQcY5iTJql4CulRRZg8O4M2LueVGhp3U6U5eqM/HK86N+8SvmylFDaOOSt5iwedwxAKxK9ANPnTfcZOw2OnjBqULJneLcCITFVEvFjQlBzlaW9q6fYfXgenh6elALNzt23ccqofezHoxy0ICdBa2VuYHulXko///7wZ4KViAAvJ4j5Fz1WqU15Gfo6iMqok4vAgxm9/EfHnTsGkm0YXOsrJMVXlr/y4TOHMBF1QrbiHihSqwWfn8rbMiM64AxKrC5/96hXDqTnfbXZJlvWNnA6VLcMOG85DCTQHnZ91WnEemdaP60Zf+XCd3Rvvl1ZzlVK2s92sCU7vB9XWALvAZWIaXT+iQkC6XlUBYIe7RAk82mN1HnycDYOs8g=
-  - secure: M7KpFp7VFbivN/UF9MZfxL7ZxdBJXN6W2RStu25/JvwTQ8bmvWV7rGvnpPufs0PBh+0SU63CRADf5SN0ND29KjA7N/DYUloTL2OVc6JsYgGPRqBna3wAVXjqAobLxwZO0A50XpnBjycoj88brAQyzAn7zPjlPtTu1OSYwuc+vxu8hSAatv2igbOYGIA2QVAsxDpJi89ZyPn9VBx+vnRH3r3ER+Jw3+We3u0VAk7lE358aEHMG+QD2Nt9DxHU7vZQb2YsGfDkt8r1CQ1lGH0ZB/MMLQFDK/w9iUwCGZT6KpQajuHHcfFWevQfWL1QVm8fGELDiBKD8Phy+AUi+LG+F7W6e7Z1HmLY4ES6tMtb6+BauhJRZXPmFlRkIZRbDYl0S8bypqZkxPtjEkqrD1Ws6tfr8LA9k6uH2WbxBAFiRPqOkNf0/hDcDuMhY/kyKReScmaAsYXoqAA+w0vUJV3jvq2EJKzgK97V9e4XEDOqU4EUdMt91rkHbydM6E9VUvOHUST5HuIkI5QqJ5+nLJyl8NxzTiXpLVXPa7RpAGg1CTAx52NccXA2kjEbwGJzktTPUJnPSp6UzEbvtUjtyRBMpNwlmvPLYdl6Z9qrSxG5mraaAgsId3V86vBft7QElxgT5wRb5d0ADtJgKrpLUjNI5qoND3aYv9vMo8n0ZImYoQ8=
+  - secure: lF8xVb1DHPkPuhsmRC5IUAx5hDqBLjxKCUaljo7A+PeWq+l61b/XrCFYvSAAoyhn1NKzV0GOZ2Qo4tYyLQZZa6q1CLiQNtF10NpRWkfROjgwY7oXzB1YdfIEZzBJJgS4ISHR4AzEdZhGJki6mPJ3bhMvF5Jy+1QsNEsPQxhEcxiKa9gKmZkMEQ88DfUYZWL61gsum0S03Xm3KgJz5EH8CxvypHiC8RK8Ev3v8LEQiQ/T7Yyz7+5rxeE7nQOLrfbYEJw1ApfmL0G68ZfTAJJ76R/RoSNp9eCNFCr685//ApV9qQ/pkG4EQ8ozSGUpBNujN1wtkzveSxmDbe51ftk9K8FRu7owAqvLIo0RAkfmL7GSLtUi+eoc8TGdGmn0chkKJ8xkyyMF94U2teVP5aZssUF0odFzlfaPCFA5hDnU1Opek74q7eoh2+QHcEX06UQq41NAclsT5iHmMKwP5e+FECAGKYQQbOI8hPylWVdkjq0fnJKjVCPMrb3fnuL89APl/qIa1yeSC8l0L6oEkQp5Ta54NK3xTQ+C89UJll+lL5FCGNTr6xnkwYkAhMyOPdQmOM0qrxXsdK5CMFTHktH+kHhj/EeZJfd+IOBFpbnDrlWWHiVpjardT9V5phgZusR9Thshyy6pKwItjG7PaubEgb1yRcW4jrd5LsoS3iHwZlA=
+  - secure: I/iQiSR1Fkx4ZpDIEjJIdvxr5o61C9n61QquVYkoZDbSGC1aBbGmnDqUmeUt2Ljbge/1CxRBoEq0ktjjs+Nm+8Pyt8LMlPMi8Gn3hjcfceAVCvWd/dWT8xETdK2LKC1s05H64wCoIwW/3MSHsfIIhea2YkubiM5Feyw6DN/wUZGojT1WnxlkwSMVjAzRS8ejT9U/c54NYYeuDMQ9ytrn++Z4hoD+dhViKK10UQJ/3r3O2kog9VOjjkThqtrktbHk0tw0uVOv0BXWmfbIcwZNt7x8t0AMnohgyW69NY/8uWR4KspgWj71J2kIzR4BBQ5EmL3rJCaoZ/6nC+KmY4HXxNSd3Wn2F1/ll/OPDhHnY7RcJmkVj6UI2lAkjkjVClYFCRwbuuTsvlHdVFLjYz068DtpkeIAJgv3ajmCG+gFcHMxCKPodSmsqYkoDakEawo8OFzi0zz9c7u0FzE4Ynr3lAXmqgNWfm33+8xT7vMKa6WlSj0EY23fY06CAg8lHptvsIuWAUKPCEIBp5YRjMNDAqn7DljcN/D+pyZ3FpNeCG0sSxflUeJIa3s2Gm0dOzW82UomSSxA1cT/hM5X8hSFRoTtTL6/Pwp4/MfOO0Z1oZy0pp8LQbj8Z0swf2D2lWaDwJSyd0CAuwPH6KPiFSZxXOc5dCy2vothmfcKcg8O0MU=
 android:
   components:
   - tools
@@ -26,45 +24,34 @@ android:
   - android-sdk-preview-license-.+
   - android-sdk-license-.+
   - google-gdk-license-.+
-
 before_cache:
 - rm -f $HOME/.gradle/caches/modules-2/modules-2.lock
 - rm -fr $HOME/.gradle/caches/*/plugin-resolution/
-
-cache:                   #指定缓存目录
- directories:
- - $HOME/.gradle/caches/
- - $HOME/.gradle/wrapper/
-
-
+cache:
+  directories:
+  - "$HOME/.gradle/caches/"
+  - "$HOME/.gradle/wrapper/"
 before_script:
-  - echo no | android create avd --force -n test -t android-21 --abi armeabi-v7a
-  - emulator -avd test -no-audio -no-window &
-  - android-wait-for-emulator
-  #- adb shell input keyevent 82
-
+- echo no | android create avd --force -n test -t android-21 --abi armeabi-v7a
+- emulator -avd test -no-audio -no-window &
+- android-wait-for-emulator
 before_install:
-  # auto-create-start -> travis encrypt-file appkey.jks
-  - openssl aes-256-cbc -K $encrypted_1fefb9d6120c_key -iv $encrypted_1fefb9d6120c_iv -in appkey.jks.enc -out appkey.jks -d
-  # let gradlew access permission
-  - chmod +x gradlew
-  - cd $TRAVIS_BUILD_DIR
-  - wget -c https://raw.githubusercontent.com/Pgyer/TravisFile/master/pgyer_upload.sh -O pgyer_upload.sh
-  - chmod +x pgyer_upload.sh
-
+- openssl aes-256-cbc -K $encrypted_f95ceee5962c_key -iv $encrypted_f95ceee5962c_iv
+  -in appkey.jks.enc -out appkey.jks -d
+- chmod +x gradlew
+- cd $TRAVIS_BUILD_DIR
+- wget -c https://raw.githubusercontent.com/Pgyer/TravisFile/master/pgyer_upload.sh
+  -O pgyer_upload.sh
+- chmod +x pgyer_upload.sh
 script:
-  #- ./gradlew clean build connectedCheck -PdisablePreDex --stacktrace"
-  - ./gradlew assembleRelease
-
+- "./gradlew assembleRelease"
 after_success:
-  - cp $TRAVIS_BUILD_DIR/appkey.jks $HOME
-  - cd $TRAVIS_BUILD_DIR/app/build/outputs/apk/release
-  - jarsigner -verbose -sigalg SHA1withRSA -digestalg SHA1 -keystore $HOME/appkey.jks
-  - storepass $storepass -keypass $keypass app-release-unsigned.apk lime
-  - jarsigner -verify app-release-unsigned.apk
-  - "${ANDROID_HOME}/build-tools/26.0.2/zipalign -v 4 app-release-unsigned.apk lime.apk"
-
-
+- cp $TRAVIS_BUILD_DIR/appkey.jks $HOME
+- cd $TRAVIS_BUILD_DIR/app/build/outputs/apk/release
+- jarsigner -verbose -sigalg SHA1withRSA -digestalg SHA1 -keystore $HOME/appkey.jks
+- storepass $storepass -keypass $keypass app-release-unsigned.apk lime
+- jarsigner -verify app-release-unsigned.apk
+- "${ANDROID_HOME}/build-tools/26.0.2/zipalign -v 4 app-release-unsigned.apk lime.apk"
 after_script:
 - set -e
 - $TRAVIS_BUILD_DIR/pgyer_upload.sh "${TRAVIS_BUILD_DIR}/app/build/outputs/apk/release/lime.apk"
