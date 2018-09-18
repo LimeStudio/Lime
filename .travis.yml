@@ -56,7 +56,7 @@ before_install:
 
 script:
   #- ./gradlew clean build connectedCheck -PdisablePreDex --stacktrace"
-  - "./gradlew assembleRelease"
+  - ./gradlew assembleRelease
 
 after_success:
   - cp $TRAVIS_BUILD_DIR/appkey.jks $HOME
