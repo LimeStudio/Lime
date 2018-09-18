@@ -46,7 +46,7 @@ before_script:
 before_install:
   # auto-create-start -> travis encrypt-file appkey.jks
   - openssl aes-256-cbc -K $encrypted_1fefb9d6120c_key -iv $encrypted_1fefb9d6120c_iv
-  - in appkey.jks.enc -out appkey.jks -d
+   - in appkey.jks.enc -out appkey.jks -d
   # let gradlew access permission
   - chmod +x gradlew
   - cd $TRAVIS_BUILD_DIR
