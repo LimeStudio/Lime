@@ -9,7 +9,7 @@ android {
         config {
             keyAlias 'lime'
             keyPassword '612673'
-            storeFile file('appkey.jks')
+            storeFile file('../appkey.jks')
             storePassword '612673'
         }
     }
