@@ -51,8 +51,8 @@ after_success:
 - cd $TRAVIS_BUILD_DIR/app/build/outputs/apk/release
 - jarsigner -verbose -sigalg SHA1withRSA -digestalg SHA1 -keystore $HOME/appkey.jks
 - storepass $storepass -keypass $keypass app-release-unsigned.apk lime
-- jarsigner -verify app-release-unsigned.apk
-- "${ANDROID_HOME}/build-tools/26.0.2/zipalign -v 4 app-release-unsigned.apk lime.apk"
+- jarsigner -verify app-release.apk
+- "${ANDROID_HOME}/build-tools/26.0.2/zipalign -v 4 app-release.apk lime.apk"
 after_script:
 - set -e
 - $TRAVIS_BUILD_DIR/pgyer_upload.sh "${TRAVIS_BUILD_DIR}/app/build/outputs/apk/release/lime.apk"
