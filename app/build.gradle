@@ -73,6 +73,8 @@ dependencies {
     //dagger
     implementation deps.dagger.runtime
     implementation deps.dagger.android
+    implementation deps.dagger.android_support
+    kapt deps.dagger.android_support_compiler
     kapt deps.dagger.compiler
     //test
     testImplementation deps.kotlin.test
