@@ -33,6 +33,8 @@ cache:
   - "$HOME/.gradle/wrapper/"
 before_script: 
 before_install:
+- openssl aes-256-cbc -K $encrypted_e16366686af0_key -iv $encrypted_e16366686af0_iv
+  -in keystore.properties.enc -out keystore.properties -d
 - openssl aes-256-cbc -K $encrypted_f95ceee5962c_key -iv $encrypted_f95ceee5962c_iv
   -in appkey.jks.enc -out appkey.jks -d
 - chmod +x gradlew
@@ -41,16 +43,20 @@ before_install:
   -O pgyer_upload.sh
 - chmod +x pgyer_upload.sh
 script:
-- "./gradlew assembleRelease"
-after_success:
-- cp $TRAVIS_BUILD_DIR/appkey.jks $HOME
-- cd $TRAVIS_BUILD_DIR/app/build/outputs/apk/release
-- jarsigner -verbose -sigalg SHA1withRSA -digestalg SHA1 -keystore $HOME/appkey.jks
-  - storepass $storepass -keypass $keypass app-release-unsigned.apk lime
-- jarsigner -verify app-release.apk
-- "${ANDROID_HOME}/build-tools/28.0.2/zipalign -v 4 app-release.apk lime.apk"
+  - ./gradlew assembleRelease
+#after_success:
+#- cp $TRAVIS_BUILD_DIR/appkey.jks $HOME
+#- cd $TRAVIS_BUILD_DIR/app/build/outputs/apk/release
+#- jarsigner -verbose -sigalg SHA1withRSA -digestalg SHA1 -keystore $HOME/appkey.jks
+#  - storepass $storepass -keypass $keypass app-release-unsigned.apk lime
+#- jarsigner -verify app-release.apk
+#- "${ANDROID_HOME}/build-tools/28.0.2/zipalign -v 4 app-release.apk lime.apk"
 after_script:
 - set -e
 - $TRAVIS_BUILD_DIR/pgyer_upload.sh "${TRAVIS_BUILD_DIR}/app/build/outputs/apk/release/lime.apk"
   "318e91cdb7e069286d1dcc56acfe203a"
 - rm $TRAVIS_BUILD_DIR/pgyer_upload.sh
+
+
+before_deploy:
+  - ls app/build/outputs/apk/
