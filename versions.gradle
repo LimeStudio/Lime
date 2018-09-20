@@ -18,7 +18,8 @@ versions.junit = "4.12"
 versions.mockwebserver = "3.8.1"
 versions.mockito = "2.7.19"
 versions.mockito_all = "1.10.19"
-versions.espresso = "3.0.1"
+versions.espresso = "3.1.0-alpha1"
+versions.runner = "1.1.0-alpha1"
 
 def deps = [:]
 
@@ -99,14 +100,15 @@ mockito.all = "org.mockito:mockito-all:$versions.mockito_all"
 deps.mockito = mockito
 
 def espresso = [:]
-espresso.core = "com.android.support.test.espresso:espresso-core:$versions.espresso"
-espresso.contrib = "com.android.support.test.espresso:espresso-contrib:$versions.espresso"
-espresso.intents = "com.android.support.test.espresso:espresso-intents:$versions.espresso"
+espresso.core = "androidx.test.espresso:espresso-core:$versions.espresso"
+espresso.contrib = "androidx.test.espresso:espresso-contrib:$versions.espresso"
+espresso.intents = "androidx.test.espresso:espresso-intents:$versions.espresso"
 deps.espresso = espresso
 
 deps.rxjava2 = "io.reactivex.rxjava2:rxjava:$versions.rxjava2"
 deps.rx_android = "io.reactivex.rxjava2:rxandroid:$versions.rx_android"
 deps.junit = "junit:junit:$versions.junit"
+deps.runner = "androidx.test:runner:$versions.runner"
 deps.android_gradle_plugin = "com.android.tools.build:gradle:$versions.android_gradle_plugin"
 deps.mock_web_server = "com.squareup.okhttp3:mockwebserver:$versions.mockwebserver"
 ext.deps = deps

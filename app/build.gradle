@@ -20,7 +20,7 @@ android {
         targetSdkVersion 28
         versionCode 1
         versionName "1.0"
-        testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
+        testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
     }
     buildTypes {
         release {
@@ -99,5 +99,6 @@ dependencies {
     androidTestImplementation deps.navigation.testing_ktx
     androidTestImplementation deps.arch_core.testing
     androidTestImplementation deps.mockito.core
+    androidTestImplementation deps.runner
 
 }
