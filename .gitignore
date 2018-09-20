@@ -71,3 +71,4 @@ fastlane/readme.md
 
 .idea/
 keystore.properties
+app/appkey.jks
