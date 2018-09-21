@@ -1,58 +1,36 @@
 package com.moi.lime.db
 
+import LiveDataTestUtil
+import androidx.arch.core.executor.testing.InstantTaskExecutorRule
 import androidx.test.runner.AndroidJUnit4
-import com.moi.lime.RxSchedulersOverrideRule
-import com.moi.lime.vo.Profile
-import io.reactivex.plugins.RxJavaPlugins
-import io.reactivex.schedulers.Schedulers
+import createProfile
+import org.hamcrest.CoreMatchers
+import org.hamcrest.MatcherAssert.assertThat
+import org.junit.Rule
 import org.junit.Test
 import org.junit.runner.RunWith
-import org.junit.Assert.*
-import org.junit.Rule
+
 
 @RunWith(AndroidJUnit4::class)
 class ProfileDaoTest : LimeDbTest() {
-    //    @Rule
-//    @JvmField
-//    var mRxSchedulersOverrideRule = RxSchedulersOverrideRule()
+    @Rule
+    @JvmField
+    val instantExecutorRule = InstantTaskExecutorRule()
+
     @Test
     fun insertAndLoadWithUid() {
-        asyncToSync()
         val profile = createProfile()
         db.profileDao().insert(profile)
-        db.profileDao().findByUid("123456").subscribe(
-                {
-                    assertNotNull(it)
-                }, {
-            assertNotNull(it)
-        },{
-            print("aaaa")
-        }
-        )
-
-        //   assertNotNull(A)
-
+        val loaded = LiveDataTestUtil.getValue(db.profileDao().findByUid("123456"))
+        assertThat(loaded.uid, CoreMatchers.`is`("123456"))
     }
 
-    private fun createProfile(isSignIn: Boolean = false): Profile {
-        return Profile(
-                isSignIn,
-                "123456",
-                1234556,
-                1,
-                "test",
-                "1",
-                123456,
-                "1",
-                true,
-                "1",
-                "1")
+    @Test
+    fun insertAndLoadWithSignIn() {
+        val profile = createProfile(true)
+        db.profileDao().insert(profile)
+        val loaded = LiveDataTestUtil.getValue(db.profileDao().findUserBySignIn(true))
+        assertThat(loaded.isSignIn,CoreMatchers.`is`(true))
     }
 
-    fun asyncToSync() {
-        RxJavaPlugins.reset()
-        RxJavaPlugins.setIoSchedulerHandler {
-            return@setIoSchedulerHandler Schedulers.trampoline()
-        }
-    }
 }
