@@ -1,9 +1,9 @@
 package com.moi.lime.db
 
-import LiveDataTestUtil
+import com.moi.lime.util.LiveDataTestUtil
 import androidx.arch.core.executor.testing.InstantTaskExecutorRule
 import androidx.test.runner.AndroidJUnit4
-import createProfile
+import com.moi.lime.util.createProfile
 import org.hamcrest.CoreMatchers
 import org.hamcrest.MatcherAssert.assertThat
 import org.junit.Rule

@@ -1,3 +1,5 @@
+package com.moi.lime.util
+
 import com.moi.lime.vo.Profile
 import io.reactivex.plugins.RxJavaPlugins
 import io.reactivex.schedulers.Schedulers
