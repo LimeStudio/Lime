@@ -4,12 +4,13 @@ import android.os.Bundle
 import android.util.Log
 import androidx.appcompat.app.AppCompatActivity
 import com.moi.lime.api.MoiService
+import com.moi.lime.di.Injectable
 import com.moi.lime.util.Logger
 import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.schedulers.Schedulers
 import javax.inject.Inject
 
-class MainActivity : AppCompatActivity() {
+class MainActivity : AppCompatActivity(),Injectable {
 
     @Inject lateinit var service:MoiService
 

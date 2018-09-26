@@ -12,10 +12,10 @@ import dagger.android.support.AndroidSupportInjection
 import dagger.android.support.HasSupportFragmentInjector
 
 object AppInjector {
-    fun init(limeApp: LimeApp){
+    fun init(limeApp: LimeApp) {
         DaggerAppComponent.builder().application(limeApp)
                 .build().inject(limeApp)
-        limeApp.registerActivityLifecycleCallbacks(object :Application.ActivityLifecycleCallbacks{
+        limeApp.registerActivityLifecycleCallbacks(object : Application.ActivityLifecycleCallbacks {
             override fun onActivityPaused(activity: Activity?) {
             }
 
@@ -40,8 +40,9 @@ object AppInjector {
 
         })
     }
+
     private fun handleActivity(activity: Activity) {
-        if (activity is HasSupportFragmentInjector) {
+        if (activity is HasSupportFragmentInjector || activity is Injectable) {
             AndroidInjection.inject(activity)
         }
         if (activity is FragmentActivity) {
