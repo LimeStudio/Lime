@@ -1,11 +1,9 @@
 package com.moi.lime.api
 
-import com.moi.lime.vo.MusicUrlBean
 import okhttp3.mockwebserver.MockResponse
 import okhttp3.mockwebserver.MockWebServer
 import okio.Okio
 import org.hamcrest.CoreMatchers.`is`
-import org.hamcrest.core.IsNull.notNullValue
 import org.junit.After
 import org.junit.Assert
 import org.junit.Before
@@ -41,7 +39,7 @@ class MoiServiceTest {
     private fun enqueueResponse(fileName: String, headers: Map<String, String> = emptyMap()) {
         val inputStream = javaClass
                 .getResourceAsStream("/api-response/$fileName")
-        val source = Okio.buffer(Okio.source(inputStream))
+        val source = Okio.buffer(Okio.source(inputStream!!))
         val mockResponse = MockResponse()
         for ((key, value) in headers) {
             mockResponse.addHeader(key, value)
@@ -55,12 +53,8 @@ class MoiServiceTest {
     @Test
     fun getMusicUrl() {
         enqueueResponse("GetMusicUrlResponse")
-        var musicUrlBean: MusicUrlBean? = null
-        service.getMusicUrl("33894312").subscribe { musicUrlBean = it }
-
+        service.getMusicUrl("33894312").test().assertValue{it.data!!.first()!!.id.toString()=="33894312"}
         val request = mockWebServer.takeRequest()
         Assert.assertThat(request.path, `is`("/music/url?id=33894312"))
-        Assert.assertThat<MusicUrlBean>(musicUrlBean, notNullValue())
-        Assert.assertThat(musicUrlBean!!.data!!.first()!!.id.toString(), `is`("33894312"))
     }
 }
