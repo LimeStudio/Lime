@@ -83,6 +83,8 @@ dependencies {
     implementation deps.dagger.android_support
     kapt deps.dagger.android_support_compiler
     kapt deps.dagger.compiler
+    //cookie
+    implementation deps.persistent_cookie_jar
     //test
     testImplementation deps.kotlin.test
     testImplementation deps.junit

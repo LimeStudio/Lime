@@ -12,8 +12,13 @@ class LimeApp : Application(), HasActivityInjector {
     @Inject
     lateinit var dispatchingAndroidInjector: DispatchingAndroidInjector<Activity>
 
+    companion object {
+        lateinit var instance: LimeApp
+    }
+
     override fun onCreate() {
         super.onCreate()
+        instance = this
         AppInjector.init(this)
     }
 
