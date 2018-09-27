@@ -2,6 +2,7 @@ package com.moi.lime
 
 import android.app.Activity
 import android.app.Application
+import com.google.gson.Gson
 import com.moi.lime.di.AppInjector
 import dagger.android.AndroidInjector
 import dagger.android.DispatchingAndroidInjector
