@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    app:startDestination="@id/first_fragment">
+    <fragment
+        android:id="@+id/first_fragment"
+        android:name="com.moi.lime.ui.FirstFragment"
+        android:label="first fragment" >
+        <action
+            android:id="@+id/go_to_second_fragment_from_first"
+            app:destination="@id/second_fragment"/>
+    </fragment>
+    <fragment
+        android:id="@+id/second_fragment"
+        android:name="com.moi.lime.ui.SecondFragment"
+        android:label="second fragment" >
+        <argument
+            android:name="title"
+            app:argType="string"/>
+        <deepLink app:uri="www.moi.pub"/>
+    </fragment>
+
+</navigation>

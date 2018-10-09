@@ -50,6 +50,12 @@ dependencies {
     implementation deps.room.runtime
     implementation deps.room.rxjava2
     kapt deps.room.compiler
+    //paging
+    implementation deps.paging.runtime
+    implementation deps.paging.rxjava2
+    //workManager
+    implementation deps.work.runtime_ktx
+
     //navigation
     implementation deps.navigation.fragment_ktx
     implementation deps.navigation.ui_ktx
@@ -91,6 +97,7 @@ dependencies {
     testImplementation deps.retrofit.mock
     testImplementation deps.room.testing
     testImplementation deps.mock_web_server
+    testImplementation deps.work.testing
     testImplementation deps.mockito.core
     testImplementation(deps.arch_core.testing, {
         exclude group: 'com.android.support', module: 'support-compat'
@@ -109,5 +116,6 @@ dependencies {
     androidTestImplementation deps.arch_core.testing
     androidTestImplementation deps.mockito.core
     androidTestImplementation deps.runner
+    androidTestImplementation deps.paging.testing
 
 }
