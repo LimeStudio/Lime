@@ -24,7 +24,9 @@ class SecondFragment : Fragment(),Injectable {
 
     override fun onActivityCreated(savedInstanceState: Bundle?): Unit = view!!.let { view ->
         super.onActivityCreated(savedInstanceState)
+
         val args = SecondFragmentArgs.fromBundle(arguments)
+        val title = args.title
         val adapter = CustomAdapter()
         list.layoutManager=LinearLayoutManager(list.context)
         list.adapter = adapter

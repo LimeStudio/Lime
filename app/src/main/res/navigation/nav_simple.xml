@@ -1,8 +1,10 @@
 <?xml version="1.0" encoding="utf-8"?>
 <navigation xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
     app:startDestination="@id/first_fragment">
     <fragment
+        tools:layout="@layout/fragment_first"
         android:id="@+id/first_fragment"
         android:name="com.moi.lime.ui.FirstFragment"
         android:label="first fragment" >
@@ -11,6 +13,7 @@
             app:destination="@id/second_fragment"/>
     </fragment>
     <fragment
+        tools:layout="@layout/fragment_second"
         android:id="@+id/second_fragment"
         android:name="com.moi.lime.ui.SecondFragment"
         android:label="second fragment" >
