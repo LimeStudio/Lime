@@ -62,5 +62,6 @@ before_deploy:
 
 # safelist
 branches:
+
   only:
   - feature/1.0
