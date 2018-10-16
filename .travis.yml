@@ -59,3 +59,8 @@ after_script:
 
 before_deploy:
   - ls app/build/outputs/apk/
+
+# safelist
+branches:
+  only:
+  - feature/1.0
