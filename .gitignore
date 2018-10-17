@@ -70,5 +70,3 @@ fastlane/test_output
 fastlane/readme.md
 
 .idea/
-keystore.properties
-app/appkey.jks

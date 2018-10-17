@@ -37,7 +37,7 @@ android {
         targetSdkVersion 28
         versionCode 1
         versionName "1.0"
-        testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
+        testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
     }
     buildTypes {
         release {
@@ -45,6 +45,13 @@ android {
             proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
             signingConfig signingConfigs.config
         }
+    }
+    sourceSets {
+        androidTest.java.srcDirs += "src/test-common/java"
+        test.java.srcDirs += "src/test-common/java"
+    }
+    dataBinding {
+        enabled = true
     }
 }
 
@@ -60,6 +67,12 @@ dependencies {
     implementation deps.room.runtime
     implementation deps.room.rxjava2
     kapt deps.room.compiler
+    //paging
+    implementation deps.paging.runtime
+    implementation deps.paging.rxjava2
+    //workManager
+    implementation deps.work.runtime_ktx
+
     //navigation
     implementation deps.navigation.fragment_ktx
     implementation deps.navigation.ui_ktx
@@ -90,13 +103,18 @@ dependencies {
     //dagger
     implementation deps.dagger.runtime
     implementation deps.dagger.android
+    implementation deps.dagger.android_support
+    kapt deps.dagger.android_support_compiler
     kapt deps.dagger.compiler
+    //cookie
+    implementation deps.persistent_cookie_jar
     //test
     testImplementation deps.kotlin.test
     testImplementation deps.junit
     testImplementation deps.retrofit.mock
     testImplementation deps.room.testing
     testImplementation deps.mock_web_server
+    testImplementation deps.work.testing
     testImplementation deps.mockito.core
     testImplementation(deps.arch_core.testing, {
         exclude group: 'com.android.support', module: 'support-compat'
@@ -114,5 +132,7 @@ dependencies {
     androidTestImplementation deps.navigation.testing_ktx
     androidTestImplementation deps.arch_core.testing
     androidTestImplementation deps.mockito.core
+    androidTestImplementation deps.runner
+    androidTestImplementation deps.paging.testing
 
 }
