@@ -51,7 +51,7 @@ class MainActivity : AppCompatActivity(), HasSupportFragmentInjector {
 
         WorkManager.getInstance().enqueue(pullRequest)
 
-        WorkManager.getInstance().getStatusById(pullRequest.id)
+        WorkManager.getInstance().getWorkInfoByIdLiveData(pullRequest.id)
                 .observe(this, Observer { status ->
                     status?.let {
                         Logger.INS.d(it.state.name)

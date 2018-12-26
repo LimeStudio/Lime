@@ -2,9 +2,8 @@ package com.moi.lime.db
 
 import androidx.arch.core.executor.testing.CountingTaskExecutorRule
 import androidx.room.Room
-import androidx.test.InstrumentationRegistry
+import androidx.test.platform.app.InstrumentationRegistry
 import org.junit.After
-import org.junit.Assert.*
 import org.junit.Before
 import org.junit.Rule
 import java.util.concurrent.TimeUnit
@@ -21,7 +20,7 @@ open class LimeDbTest {
     @Before
     fun initDb() {
         _db = Room.inMemoryDatabaseBuilder(
-                InstrumentationRegistry.getContext(),
+                InstrumentationRegistry.getInstrumentation().context,
                 LimeDb::class.java
         ).build()
     }

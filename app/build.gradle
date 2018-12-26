@@ -133,6 +133,7 @@ dependencies {
     androidTestImplementation deps.arch_core.testing
     androidTestImplementation deps.mockito.core
     androidTestImplementation deps.runner
+    androidTestImplementation deps.android_junit
     androidTestImplementation deps.paging.testing
 
 }
