@@ -40,6 +40,7 @@ class Cardinal(private val profileDao: ProfileDao) : UserManager {
     override fun cleanUser() {
         checkStatus()
         profileDao.clean()
+        profile = null
     }
 
     override fun isSignIn(): Boolean {
