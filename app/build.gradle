@@ -72,11 +72,9 @@ dependencies {
     implementation deps.paging.rxjava2
     //workManager
     implementation deps.work.runtime_ktx
-
     //navigation
     implementation deps.navigation.fragment_ktx
     implementation deps.navigation.ui_ktx
-    testImplementation 'junit:junit:4.12'
     //constraintLayout
     implementation deps.constraintlayout.constraintlayout_solver
     implementation deps.constraintlayout.constraintlayout
@@ -108,19 +106,27 @@ dependencies {
     kapt deps.dagger.compiler
     //cookie
     implementation deps.persistent_cookie_jar
+
     //test
     testImplementation deps.kotlin.test
     testImplementation deps.junit
     testImplementation deps.retrofit.mock
-    testImplementation deps.room.testing
     testImplementation deps.mock_web_server
-    testImplementation deps.work.testing
     testImplementation deps.mockito.core
-    testImplementation(deps.arch_core.testing, {
-        exclude group: 'com.android.support', module: 'support-compat'
-        exclude group: 'com.android.support', module: 'support-annotations'
-        exclude group: 'com.android.support', module: 'support-core-utils'
-    })
+    androidTestImplementation deps.mockito.core
+
+    // Core library
+    androidTestImplementation deps.androidx_test_core
+
+    // AndroidJUnitRunner and JUnit Rules
+    androidTestImplementation deps.runner.runner
+    androidTestImplementation deps.runner.rules
+
+    // Assertions
+    androidTestImplementation deps.android_junit.junit
+    androidTestImplementation deps.android_junit.truth
+
+    // Espresso dependencies
     androidTestImplementation(deps.espresso.core, {
         exclude group: 'com.android.support', module: 'support-annotations'
         exclude group: 'com.google.code.findbugs', module: 'jsr305'
@@ -129,11 +135,20 @@ dependencies {
         exclude group: 'com.android.support', module: 'support-annotations'
         exclude group: 'com.google.code.findbugs', module: 'jsr305'
     })
+    androidTestImplementation(deps.espresso.intents, {
+        exclude group: 'com.android.support', module: 'support-annotations'
+        exclude group: 'com.google.code.findbugs', module: 'jsr305'
+    })
+
+    //JetPack test
+    testImplementation deps.room.testing
+    testImplementation deps.work.testing
+    testImplementation(deps.arch_core.testing, {
+        exclude group: 'com.android.support', module: 'support-compat'
+        exclude group: 'com.android.support', module: 'support-annotations'
+        exclude group: 'com.android.support', module: 'support-core-utils'
+    })
     androidTestImplementation deps.navigation.testing_ktx
     androidTestImplementation deps.arch_core.testing
-    androidTestImplementation deps.mockito.core
-    androidTestImplementation deps.runner
-    androidTestImplementation deps.android_junit
     androidTestImplementation deps.paging.testing
-
 }

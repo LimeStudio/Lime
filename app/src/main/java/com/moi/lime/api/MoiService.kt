@@ -13,7 +13,7 @@ interface MoiService {
     fun getMusicUrl(@Query("id") id: String): Flowable<MusicUrlBean>
 
     @GET("/login/cellphone")
-    fun signinByPhone(@Query("phone") phoneNumber: String,
+    fun signInByPhone(@Query("phone") phoneNumber: String,
                       @Query("password") password: String)
             : Flowable<SigninByPhoneBean>
 

@@ -1,7 +1,6 @@
 package com.moi.lime.ui
 
 import android.os.Bundle
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -32,7 +31,7 @@ class FirstFragment : Fragment(), Injectable {
                     .navigate(R.id.go_to_second_fragment_from_first, fragmentArgs.toBundle())
         }
         login.setOnClickListener { _ ->
-            moiService.signinByPhone("18628393484", "xxxxxx")
+            moiService.signInByPhone("18628393484", "xxxxxx")
                     .subscribeOn(Schedulers.io())
                     .observeOn(AndroidSchedulers.mainThread())
                     .subscribe(

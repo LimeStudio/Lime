@@ -23,7 +23,8 @@ versions.espresso = "3.1.0"
 versions.runner = "1.1.0"
 versions.persistent_cookie_jar = "v1.0.1"
 versions.android_junit = "1.0.0"
-
+versions.androidx_test_core = "1.0.0"
+versions.google_truth = "0.42"
 def deps = [:]
 
 def constraintlayout = [:]
@@ -114,11 +115,20 @@ espresso.contrib = "androidx.test.espresso:espresso-contrib:$versions.espresso"
 espresso.intents = "androidx.test.espresso:espresso-intents:$versions.espresso"
 deps.espresso = espresso
 
+def runner = [:]
+runner.runner = "androidx.test:runner:$versions.runner"
+runner.rules = "androidx.test:runner:$versions.runner"
+deps.runner = runner
+
+def android_junit = [:]
+android_junit.junit = "androidx.test.ext:junit:$versions.android_junit"
+android_junit.truth = "androidx.test.ext:truth:$versions.android_junit"
+deps.android_junit = android_junit
+
+deps.androidx_test_core = "androidx.test:core:$versions.androidx_test_core"
 deps.rxjava2 = "io.reactivex.rxjava2:rxjava:$versions.rxjava2"
 deps.rx_android = "io.reactivex.rxjava2:rxandroid:$versions.rx_android"
 deps.junit = "junit:junit:$versions.junit"
-deps.runner = "androidx.test:runner:$versions.runner"
-deps.android_junit = "androidx.test.ext:junit:$versions.android_junit"
 deps.android_gradle_plugin = "com.android.tools.build:gradle:$versions.android_gradle_plugin"
 deps.mock_web_server = "com.squareup.okhttp3:mockwebserver:$versions.mockwebserver"
 deps.persistent_cookie_jar = "com.github.franmontiel:PersistentCookieJar:$versions.persistent_cookie_jar"

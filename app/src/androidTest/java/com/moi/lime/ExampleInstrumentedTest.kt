@@ -1,5 +1,7 @@
 package com.moi.lime
 
+import android.content.Context
+import androidx.test.core.app.ApplicationProvider
 import androidx.test.ext.junit.runners.AndroidJUnit4
 import androidx.test.platform.app.InstrumentationRegistry
 import org.junit.Assert.assertEquals
@@ -16,7 +18,7 @@ class ExampleInstrumentedTest {
     @Test
     fun useAppContext() {
         // Context of the app under test.
-        val appContext = InstrumentationRegistry.getInstrumentation().context
-        assertEquals("com.moi.lime.test", appContext.packageName)
+        val appContext = ApplicationProvider.getApplicationContext<Context>()
+         assertEquals("com.moi.lime", appContext.packageName)
     }
 }
