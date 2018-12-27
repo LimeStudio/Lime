@@ -42,6 +42,7 @@ before_install:
   -O pgyer_upload.sh
 - chmod +x pgyer_upload.sh
 script:
+  - ./gradlew test
   - ./gradlew assembleRelease
 #after_success:
 #- cp $TRAVIS_BUILD_DIR/appkey.jks $HOME
