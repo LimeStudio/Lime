@@ -61,7 +61,6 @@ after_script:
 - $TRAVIS_BUILD_DIR/pgyer_upload.sh "${TRAVIS_BUILD_DIR}/app/build/outputs/apk/release/app-release.apk"
   "318e91cdb7e069286d1dcc56acfe203a"
 - rm $TRAVIS_BUILD_DIR/pgyer_upload.sh
-- codecov
 - bash <(curl -s https://codecov.io/bash) -t d81700f5-9e56-4c39-8a8c-963640934898
 
 
