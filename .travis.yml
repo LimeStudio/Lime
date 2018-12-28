@@ -34,8 +34,7 @@ cache:
     - $HOME/.android/build-cache
 before_script:
 - echo no | android create avd --force -n test -t android-$EMULATOR_API --abi armeabi-v7a
-- emulator -avd test -no-skin -no-audio -no-window &
-- android-wait-for-emulato
+- emulator -avd test -no-skin -no-audio -no-window & android-wait-for-emulato
 before_install:
 - openssl aes-256-cbc -K $encrypted_b05b3cd5a93c_key -iv $encrypted_b05b3cd5a93c_iv -in keystore.properties.enc -out keystore.properties -d
 - openssl aes-256-cbc -K $encrypted_8ff20515eeac_key -iv $encrypted_8ff20515eeac_iv -in appkey.jks.enc -out appkey.jks -d
