@@ -13,14 +13,17 @@ class Cardinal(private val profileDao: ProfileDao) : UserManager {
     private var profile: Profile? = null
 
     override fun init(): Single<Profile> {
+        isInit = true
         return profileDao.findUserBySignIn(true)
                 .doOnSuccess { profile = it }
     }
 
     override fun saveUser(signInByPhoneBean: SignInByPhoneBean): Boolean {
+        checkStatus()
         if (signInByPhoneBean.profile?.userId != null) {
             val profile = createProfile(signInByPhoneBean.profile)
             profileDao.insert(profile)
+            this.profile = profile
             return true
         }
         return false
@@ -34,7 +37,9 @@ class Cardinal(private val profileDao: ProfileDao) : UserManager {
 
     override fun updateProfile(profile: Profile) {
         checkStatus()
-        profileDao.insert(profile)
+        val newProfile = profile.copy()
+        profileDao.insert(newProfile)
+        this.profile = newProfile
     }
 
     override fun cleanUser() {
