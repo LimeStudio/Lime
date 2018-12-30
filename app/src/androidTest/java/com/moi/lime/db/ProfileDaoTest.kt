@@ -1,6 +1,7 @@
 package com.moi.lime.db
 
 import androidx.arch.core.executor.testing.InstantTaskExecutorRule
+import androidx.room.EmptyResultSetException
 import androidx.test.ext.junit.runners.AndroidJUnit4
 import com.moi.lime.util.createProfile
 import org.junit.Rule
@@ -34,6 +35,29 @@ class ProfileDaoTest : LimeDbTest() {
                 .findUserBySignIn(true)
                 .test()
                 .assertValue { it.isSignIn }
+    }
+
+    @Test
+    fun insertAndClean() {
+        db.profileDao()
+                .findUserBySignIn(true)
+                .test()
+                .assertError(EmptyResultSetException::class.java)
+
+        val profile = createProfile(true)
+        db.profileDao().insert(profile)
+
+        db.profileDao()
+                .findUserBySignIn(true)
+                .test()
+                .assertValue { it.isSignIn }
+
+        db.profileDao().clean()
+
+        db.profileDao()
+                .findUserBySignIn(true)
+                .test()
+                .assertError(EmptyResultSetException::class.java)
     }
 
 }

@@ -4,7 +4,7 @@ import com.moi.lime.vo.Profile
 import io.reactivex.plugins.RxJavaPlugins
 import io.reactivex.schedulers.Schedulers
 
-fun createProfile(isSignIn: Boolean = false): Profile {
+fun createProfile(isSignIn: Boolean = true): Profile {
     return Profile(
             isSignIn,
             "123456",

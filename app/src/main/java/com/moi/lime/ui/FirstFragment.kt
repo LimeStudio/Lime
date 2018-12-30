@@ -8,6 +8,7 @@ import androidx.fragment.app.Fragment
 import androidx.navigation.Navigation
 import com.moi.lime.R
 import com.moi.lime.api.MoiService
+import com.moi.lime.db.ProfileDao
 import com.moi.lime.di.Injectable
 import com.moi.lime.util.Logger
 import io.reactivex.android.schedulers.AndroidSchedulers
@@ -18,6 +19,8 @@ import javax.inject.Inject
 class FirstFragment : Fragment(), Injectable {
     @Inject
     lateinit var moiService: MoiService
+    @Inject
+    lateinit var profileDao: ProfileDao
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
         return inflater.inflate(R.layout.fragment_first, container, false)
@@ -55,8 +58,6 @@ class FirstFragment : Fragment(), Injectable {
                                 Logger.INS.d(it.message.toString())
                             }
                     )
-
-
         }
 
 //val uri = "Dada"

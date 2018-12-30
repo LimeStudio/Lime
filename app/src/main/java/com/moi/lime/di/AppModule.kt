@@ -8,6 +8,8 @@ import com.franmontiel.persistentcookiejar.cache.SetCookieCache
 import com.franmontiel.persistentcookiejar.persistence.SharedPrefsCookiePersistor
 import com.moi.lime.LimeApp
 import com.moi.lime.api.MoiService
+import com.moi.lime.core.user.Cardinal
+import com.moi.lime.core.user.UserManager
 import com.moi.lime.db.LimeDb
 import com.moi.lime.db.ProfileDao
 import dagger.Module
@@ -23,7 +25,7 @@ class AppModule {
     @Singleton
     @Provides
     fun provideMoiService(context: Context): MoiService {
-        val cookieJar = PersistentCookieJar(SetCookieCache(),SharedPrefsCookiePersistor(context))
+        val cookieJar = PersistentCookieJar(SetCookieCache(), SharedPrefsCookiePersistor(context))
 
         val okHttpClient = OkHttpClient.Builder()
                 .cookieJar(cookieJar)
@@ -51,6 +53,12 @@ class AppModule {
     @Provides
     fun provideProfile(db: LimeDb): ProfileDao {
         return db.profileDao()
+    }
+
+    @Singleton
+    @Provides
+    fun provideUserManager(profileDao: ProfileDao): UserManager {
+        return Cardinal(profileDao)
     }
 
     @Singleton
