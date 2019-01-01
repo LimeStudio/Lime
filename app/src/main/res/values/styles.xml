@@ -10,4 +10,116 @@
         <item name="colorAccent">@color/colorAccent</item>
     </style>
 
+    <style name="TextOnPrimary">
+        <item name="android:textColor">@color/textOnPrimary</item>
+    </style>
+
+    <style name="TextOnAccent">
+        <item name="android:textColor">@color/textOnPrimary</item>
+    </style>
+
+    <style name="TextOnPrimaryH1" parent="TextOnPrimary">
+        <item name="android:textSize">96sp</item>
+    </style>
+
+    <style name="TextOnPrimaryH2" parent="TextOnPrimary">
+        <item name="android:textSize">60sp</item>
+    </style>
+
+    <style name="TextOnPrimaryH3" parent="TextOnPrimary">
+        <item name="android:textSize">48sp</item>
+    </style>
+
+    <style name="TextOnPrimaryH4" parent="TextOnPrimary">
+        <item name="android:textSize">34sp</item>
+    </style>
+
+    <style name="TextOnPrimaryH5" parent="TextOnPrimary">
+        <item name="android:textSize">24sp</item>
+    </style>
+
+    <style name="TextOnPrimaryH6" parent="TextOnPrimary">
+        <item name="android:textSize">20sp</item>
+    </style>
+
+    <style name="TextOnPrimarySubtitle1" parent="TextOnPrimary">
+        <item name="android:textSize">16sp</item>
+    </style>
+
+    <style name="TextOnPrimarySubtitle2" parent="TextOnPrimary">
+        <item name="android:textSize">14sp</item>
+    </style>
+
+    <style name="TextOnPrimaryBody1" parent="TextOnPrimary">
+        <item name="android:textSize">16sp</item>
+    </style>
+
+    <style name="TextOnPrimaryBody2" parent="TextOnPrimary">
+        <item name="android:textSize">14sp</item>
+    </style>
+
+    <style name="TextOnPrimaryButton" parent="TextOnPrimary">
+        <item name="android:textSize">14sp</item>
+    </style>
+
+    <style name="TextOnPrimaryCaption" parent="TextOnPrimary">
+        <item name="android:textSize">12sp</item>
+    </style>
+
+    <style name="TextOnPrimaryOverLine" parent="TextOnPrimary">
+        <item name="android:textSize">10sp</item>
+    </style>
+
+    <style name="TextOnAccentH1" parent="TextOnAccent">
+        <item name="android:textSize">96sp</item>
+    </style>
+
+    <style name="TextOnAccentH2" parent="TextOnAccent">
+        <item name="android:textSize">60sp</item>
+    </style>
+
+    <style name="TextOnAccentH3" parent="TextOnAccent">
+        <item name="android:textSize">48sp</item>
+    </style>
+
+    <style name="TextOnAccentH4" parent="TextOnAccent">
+        <item name="android:textSize">34sp</item>
+    </style>
+
+    <style name="TextOnAccentH5" parent="TextOnAccent">
+        <item name="android:textSize">24sp</item>
+    </style>
+
+    <style name="TextOnAccentH6" parent="TextOnAccent">
+        <item name="android:textSize">20sp</item>
+    </style>
+
+    <style name="TextOnAccentSubtitle1" parent="TextOnAccent">
+        <item name="android:textSize">16sp</item>
+    </style>
+
+    <style name="TextOnAccentSubtitle2" parent="TextOnAccent">
+        <item name="android:textSize">14sp</item>
+    </style>
+
+    <style name="TextOnAccentBody1" parent="TextOnAccent">
+        <item name="android:textSize">16sp</item>
+    </style>
+
+    <style name="TextOnAccentBody2" parent="TextOnAccent">
+        <item name="android:textSize">14sp</item>
+    </style>
+
+    <style name="TextOnAccentButton" parent="TextOnAccent">
+        <item name="android:textSize">14sp</item>
+    </style>
+
+    <style name="TextOnAccentCaption" parent="TextOnAccent">
+        <item name="android:textSize">12sp</item>
+    </style>
+
+    <style name="TextOnAccentOverLine" parent="TextOnAccent">
+        <item name="android:textSize">10sp</item>
+    </style>
+
 </resources>
