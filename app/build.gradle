@@ -4,6 +4,9 @@ apply plugin: 'kotlin-kapt'
 apply plugin: 'kotlin-android-extensions'
 apply plugin: 'androidx.navigation.safeargs'
 apply plugin: 'jacoco'
+jacoco {
+    toolVersion = "0.8.2"
+}
 
 // Create a variable called keystorePropertiesFile, and initialize it to your
 // keystore.properties file, in the rootProject folder.
@@ -17,7 +20,7 @@ keystoreProperties.load(new FileInputStream(keystorePropertiesFile))
 
 def keyStoreFile = file(keystoreProperties['storeFileLocal'])
 
-if (!keyStoreFile.exists()){
+if (!keyStoreFile.exists()) {
     keyStoreFile = file(keystoreProperties['storeFileCI'])
 }
 
@@ -58,7 +61,21 @@ android {
     dataBinding {
         enabled = true
     }
+
+    testOptions {
+        unitTests {
+            all {
+                jvmArgs '-noverify', '-ea'
+                jacoco {
+                    includeNoLocationClasses = true
+                }
+            }
+            includeAndroidResources = true
+        }
+    }
 }
+
+
 
 dependencies {
     implementation fileTree(include: ['*.jar'], dir: 'libs')
@@ -156,4 +173,62 @@ dependencies {
     androidTestImplementation deps.navigation.testing_ktx
     androidTestImplementation deps.arch_core.testing
     androidTestImplementation deps.paging.testing
+}
+
+tasks.withType(Test) {
+    jacoco.includeNoLocationClasses = true
+}
+//
+//task jacocoTestReport(type: JacocoReport, dependsOn: ['testDebugUnitTest']) {
+//
+//    reports {
+//        xml.enabled = true
+//        html.enabled = true
+//    }
+//
+//    def fileFilter = ['**/R.class', '**/R$*.class', '**/BuildConfig.*', '**/Manifest*.*', '**/*Test*.*', 'android/**/*.*']
+//    def debugTree = fileTree(dir: "$project.buildDir/intermediates/classes/debug", excludes: fileFilter) + fileTree(dir: "$project.buildDir/tmp/kotlin-classes/debug", excludes: fileFilter)
+//    def mainSrc = "$project.projectDir/src/main/java"
+//
+//    sourceDirectories = files([mainSrc])
+//    classDirectories = files([debugTree])
+//    executionData = fileTree(dir: project.projectDir, includes: [
+//            'build/jacoco/testDebugUnitTest.exec', '*.exec'
+//    ])
+//}
+//
+//task jacocoUITestReport(type: JacocoReport, dependsOn: ['testDebugUnitTest']) {
+//
+//    reports {
+//        xml.enabled = true
+//        html.enabled = true
+//    }
+//
+//    def fileFilter = ['**/R.class', '**/R$*.class', '**/BuildConfig.*', '**/Manifest*.*', '**/*Test*.*', 'android/**/*.*']
+//    def debugTree = fileTree(dir: "$project.buildDir/intermediates/classes/debug", excludes: fileFilter) + fileTree(dir: "$project.buildDir/tmp/kotlin-classes/debug", excludes: fileFilter)
+//    def mainSrc = "$project.projectDir/src/main/java"
+//
+//    sourceDirectories = files([mainSrc])
+//    classDirectories = files([debugTree])
+//    executionData = fileTree(dir: project.projectDir, includes: [
+//            'coverage_reports/*.exec'
+//    ])
+//}
+//
+task jacocoUnitTestReport(type: JacocoReport, dependsOn: ['testDebugUnitTest']) {
+
+    reports {
+        xml.enabled = true
+        html.enabled = true
+    }
+
+    def fileFilter = ['**/R.class', '**/R$*.class', '**/BuildConfig.*', '**/Manifest*.*', '**/*Test*.*', 'android/**/*.*']
+    def debugTree = fileTree(dir: "$project.buildDir/intermediates/classes/debug", excludes: fileFilter) + fileTree(dir: "$project.buildDir/tmp/kotlin-classes/debug", excludes: fileFilter)
+    def mainSrc = "$project.projectDir/src/main/java"
+
+    sourceDirectories = files([mainSrc])
+    classDirectories = files([debugTree])
+    executionData = fileTree(dir: project.projectDir, includes: [
+            'build/jacoco/testDebugUnitTest.exec'
+    ])
 }
