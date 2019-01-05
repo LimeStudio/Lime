@@ -1,5 +1,6 @@
 package com.moi.lime.ui.splash
 
+import android.annotation.SuppressLint
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import com.moi.lime.core.user.UserManager
@@ -8,10 +9,11 @@ import io.reactivex.android.schedulers.AndroidSchedulers
 import java.util.concurrent.TimeUnit
 import javax.inject.Inject
 
-class SplashViewModel @Inject constructor(val userManager: UserManager) : ViewModel() {
+class SplashViewModel @Inject constructor(private val userManager: UserManager) : ViewModel() {
     val isSignInValue = MutableLiveData<Boolean>()
+    @SuppressLint("CheckResult")
     fun init() {
-        val disposable = Single.timer(2, TimeUnit.SECONDS)
+        Single.timer(2, TimeUnit.SECONDS)
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe({
                     isSignInValue.value = userManager.isSignIn()
