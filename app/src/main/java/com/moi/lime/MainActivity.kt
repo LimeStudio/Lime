@@ -25,21 +25,21 @@ class MainActivity : AppCompatActivity(), HasSupportFragmentInjector {
 
     @Inject
     lateinit var service: MoiService
-    private val navigationController by lazy(LazyThreadSafetyMode.NONE) {
-        Navigation.findNavController(this, R.id.frag_nav_simple)
-    }
+//    private val navigationController by lazy(LazyThreadSafetyMode.NONE) {
+//        Navigation.findNavController(this, R.id.frag_nav_simple)
+//    }
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
-        setSupportActionBar(toolbar)
-        NavigationUI.setupActionBarWithNavController(this, navigationController)
+//        setSupportActionBar(toolbar)
+//        NavigationUI.setupActionBarWithNavController(this, navigationController)
         testWork()
     }
 
-    override fun onSupportNavigateUp(): Boolean {
-        return navigationController.navigateUp()
-    }
+//    override fun onSupportNavigateUp(): Boolean {
+//        return navigationController.navigateUp()
+//    }
 
     private fun testWork() {
         val constraints = Constraints.Builder()

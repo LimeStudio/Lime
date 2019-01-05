@@ -2,7 +2,19 @@
 <navigation xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
-    app:startDestination="@id/first_fragment">
+    app:startDestination="@id/splash_fragment">
+    <fragment
+        tools:layout="@layout/fragment_splash"
+        android:id="@+id/splash_fragment"
+        android:name="com.moi.lime.ui.splash.SplashFragment"
+        android:label="splash fragment">
+        <action
+            app:launchSingleTop="true"
+            app:popUpTo="@id/splash_fragment"
+            app:popUpToInclusive="true"
+            android:id="@+id/go_to_first_fragment_from_splash"
+            app:destination="@id/first_fragment"/>
+    </fragment>
     <fragment
         tools:layout="@layout/fragment_first"
         android:id="@+id/first_fragment"
