@@ -5,7 +5,6 @@ import androidx.lifecycle.Observer
 import com.moi.lime.core.user.UserManager
 import com.moi.lime.util.RxSchedulerRule
 import com.moi.lime.util.mock
-import org.junit.Assert.*
 import org.junit.Rule
 import org.junit.Test
 import org.junit.runner.RunWith
