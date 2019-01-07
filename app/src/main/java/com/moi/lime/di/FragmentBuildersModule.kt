@@ -2,6 +2,7 @@ package com.moi.lime.di
 
 import com.moi.lime.ui.FirstFragment
 import com.moi.lime.ui.SecondFragment
+import com.moi.lime.ui.signin.SignInFragment
 import com.moi.lime.ui.splash.SplashFragment
 import dagger.Module
 import dagger.android.ContributesAndroidInjector
@@ -16,5 +17,8 @@ abstract class FragmentBuildersModule {
 
     @ContributesAndroidInjector
     abstract fun contributeSplashFragment(): SplashFragment
+
+    @ContributesAndroidInjector
+    abstract fun contributeSignInFragment(): SignInFragment
 
 }

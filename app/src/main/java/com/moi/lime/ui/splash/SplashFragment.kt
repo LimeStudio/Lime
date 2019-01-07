@@ -34,11 +34,10 @@ class SplashFragment : Fragment(), Injectable {
             if (it) {
                 Navigation.findNavController(view!!)
                         .navigate(R.id.go_to_first_fragment_from_splash)
-                Logger.INS.d("已经登陆")
+
             } else {
                 Navigation.findNavController(view!!)
-                        .navigate(R.id.go_to_first_fragment_from_splash)
-                Logger.INS.d("没有登陆")
+                        .navigate(R.id.go_to_sign_in_fragment_from_splash)
             }
         })
         viewModel.init()

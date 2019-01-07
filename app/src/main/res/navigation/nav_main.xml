@@ -4,35 +4,46 @@
     xmlns:tools="http://schemas.android.com/tools"
     app:startDestination="@id/splash_fragment">
     <fragment
-        tools:layout="@layout/fragment_splash"
         android:id="@+id/splash_fragment"
         android:name="com.moi.lime.ui.splash.SplashFragment"
-        android:label="splash fragment">
+        android:label="splash fragment"
+        tools:layout="@layout/fragment_splash">
         <action
+            android:id="@+id/go_to_first_fragment_from_splash"
+            app:destination="@id/first_fragment"
             app:launchSingleTop="true"
             app:popUpTo="@id/splash_fragment"
-            app:popUpToInclusive="true"
-            android:id="@+id/go_to_first_fragment_from_splash"
-            app:destination="@id/first_fragment"/>
+            app:popUpToInclusive="true" />
+        <action
+            android:id="@+id/go_to_sign_in_fragment_from_splash"
+            app:destination="@id/sign_in_fragment"
+            app:launchSingleTop="true"
+            app:popUpTo="@id/splash_fragment"
+            app:popUpToInclusive="true" />
     </fragment>
     <fragment
-        tools:layout="@layout/fragment_first"
+        android:id="@+id/sign_in_fragment"
+        android:name="com.moi.lime.ui.signin.SignInFragment"
+        android:label="sign in fragment"
+        tools:layout="@layout/fragment_sign_in" />
+    <fragment
         android:id="@+id/first_fragment"
         android:name="com.moi.lime.ui.FirstFragment"
-        android:label="first fragment" >
+        android:label="first fragment"
+        tools:layout="@layout/fragment_first">
         <action
             android:id="@+id/go_to_second_fragment_from_first"
-            app:destination="@id/second_fragment"/>
+            app:destination="@id/second_fragment" />
     </fragment>
     <fragment
-        tools:layout="@layout/fragment_second"
         android:id="@+id/second_fragment"
         android:name="com.moi.lime.ui.SecondFragment"
-        android:label="second fragment" >
+        android:label="second fragment"
+        tools:layout="@layout/fragment_second">
         <argument
             android:name="title"
-            app:argType="string"/>
-        <deepLink app:uri="www.moi.pub"/>
+            app:argType="string" />
+        <deepLink app:uri="www.moi.pub" />
     </fragment>
 
 </navigation>
