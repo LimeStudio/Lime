@@ -4,10 +4,15 @@ apply plugin: 'kotlin-kapt'
 apply plugin: 'kotlin-android-extensions'
 apply plugin: 'androidx.navigation.safeargs'
 apply plugin: 'jacoco'
+apply plugin: 'kotlin-allopen'
+
 jacoco {
     toolVersion = "0.8.2"
 }
-
+allOpen {
+    // allows mocking for classes w/o directly opening them for release builds
+    annotation 'com.lime.testing.OpenClass'
+}
 // Create a variable called keystorePropertiesFile, and initialize it to your
 // keystore.properties file, in the rootProject folder.
 def keystorePropertiesFile = rootProject.file("keystore.properties")
@@ -41,7 +46,7 @@ android {
         targetSdkVersion 28
         versionCode 1
         versionName "1.0"
-        testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
+        testInstrumentationRunner "com.moi.lime.util.LimeTestRunner"
     }
     buildTypes {
         release {
@@ -136,6 +141,7 @@ dependencies {
     testImplementation deps.mock_web_server
     testImplementation deps.mockito.core
     androidTestImplementation deps.mockito.core
+    androidTestImplementation deps.mockito.android
 
     // Core library
     androidTestImplementation deps.androidx_test_core
@@ -149,30 +155,18 @@ dependencies {
     androidTestImplementation deps.android_junit.truth
 
     // Espresso dependencies
-    androidTestImplementation(deps.espresso.core, {
-        exclude group: 'com.android.support', module: 'support-annotations'
-        exclude group: 'com.google.code.findbugs', module: 'jsr305'
-    })
-    androidTestImplementation(deps.espresso.contrib, {
-        exclude group: 'com.android.support', module: 'support-annotations'
-        exclude group: 'com.google.code.findbugs', module: 'jsr305'
-    })
-    androidTestImplementation(deps.espresso.intents, {
-        exclude group: 'com.android.support', module: 'support-annotations'
-        exclude group: 'com.google.code.findbugs', module: 'jsr305'
-    })
+    androidTestImplementation deps.espresso.core
+    androidTestImplementation deps.espresso.contrib
 
     //JetPack test
-    testImplementation deps.room.testing
-    testImplementation deps.work.testing
-    testImplementation(deps.arch_core.testing, {
-        exclude group: 'com.android.support', module: 'support-compat'
-        exclude group: 'com.android.support', module: 'support-annotations'
-        exclude group: 'com.android.support', module: 'support-core-utils'
-    })
-    androidTestImplementation deps.navigation.testing_ktx
+    testImplementation deps.arch_core.testing
     androidTestImplementation deps.arch_core.testing
-    androidTestImplementation deps.paging.testing
+
+    //support
+    androidTestImplementation deps.support.appcompat
+    androidTestImplementation deps.support.recyclerview
+    androidTestImplementation deps.support.cardview
+    androidTestImplementation deps.support.material
 }
 
 tasks.withType(Test) {

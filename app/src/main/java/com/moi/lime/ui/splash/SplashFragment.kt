@@ -8,12 +8,13 @@ import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.ViewModelProviders
-import androidx.navigation.Navigation
+import androidx.navigation.fragment.findNavController
+import com.lime.testing.OpenForTesting
 import com.moi.lime.R
 import com.moi.lime.di.Injectable
-import com.moi.lime.util.Logger
 import javax.inject.Inject
 
+@OpenForTesting
 class SplashFragment : Fragment(), Injectable {
     @Inject
     lateinit var viewModelFactory: ViewModelProvider.Factory
@@ -32,15 +33,20 @@ class SplashFragment : Fragment(), Injectable {
         viewModel.isSignInValue.observe(this, Observer {
             if (it == null) return@Observer
             if (it) {
-                Navigation.findNavController(view!!)
+                navController()
                         .navigate(R.id.go_to_first_fragment_from_splash)
 
             } else {
-                Navigation.findNavController(view!!)
+                navController()
                         .navigate(R.id.go_to_sign_in_fragment_from_splash)
             }
         })
         viewModel.init()
 
     }
+
+    /**
+     * Created to be able to override in tests
+     */
+    fun navController() = findNavController()
 }

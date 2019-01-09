@@ -17,14 +17,16 @@ versions.android_gradle_plugin = '3.2.1'
 versions.dagger = "2.16"
 versions.junit = "4.12"
 versions.mockwebserver = "3.8.1"
-versions.mockito = "2.7.19"
+versions.mockito = "2.11.0"
 versions.mockito_all = "1.10.19"
+versions.mockito_android = "2.22.0"
 versions.espresso = "3.1.0"
 versions.runner = "1.1.0"
 versions.persistent_cookie_jar = "v1.0.1"
 versions.android_junit = "1.0.0"
 versions.androidx_test_core = "1.0.0"
 versions.google_truth = "0.42"
+
 def deps = [:]
 
 def constraintlayout = [:]
@@ -39,6 +41,7 @@ support.recyclerview = "androidx.recyclerview:recyclerview:$versions.support"
 support.annotation = "androidx.annotation:annotation:$versions.support"
 support.legacy_support_core_utils = "androidx.legacy:legacy-support-core-utils:$versions.support"
 support.legacy_support_v4 = "androidx.legacy:legacy-support-v4:$versions.support"
+support.cardview = "androidx.cardview:cardview:$versions.support"
 support.ktx = "androidx.core:core-ktx:$versions.support"
 deps.support = support
 
@@ -94,6 +97,7 @@ def kotlin = [:]
 kotlin.stdlib = "org.jetbrains.kotlin:kotlin-stdlib-jdk7:$versions.kotlin"
 kotlin.test = "org.jetbrains.kotlin:kotlin-test-junit:$versions.kotlin"
 kotlin.plugin = "org.jetbrains.kotlin:kotlin-gradle-plugin:$versions.kotlin"
+kotlin.allopen = "org.jetbrains.kotlin:kotlin-allopen:$versions.kotlin"
 deps.kotlin = kotlin
 
 def dagger = [:]
@@ -107,6 +111,7 @@ deps.dagger = dagger
 def mockito = [:]
 mockito.core = "org.mockito:mockito-core:$versions.mockito"
 mockito.all = "org.mockito:mockito-all:$versions.mockito_all"
+mockito.android = "org.mockito:mockito-android:$versions.mockito_android"
 deps.mockito = mockito
 
 def espresso = [:]
@@ -117,7 +122,7 @@ deps.espresso = espresso
 
 def runner = [:]
 runner.runner = "androidx.test:runner:$versions.runner"
-runner.rules = "androidx.test:runner:$versions.runner"
+runner.rules = "androidx.test:rules:$versions.runner"
 deps.runner = runner
 
 def android_junit = [:]
