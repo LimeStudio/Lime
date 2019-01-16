@@ -4,6 +4,7 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
@@ -11,6 +12,7 @@ import androidx.lifecycle.ViewModelProviders
 import androidx.navigation.fragment.findNavController
 import com.lime.testing.OpenForTesting
 import com.moi.lime.R
+import com.moi.lime.databinding.FragmentSplashBinding
 import com.moi.lime.di.Injectable
 import javax.inject.Inject
 
@@ -25,11 +27,17 @@ class SplashFragment : Fragment(), Injectable {
     }
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
-        return inflater.inflate(R.layout.fragment_splash, container, false)
+        val dataBinding = DataBindingUtil.inflate<FragmentSplashBinding>(
+                inflater,
+                R.layout.fragment_splash,
+                container,
+                false
+        )
+        return dataBinding.root
     }
 
-    override fun onActivityCreated(savedInstanceState: Bundle?) {
-        super.onActivityCreated(savedInstanceState)
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
         viewModel.isSignInValue.observe(this, Observer {
             if (it == null) return@Observer
             if (it) {
@@ -42,7 +50,6 @@ class SplashFragment : Fragment(), Injectable {
             }
         })
         viewModel.init()
-
     }
 
     /**

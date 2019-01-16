@@ -15,6 +15,7 @@ package com.lime.testing/*
  */
 
 import android.os.Bundle
+import android.util.Log
 import android.view.ViewGroup
 import android.widget.FrameLayout
 import androidx.appcompat.app.AppCompatActivity
@@ -48,4 +49,5 @@ class SingleFragmentActivity : AppCompatActivity() {
             .replace(R.id.container, fragment)
             .commit()
     }
+
 }

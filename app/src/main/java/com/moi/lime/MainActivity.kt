@@ -1,6 +1,7 @@
 package com.moi.lime
 
 import android.os.Bundle
+import android.util.Log
 import androidx.appcompat.app.AppCompatActivity
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
@@ -16,6 +17,8 @@ import com.moi.lime.worker.PullWorker.Companion.KEY_RESULT
 import dagger.android.DispatchingAndroidInjector
 import dagger.android.support.HasSupportFragmentInjector
 import kotlinx.android.synthetic.main.activity_main.*
+import java.text.SimpleDateFormat
+import java.util.*
 import javax.inject.Inject
 
 class MainActivity : AppCompatActivity(), HasSupportFragmentInjector {
@@ -32,6 +35,12 @@ class MainActivity : AppCompatActivity(), HasSupportFragmentInjector {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
+//        SimpleDateFormat sdf = new SimpleDateFormat("E MMM dd yyyy HH:mm:ss z", Locale.US);
+//try{
+//   Date logDate1 = sdf.parse(logDate);
+//}catch(Exception e){
+//    System.out.println(e.getMessage());
+//}
 //        setSupportActionBar(toolbar)
 //        NavigationUI.setupActionBarWithNavController(this, navigationController)
         testWork()
@@ -50,6 +59,8 @@ class MainActivity : AppCompatActivity(), HasSupportFragmentInjector {
                 .build()
 
         WorkManager.getInstance().enqueue(pullRequest)
+
+        Logger.INS.d(pullRequest.id.toString())
 
         WorkManager.getInstance().getWorkInfoByIdLiveData(pullRequest.id)
                 .observe(this, Observer { status ->
