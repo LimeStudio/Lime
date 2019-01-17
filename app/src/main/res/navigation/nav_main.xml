@@ -28,7 +28,7 @@
         tools:layout="@layout/fragment_sign_in" />
     <fragment
         android:id="@+id/home_fragment"
-        android:name="com.moi.lime.ui.HomeFragment"
+        android:name="com.moi.lime.ui.home.HomeFragment"
         android:label="home fragment"
         tools:layout="@layout/fragment_home">
         <action
