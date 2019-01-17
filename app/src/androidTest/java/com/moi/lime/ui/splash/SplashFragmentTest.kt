@@ -1,12 +1,9 @@
 package com.moi.lime.ui.splash
 
-import android.util.Log
-import androidx.arch.core.executor.testing.CountingTaskExecutorRule
-import androidx.arch.core.executor.testing.InstantTaskExecutorRule
 import androidx.lifecycle.MutableLiveData
 import androidx.navigation.NavController
 import androidx.test.espresso.Espresso.onView
-import androidx.test.espresso.assertion.ViewAssertions
+import androidx.test.espresso.assertion.ViewAssertions.matches
 import androidx.test.espresso.matcher.ViewMatchers.isDisplayed
 import androidx.test.espresso.matcher.ViewMatchers.withId
 import androidx.test.ext.junit.runners.AndroidJUnit4
@@ -51,11 +48,17 @@ class SplashFragmentTest {
     }
 
     @Test
-    fun testJump() {
+    fun testJumpSignIn() {
+        isSignInValue.postValue(false)
+        onView(withId(R.id.logo)).check(matches(isDisplayed()))
+        verify(splashFragment.navController).navigate(SplashFragmentDirections.goToSignInFragmentFromSplash())
+    }
+
+    @Test
+    fun testJumpHome() {
         isSignInValue.postValue(true)
-        //  verify(splashFragment.navController).navigate(R.id.go_to_first_fragment_from_splash)
-        verify(viewModel).init()
-        //  onView(withId(R.id.logo)).check(ViewAssertions.matches(isDisplayed()))
+        onView(withId(R.id.logo)).check(matches(isDisplayed()))
+        verify(splashFragment.navController).navigate(SplashFragmentDirections.goToHomeFragmentFromSplash())
     }
 
     class TestSplashFragment : SplashFragment() {

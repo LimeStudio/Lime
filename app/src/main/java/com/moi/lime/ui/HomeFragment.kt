@@ -13,25 +13,24 @@ import com.moi.lime.di.Injectable
 import com.moi.lime.util.Logger
 import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.schedulers.Schedulers
-import kotlinx.android.synthetic.main.fragment_first.*
+import kotlinx.android.synthetic.main.fragment_home.*
 import javax.inject.Inject
 
-class FirstFragment : Fragment(), Injectable {
+class HomeFragment : Fragment(), Injectable {
     @Inject
     lateinit var moiService: MoiService
     @Inject
     lateinit var profileDao: ProfileDao
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
-        return inflater.inflate(R.layout.fragment_first, container, false)
+        return inflater.inflate(R.layout.fragment_home, container, false)
     }
 
     override fun onActivityCreated(savedInstanceState: Bundle?): Unit = view!!.let { view ->
         super.onActivityCreated(savedInstanceState)
         button.setOnClickListener {
-            val fragmentArgs = SecondFragmentArgs.Builder("second").build()
             Navigation.findNavController(view)
-                    .navigate(R.id.go_to_second_fragment_from_first, fragmentArgs.toBundle())
+                    .navigate(HomeFragmentDirections.goToSecondFragmentFromHome("second"))
         }
         login.setOnClickListener { _ ->
             moiService.signInByPhone("18628393484", "xxxxxx")

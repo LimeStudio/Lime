@@ -41,7 +41,7 @@ class SingleFragmentActivity : AppCompatActivity() {
     fun setFragment(fragment: Fragment) {
         supportFragmentManager.beginTransaction()
             .add(R.id.container, fragment, "TEST")
-            .commit()
+                .commit()
     }
 
     fun replaceFragment(fragment: Fragment) {

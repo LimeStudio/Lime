@@ -9,8 +9,8 @@
         android:label="splash fragment"
         tools:layout="@layout/fragment_splash">
         <action
-            android:id="@+id/go_to_first_fragment_from_splash"
-            app:destination="@id/first_fragment"
+            android:id="@+id/go_to_home_fragment_from_splash"
+            app:destination="@id/home_fragment"
             app:launchSingleTop="true"
             app:popUpTo="@id/splash_fragment"
             app:popUpToInclusive="true" />
@@ -27,12 +27,12 @@
         android:label="sign in fragment"
         tools:layout="@layout/fragment_sign_in" />
     <fragment
-        android:id="@+id/first_fragment"
-        android:name="com.moi.lime.ui.FirstFragment"
-        android:label="first fragment"
-        tools:layout="@layout/fragment_first">
+        android:id="@+id/home_fragment"
+        android:name="com.moi.lime.ui.HomeFragment"
+        android:label="home fragment"
+        tools:layout="@layout/fragment_home">
         <action
-            android:id="@+id/go_to_second_fragment_from_first"
+            android:id="@+id/go_to_second_fragment_from_home"
             app:destination="@id/second_fragment" />
     </fragment>
     <fragment

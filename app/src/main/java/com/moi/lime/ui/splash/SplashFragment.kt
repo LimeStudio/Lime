@@ -42,11 +42,10 @@ class SplashFragment : Fragment(), Injectable {
             if (it == null) return@Observer
             if (it) {
                 navController()
-                        .navigate(R.id.go_to_first_fragment_from_splash)
-
+                        .navigate(SplashFragmentDirections.goToHomeFragmentFromSplash())
             } else {
                 navController()
-                        .navigate(R.id.go_to_sign_in_fragment_from_splash)
+                        .navigate(SplashFragmentDirections.goToSignInFragmentFromSplash())
             }
         })
         viewModel.init()
