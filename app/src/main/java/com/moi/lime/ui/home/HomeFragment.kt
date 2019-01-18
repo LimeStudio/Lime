@@ -4,29 +4,52 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.Fragment
-import androidx.navigation.Navigation
-import com.google.android.material.snackbar.Snackbar
 import com.moi.lime.R
-import com.moi.lime.api.MoiService
-import com.moi.lime.db.ProfileDao
+import com.moi.lime.databinding.FragmentHomeBinding
 import com.moi.lime.di.Injectable
-import com.moi.lime.util.Logger
-import io.reactivex.android.schedulers.AndroidSchedulers
-import io.reactivex.schedulers.Schedulers
-import kotlinx.android.synthetic.main.fragment_home.*
-import kotlinx.android.synthetic.main.fragment_home.view.*
-import javax.inject.Inject
+import com.moi.lime.ui.callback.ViewClickCallback
+import com.moi.lime.ui.home.profile.ProfileFragment
+import com.moi.lime.ui.home.recommend.RecommendFragment
+import com.moi.lime.util.autoCleared
 
 class HomeFragment : Fragment(), Injectable {
 
+    var binding by autoCleared<FragmentHomeBinding>()
+
+
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
-        return inflater.inflate(R.layout.fragment_home, container, false)
+        val dataBinding = DataBindingUtil.inflate<FragmentHomeBinding>(
+                inflater,
+                R.layout.fragment_home,
+                container,
+                false
+        )
+        dataBinding.viewClick = object : ViewClickCallback {
+            override fun click(view: View) {
+                when (view.id) {
+                    R.id.homeImage -> {
+                        dataBinding.viewPager.setCurrentItem(0,false)
+                    }
+                    R.id.personImage -> {
+                        dataBinding.viewPager.setCurrentItem(1,false)
+                    }
+                }
+            }
+        }
+        binding = dataBinding
+        return dataBinding.root
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        view.homeImage.setOnClickListener { Snackbar.make(view.homeImage,"dididi",Snackbar.LENGTH_SHORT).show() }
+        initViewPager()
     }
 
+    private fun initViewPager() {
+        val fragmentList = listOf(RecommendFragment(),ProfileFragment())
+        val fragmentAdapter = HomeFragmentPageAdapter(childFragmentManager,fragmentList)
+        binding.viewPager.adapter = fragmentAdapter
+    }
 }
