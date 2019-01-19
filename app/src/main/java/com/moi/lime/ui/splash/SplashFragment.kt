@@ -40,7 +40,7 @@ class SplashFragment : Fragment(), Injectable {
         super.onViewCreated(view, savedInstanceState)
         viewModel.isSignInValue.observe(this, Observer {
             if (it == null) return@Observer
-            if (true) {
+            if (it) {
                 navController()
                         .navigate(SplashFragmentDirections.goToHomeFragmentFromSplash())
             } else {
