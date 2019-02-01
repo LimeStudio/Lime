@@ -1,6 +1,7 @@
 package com.moi.lime.api
 
 import com.moi.lime.vo.MusicUrlBean
+import com.moi.lime.vo.OnlyCodeBean
 import com.moi.lime.vo.RecommendationSongListBean
 import com.moi.lime.vo.SignInByPhoneBean
 import io.reactivex.Flowable
@@ -16,6 +17,10 @@ interface MoiService {
     fun signInByPhone(@Query("phone") phoneNumber: String,
                       @Query("password") password: String)
             : Flowable<SignInByPhoneBean>
+
+    @GET("/login/refresh")
+    fun signInRefresh():Flowable<OnlyCodeBean>
+
 
     @GET("/recommend/resource")
     fun getRecommendationList(): Flowable<RecommendationSongListBean>
