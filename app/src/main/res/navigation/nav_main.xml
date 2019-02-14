@@ -2,7 +2,14 @@
 <navigation xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/main_nav"
     app:startDestination="@id/splash_fragment">
+    <action
+        android:id="@+id/action_global_Sign_in_Fragment"
+        app:destination="@id/sign_in_fragment"
+        app:launchSingleTop="true"
+        app:popUpToInclusive="true"
+        app:popUpTo="@id/home_fragment" />
     <fragment
         android:id="@+id/splash_fragment"
         android:name="com.moi.lime.ui.splash.SplashFragment"

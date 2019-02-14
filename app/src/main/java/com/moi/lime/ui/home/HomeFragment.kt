@@ -6,6 +6,8 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.Fragment
+import androidx.navigation.fragment.findNavController
+import com.moi.lime.MainNavDirections
 import com.moi.lime.R
 import com.moi.lime.databinding.FragmentHomeBinding
 import com.moi.lime.di.Injectable
@@ -34,6 +36,9 @@ class HomeFragment : Fragment(), Injectable {
                     }
                     R.id.personImage -> {
                         dataBinding.viewPager.setCurrentItem(1,false)
+                    }
+                    R.id.floatingButton -> {
+                        findNavController().navigate(MainNavDirections.actionGlobalSignInFragment())
                     }
                 }
             }
