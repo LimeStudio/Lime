@@ -37,7 +37,7 @@ class HomeFragmentTest {
 
     @Test
     fun testInitialDisplay() {
-        onView(withId(R.id.layoutRecommend)).check(matches(isDisplayed()))
+        onView(withId(R.id.layout_recommend)).check(matches(isDisplayed()))
         onView(withId(R.id.layoutProfile)).check(matches(not(isDisplayed())))
     }
 
@@ -45,10 +45,10 @@ class HomeFragmentTest {
     fun testTabClick(){
         onView(withId(R.id.personImage)).perform(click())
         onView(withId(R.id.layoutProfile)).check(matches(isDisplayed()))
-        onView(withId(R.id.layoutRecommend)).check(matches(not(isDisplayed())))
+        onView(withId(R.id.layout_recommend)).check(matches(not(isDisplayed())))
 
         onView(withId(R.id.homeImage)).perform(click())
-        onView(withId(R.id.layoutRecommend)).check(matches(isDisplayed()))
+        onView(withId(R.id.layout_recommend)).check(matches(isDisplayed()))
         onView(withId(R.id.layoutProfile)).check(matches(not(isDisplayed())))
 
     }
