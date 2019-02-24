@@ -45,12 +45,14 @@ class SplashFragmentTest {
     @Test
     fun testJumpSignIn() {
         isSignInValue.postValue(false)
+        Thread.sleep(500)
         verify(splashFragment.navController).navigate(SplashFragmentDirections.goToSignInFragmentFromSplash())
     }
 
     @Test
     fun testJumpHome() {
         isSignInValue.postValue(true)
+        Thread.sleep(500)
         verify(splashFragment.navController).navigate(SplashFragmentDirections.goToHomeFragmentFromSplash())
     }
 
