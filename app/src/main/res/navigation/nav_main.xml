@@ -2,7 +2,14 @@
 <navigation xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/main_nav"
     app:startDestination="@id/splash_fragment">
+    <action
+        android:id="@+id/action_global_Sign_in_Fragment"
+        app:destination="@id/sign_in_fragment"
+        app:launchSingleTop="true"
+        app:popUpToInclusive="true"
+        app:popUpTo="@id/home_fragment" />
     <fragment
         android:id="@+id/splash_fragment"
         android:name="com.moi.lime.ui.splash.SplashFragment"
@@ -25,10 +32,18 @@
         android:id="@+id/sign_in_fragment"
         android:name="com.moi.lime.ui.signin.SignInFragment"
         android:label="sign in fragment"
-        tools:layout="@layout/fragment_sign_in" />
+        tools:layout="@layout/fragment_sign_in">
+        <action
+            android:id="@+id/go_to_home_fragment_from_sign"
+            app:destination="@id/home_fragment"
+            app:launchSingleTop="true"
+            app:popUpTo="@id/sign_in_fragment"
+            app:popUpToInclusive="true" />
+    </fragment>
+
     <fragment
         android:id="@+id/home_fragment"
-        android:name="com.moi.lime.ui.HomeFragment"
+        android:name="com.moi.lime.ui.home.HomeFragment"
         android:label="home fragment"
         tools:layout="@layout/fragment_home">
         <action

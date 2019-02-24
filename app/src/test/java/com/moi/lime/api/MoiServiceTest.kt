@@ -57,4 +57,14 @@ class MoiServiceTest {
         val request = mockWebServer.takeRequest()
         Assert.assertThat(request.path, `is`("/music/url?id=33894312"))
     }
+
+    @Test
+    fun testSignIn(){
+        enqueueResponse("SignInResponse")
+        service.signInByPhone("1234","1234").test().assertValue{
+            it.clientId == "65672a0a6a69da4901d16ed7c3f25f44b563c999c748a72a0e7ab147cc64ab29c571dfcb70721788e484609ba99b83fb"
+        }
+        val request = mockWebServer.takeRequest()
+        Assert.assertThat(request.path, `is`("/login/cellphone?phone=1234&password=1234"))
+    }
 }

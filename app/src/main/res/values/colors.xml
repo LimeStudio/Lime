@@ -6,6 +6,7 @@
     <color name="colorAccent">#212121</color>
     <color name="colorAccentLight">#484848</color>
     <color name="colorAccentDark">#000000</color>
+    <color name="colorDefault">#005A25</color>
 
     <color name="textOnPrimary">#000000</color>
     <color name="textOnAccent">#ffffff</color>

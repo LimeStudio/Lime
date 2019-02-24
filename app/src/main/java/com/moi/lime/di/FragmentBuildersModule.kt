@@ -1,6 +1,6 @@
 package com.moi.lime.di
 
-import com.moi.lime.ui.HomeFragment
+import com.moi.lime.ui.home.HomeFragment
 import com.moi.lime.ui.SecondFragment
 import com.moi.lime.ui.signin.SignInFragment
 import com.moi.lime.ui.splash.SplashFragment

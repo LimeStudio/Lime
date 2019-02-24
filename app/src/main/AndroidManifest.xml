@@ -4,6 +4,7 @@
 
     <uses-permission android:name="android.permission.INTERNET"></uses-permission>
     <application
+        android:usesCleartextTraffic="true"
         android:name=".LimeApp"
         android:allowBackup="true"
         android:icon="@mipmap/ic_launch_rectangle"
@@ -20,6 +21,7 @@
             <nav-graph android:value="@navigation/nav_main"/>
         </activity>
         <activity android:name="com.lime.testing.SingleFragmentActivity"/>
+        <activity android:name="com.moi.lime.TestMainActivity"/>
     </application>
 
 </manifest>

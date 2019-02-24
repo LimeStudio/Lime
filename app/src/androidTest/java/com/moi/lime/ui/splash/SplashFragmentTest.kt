@@ -2,15 +2,14 @@ package com.moi.lime.ui.splash
 
 import androidx.lifecycle.MutableLiveData
 import androidx.navigation.NavController
-import androidx.test.espresso.Espresso.onView
-import androidx.test.espresso.assertion.ViewAssertions.matches
-import androidx.test.espresso.matcher.ViewMatchers.isDisplayed
-import androidx.test.espresso.matcher.ViewMatchers.withId
 import androidx.test.ext.junit.runners.AndroidJUnit4
+import androidx.test.platform.app.InstrumentationRegistry
 import androidx.test.rule.ActivityTestRule
 import com.lime.testing.SingleFragmentActivity
-import com.moi.lime.R
-import com.moi.lime.util.*
+import com.moi.lime.util.DataBindingIdlingResourceRule
+import com.moi.lime.util.TaskExecutorWithIdlingResourceRule
+import com.moi.lime.util.ViewModelUtil
+import com.moi.lime.util.mock
 import org.junit.Before
 import org.junit.Rule
 import org.junit.Test
@@ -28,10 +27,6 @@ class SplashFragmentTest {
     @JvmField
     val executorRule = TaskExecutorWithIdlingResourceRule()
 
-    @Rule
-    @JvmField
-    val dataBindingIdlingResourceRule = DataBindingIdlingResourceRule(activityRule)
-
     private lateinit var viewModel: SplashViewModel
 
     private val isSignInValue = MutableLiveData<Boolean>()
@@ -44,21 +39,26 @@ class SplashFragmentTest {
         Mockito.`when`(viewModel.isSignInValue).thenReturn(isSignInValue)
         splashFragment.viewModelFactory = ViewModelUtil.createFor(viewModel)
         activityRule.activity.setFragment(splashFragment)
-        EspressoTestUtil.disableProgressBarAnimations(activityRule)
+        InstrumentationRegistry.getInstrumentation().waitForIdleSync()
     }
 
     @Test
     fun testJumpSignIn() {
         isSignInValue.postValue(false)
-        onView(withId(R.id.logo)).check(matches(isDisplayed()))
+        Thread.sleep(500)
         verify(splashFragment.navController).navigate(SplashFragmentDirections.goToSignInFragmentFromSplash())
     }
 
     @Test
     fun testJumpHome() {
         isSignInValue.postValue(true)
-        onView(withId(R.id.logo)).check(matches(isDisplayed()))
+        Thread.sleep(500)
         verify(splashFragment.navController).navigate(SplashFragmentDirections.goToHomeFragmentFromSplash())
+    }
+
+    @Test
+    fun testCallInit(){
+        verify(viewModel).init()
     }
 
     class TestSplashFragment : SplashFragment() {
