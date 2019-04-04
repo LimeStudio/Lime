@@ -3,7 +3,7 @@ package com.moi.lime.vo
 import androidx.room.Embedded
 import androidx.room.Relation
 
-class MusicInfomation {
+class MusicInformation {
     @Embedded
     var limeMusic:LimeMusic?=null
 
