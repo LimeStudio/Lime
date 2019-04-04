@@ -10,10 +10,9 @@
         <import type="com.moi.lime.vo.Resource" />
 
         <import type="androidx.lifecycle.LiveData" />
-
-        <variable
-            name="user"
-            type="Resource&lt;Boolean>" />
+<variable
+    name="signInViewModel"
+    type="com.moi.lime.ui.signin.SignInViewModel"/>
     </data>
 
     <androidx.constraintlayout.widget.ConstraintLayout
@@ -108,7 +107,7 @@
             app:layout_constraintTop_toBottomOf="@+id/password" />
 
         <ProgressBar
-            app:visibleGone="@{user.status == Status.LOADING}"
+            app:visibleGone="@{signInViewModel.loginResource.status == Status.LOADING}"
             android:layout_width="56dp"
             android:layout_height="56dp"
             android:layout_marginStart="8dp"

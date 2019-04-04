@@ -67,4 +67,15 @@ class MoiServiceTest {
         val request = mockWebServer.takeRequest()
         Assert.assertThat(request.path, `is`("/login/cellphone?phone=1234&password=1234"))
     }
+
+    @Test
+    fun testFetchRecommendSongs(){
+        enqueueResponse("RecommendSongsResponse")
+        service.fetchRecommendSongs().test().assertValue{
+            it.recommend?.size == 30
+        }
+        val request = mockWebServer.takeRequest()
+        Assert.assertThat(request.path, `is`("/recommend/songs"))
+    }
+
 }

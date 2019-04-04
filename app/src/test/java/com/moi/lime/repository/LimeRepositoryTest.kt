@@ -8,6 +8,7 @@ import com.moi.lime.util.RxSchedulerRule
 import com.moi.lime.util.mock
 import com.moi.lime.util.toBean
 import com.moi.lime.vo.OnlyCodeBean
+import com.moi.lime.vo.RecommendSongsEntity
 import com.moi.lime.vo.Resource
 import com.moi.lime.vo.SignInByPhoneBean
 import io.reactivex.Flowable
@@ -44,7 +45,7 @@ class LimeRepositoryTest {
                 .getResourceAsStream("/api-response/SignInResponse")
         val source = Okio.buffer(Okio.source(inputStream!!))
 
-        val signInByPhoneBean = source.readString(Charsets.UTF_8).toBean<SignInByPhoneBean>()
+        val signInByPhoneBean = source.readString(Charsets.UTF_8).toBean<SignInByPhoneBean>()!!
         `when`(service.signInByPhone(ArgumentMatchers.anyString(), ArgumentMatchers.anyString()))
                 .thenReturn(Flowable.just(signInByPhoneBean))
 
@@ -54,5 +55,18 @@ class LimeRepositoryTest {
         verify(userManager).saveUser(signInByPhoneBean)
         verify(service).signInByPhone("test", "test")
         verify(observer).onChanged(Resource.success(true))
+    }
+
+    @Test
+    fun testFetchRecommendSongs() {
+//        val inputStream = javaClass
+//                .getResourceAsStream("/api-response/RecommendSongsResponse")
+//        val source = Okio.buffer(Okio.source(inputStream!!))
+//
+//        val recommendSongsEntity = source.readString(Charsets.UTF_8).toBean<RecommendSongsEntity>()!!
+//        `when`(service.fetchRecommendSongs())
+//                .thenReturn(Flowable.just(recommendSongsEntity))
+//
+//        val
     }
 }

@@ -31,7 +31,7 @@ class CardinalTest : LimeDbTest() {
         userManager.init()
                 .test()
                 .assertError(EmptyResultSetException::class.java)
-        val result = userManager.saveUser(getSignInJson().toBean())
+        val result = userManager.saveUser(getSignInJson().toBean()!!)
         assert(result)
 
     }

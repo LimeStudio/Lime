@@ -5,7 +5,7 @@ fun <T> T.toJson(): String {
     return gson.toJson(this)
 }
 
-inline fun <reified T> String.toBean(): T {
+inline fun <reified T> String.toBean(): T? {
     val gson = GsonTools.gson
     return gson.fromJson(this, T::class.java)
 }
