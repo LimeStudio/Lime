@@ -23,7 +23,7 @@ data class RecommendItem(@SerializedName("no")
                          @SerializedName("bMusic")
                          val music: Music,
                          @SerializedName("duration")
-                         val duration: Int = 0,
+                         val duration: Long = 0,
                          @SerializedName("score")
                          val score: Int = 0,
                          @SerializedName("rtype")
@@ -31,7 +31,7 @@ data class RecommendItem(@SerializedName("no")
                          @SerializedName("starred")
                          val starred: Boolean = false,
                          @SerializedName("artists")
-                         val artists: List<ArtistsItem>?,
+                         val artists: List<ArtistsItem>,
                          @SerializedName("popularity")
                          val popularity: Int = 0,
                          @SerializedName("playedNum")
@@ -41,7 +41,7 @@ data class RecommendItem(@SerializedName("no")
                          @SerializedName("starredNum")
                          val starredNum: Int = 0,
                          @SerializedName("id")
-                         val id: Int = 0,
+                         val id: Long = 0,
                          @SerializedName("mp3Url")
                          val mpUrl: String? = null,
                          @SerializedName("alg")

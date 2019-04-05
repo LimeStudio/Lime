@@ -1,9 +1,6 @@
 package com.moi.lime.api
 
-import com.moi.lime.vo.MusicUrlBean
-import com.moi.lime.vo.OnlyCodeBean
-import com.moi.lime.vo.RecommendSongsEntity
-import com.moi.lime.vo.SignInByPhoneBean
+import com.moi.lime.vo.*
 import io.reactivex.Flowable
 import retrofit2.http.GET
 import retrofit2.http.Query
@@ -19,9 +16,12 @@ interface MoiService {
             : Flowable<SignInByPhoneBean>
 
     @GET("login/refresh")
-    fun signInRefresh():Flowable<OnlyCodeBean>
+    fun signInRefresh(): Flowable<OnlyCodeBean>
 
     @GET("recommend/songs")
-    fun fetchRecommendSongs():Flowable<RecommendSongsEntity>
+    fun fetchRecommendSongs(): Flowable<RecommendSongsEntity>
+
+    @GET("music/url")
+    fun fetchMusicUrlById(@Query("id") ids: String): Flowable<MusicUrlsEntity>
 
 }

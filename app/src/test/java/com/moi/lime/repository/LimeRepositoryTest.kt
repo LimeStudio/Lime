@@ -4,19 +4,20 @@ import androidx.arch.core.executor.testing.InstantTaskExecutorRule
 import androidx.lifecycle.Observer
 import com.moi.lime.api.MoiService
 import com.moi.lime.core.user.UserManager
+import com.moi.lime.db.LimeDb
 import com.moi.lime.util.RxSchedulerRule
 import com.moi.lime.util.mock
 import com.moi.lime.util.toBean
 import com.moi.lime.vo.OnlyCodeBean
-import com.moi.lime.vo.RecommendSongsEntity
 import com.moi.lime.vo.Resource
 import com.moi.lime.vo.SignInByPhoneBean
 import io.reactivex.Flowable
 import okio.Okio
-import org.junit.Test
 import org.junit.Before
 import org.junit.Rule
+import org.junit.Test
 import org.mockito.ArgumentMatchers
+import org.mockito.Mockito
 import org.mockito.Mockito.*
 
 class LimeRepositoryTest {
@@ -35,8 +36,9 @@ class LimeRepositoryTest {
 
     @Before
     fun setUp() {
+        val db = Mockito.mock(LimeDb::class.java)
         `when`(service.signInRefresh()).thenReturn(Flowable.just(OnlyCodeBean(200)))
-        limeRepository = LimeRepository(userManager, service)
+        limeRepository = LimeRepository(userManager, service, db)
     }
 
     @Test
@@ -57,16 +59,4 @@ class LimeRepositoryTest {
         verify(observer).onChanged(Resource.success(true))
     }
 
-    @Test
-    fun testFetchRecommendSongs() {
-//        val inputStream = javaClass
-//                .getResourceAsStream("/api-response/RecommendSongsResponse")
-//        val source = Okio.buffer(Okio.source(inputStream!!))
-//
-//        val recommendSongsEntity = source.readString(Charsets.UTF_8).toBean<RecommendSongsEntity>()!!
-//        `when`(service.fetchRecommendSongs())
-//                .thenReturn(Flowable.just(recommendSongsEntity))
-//
-//        val
-    }
 }
