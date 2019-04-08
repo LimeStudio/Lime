@@ -34,7 +34,7 @@ class MusicInformationDaoTest : LimeDbTest() {
         val limeMusic = LimeMusic("test1", "1", 100, "test1")
         val limeUrl = LimeUrl("1", "400", "400", "test1")
         val limeUrl2 = LimeUrl("1", "400", "400", "test1")
-        val limeArtist = LimeArtist("1", "2", "test1", "test1")
+        val limeArtist = LimeArtist("text","1", "2", "test1", "test1")
         val limeAlbum = LimeAlbum("1", "test", "1", "test", 100, "1", "test", "test", "test")
         db.limeMusicDao().insertAll(limeMusic)
         db.limeUrlDao().insertAll(limeUrl, limeUrl2)

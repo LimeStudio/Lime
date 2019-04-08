@@ -33,6 +33,7 @@ data class LimeUrl(
         childColumns = ["musicId"],
         onDelete = CASCADE)], tableName = "lime_artist")
 data class LimeArtist(
+        val name: String,
         val musicId: String,
         val artistId: String,
         val picUrl: String,

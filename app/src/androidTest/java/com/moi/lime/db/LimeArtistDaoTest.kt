@@ -41,8 +41,8 @@ class LimeArtistDaoTest : LimeDbTest() {
     }
 
     private fun createLimeArtistList(): List<LimeArtist> {
-        val limeArtist1 = LimeArtist("1", "2", "test1", "test1")
-        val limeArtist2 = LimeArtist("1", "3", "test2", "test2")
+        val limeArtist1 = LimeArtist("text", "1", "2", "test1", "test1")
+        val limeArtist2 = LimeArtist("text", "1", "3", "test2", "test2")
         return listOf(limeArtist1, limeArtist2)
     }
 
