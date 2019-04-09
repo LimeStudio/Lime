@@ -5,17 +5,17 @@ import androidx.room.Relation
 
 class MusicInformation {
     @Embedded
-    var limeMusic:LimeMusic?=null
+    var limeMusic: LimeMusic? = null
 
     @Relation(parentColumn = "id",
-            entityColumn =  "musicId")
-    var limeUrls:List<LimeUrl> = mutableListOf()
+            entityColumn = "musicId")
+    var limeUrls: List<LimeUrl> = mutableListOf()
 
     @Relation(parentColumn = "id",
-            entityColumn =  "musicId")
-    var limeAlbum:List<LimeAlbum> = mutableListOf()
+            entityColumn = "musicId")
+    var limeAlbum: List<LimeAlbum> = mutableListOf()
 
     @Relation(parentColumn = "id",
-            entityColumn =  "musicId")
-    var limeArtist:List<LimeArtist> = mutableListOf()
+            entityColumn = "musicId")
+    var limeArtist: List<LimeArtist> = mutableListOf()
 }

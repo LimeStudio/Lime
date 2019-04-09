@@ -17,9 +17,6 @@
             name="artist"
             type="com.moi.lime.vo.LimeArtist" />
 
-        <variable
-            name="url"
-            type="com.moi.lime.vo.LimeUrl" />
     </data>
 
     <FrameLayout
@@ -41,7 +38,7 @@
                 android:layout_height="match_parent">
 
                 <androidx.appcompat.widget.AppCompatImageView
-                    android:id="@+id/appCompatImageView2"
+                    android:id="@+id/image_album"
                     android:layout_width="0dp"
                     android:layout_height="0dp"
                     tools:background="@android:color/holo_red_light"
@@ -52,7 +49,7 @@
                     app:layout_constraintTop_toTopOf="parent" />
 
                 <TextView
-                    android:id="@+id/textView2"
+                    android:id="@+id/text_name"
                     style="@style/TextOnPrimaryH6"
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
@@ -66,11 +63,11 @@
                     android:textStyle="bold"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toBottomOf="@+id/appCompatImageView2"
+                    app:layout_constraintTop_toBottomOf="@+id/image_album"
                     tools:text="WANTED" />
 
                 <TextView
-                    android:id="@+id/textView4"
+                    android:id="@+id/text_artist"
                     style="@style/TextOnPrimarySubtitle1"
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
@@ -81,30 +78,31 @@
                     android:maxLines="1"
                     android:text="@{artist.name}"
                     app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintStart_toStartOf="@+id/textView2"
-                    app:layout_constraintTop_toBottomOf="@+id/textView2"
+                    app:layout_constraintStart_toStartOf="@+id/text_name"
+                    app:layout_constraintTop_toBottomOf="@+id/text_name"
                     tools:text="BLUE NEIGHBOURHOOD" />
 
                 <TextView
-                    android:id="@+id/textView5"
+                    android:id="@+id/text_album"
                     style="@style/TextOnPrimaryBody3"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="@dimen/margin_normal"
                     android:text="@{album.name}"
-                    app:layout_constraintStart_toStartOf="@+id/textView4"
-                    app:layout_constraintTop_toBottomOf="@+id/textView4"
+                    app:layout_constraintStart_toStartOf="@+id/text_artist"
+                    app:layout_constraintTop_toBottomOf="@+id/text_artist"
                     tools:text="by troye sivan" />
 
                 <TextView
+                    android:id="@+id/text_duration"
                     style="@style/TextOnPrimaryBody3"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginEnd="@dimen/margin_normal"
-                    android:text="@{music.duration}"
-                    app:layout_constraintBottom_toBottomOf="@+id/textView5"
+                    android:text='@{music.duration+""}'
+                    app:layout_constraintBottom_toBottomOf="@+id/text_album"
                     app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintTop_toTopOf="@+id/textView5"
+                    app:layout_constraintTop_toTopOf="@+id/text_album"
                     tools:text="3:42" />
 
                 <androidx.appcompat.widget.AppCompatImageView

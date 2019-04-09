@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <data>
+
+        <import type="com.moi.lime.vo.Resource" />
+
+        <import type="com.moi.lime.vo.Status" />
+
+        <variable
+            name="resource"
+            type="Resource" />
+
+        <variable
+            name="onViewClick"
+            type="com.moi.lime.ui.callback.ViewClickCallback" />
+
+    </data>
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical">
+
+        <androidx.core.widget.ContentLoadingProgressBar
+            android:id="@+id/contentLoadingProgressBar"
+            style="@style/Widget.AppCompat.ProgressBar"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:visibleGone="@{resource.status == Status.LOADING}" />
+
+        <com.google.android.material.button.MaterialButton
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:onClick="@{onViewClick::click}"
+            android:text="@string/retry"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:visibleGone="@{resource.status == Status.ERROR}" />
+    </androidx.constraintlayout.widget.ConstraintLayout>
+</layout>

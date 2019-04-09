@@ -5,4 +5,5 @@
     <string name="recommend">每日推荐</string>
     <string name="like">喜欢</string>
     <string name="comments">评论</string>
+    <string name="retry">重试</string>
 </resources>

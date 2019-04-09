@@ -9,35 +9,35 @@ data class Album(@SerializedName("transName")
                  @SerializedName("artist")
                  val artist: Artist,
                  @SerializedName("blurPicUrl")
-                 val blurPicUrl: String = "",
+                 val blurPicUrl: String? = "",
                  @SerializedName("description")
-                 val description: String = "",
+                 val description: String? = "",
                  @SerializedName("commentThreadId")
-                 val commentThreadId: String = "",
+                 val commentThreadId: String? = "",
                  @SerializedName("pic")
                  val pic: Long = 0,
                  @SerializedName("type")
-                 val type: String = "",
+                 val type: String? = "",
                  @SerializedName("tags")
-                 val tags: String = "",
+                 val tags: String? = "",
                  @SerializedName("picUrl")
-                 val picUrl: String = "",
+                 val picUrl: String? = "",
                  @SerializedName("companyId")
                  val companyId: Int = 0,
                  @SerializedName("size")
                  val size: Int = 0,
                  @SerializedName("briefDesc")
-                 val briefDesc: String = "",
+                 val briefDesc: String? = "",
                  @SerializedName("copyrightId")
                  val copyrightId: Int = 0,
                  @SerializedName("artists")
                  val artists: List<ArtistsItem>?,
                  @SerializedName("name")
-                 val name: String = "",
+                 val name: String? = "",
                  @SerializedName("company")
-                 val company: String = "",
+                 val company: String? = "",
                  @SerializedName("subType")
-                 val subType: String = "",
+                 val subType: String? = "",
                  @SerializedName("id")
                  val id: Int = 0,
                  @SerializedName("picId")

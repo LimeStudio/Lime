@@ -7,11 +7,11 @@ import androidx.room.PrimaryKey
 
 @Entity(tableName = "lime_music")
 data class LimeMusic(
-        val name: String,
+        val name: String?,
         @PrimaryKey
         val id: String,
         val duration: Long,
-        val reason: String)
+        val reason: String?)
 
 
 @Entity(foreignKeys = [ForeignKey(entity = LimeMusic::class,
@@ -19,10 +19,11 @@ data class LimeMusic(
         childColumns = ["musicId"],
         onDelete = CASCADE)], tableName = "lime_url")
 data class LimeUrl(
-        val musicId: String,
-        val br: String,
-        val size: String,
-        val encodeType: String
+        val url: String?,
+        val musicId: String?,
+        val br: String?,
+        val size: String?,
+        val encodeType: String?
 ) {
     @PrimaryKey(autoGenerate = true)
     var id: Long = 0
@@ -33,11 +34,11 @@ data class LimeUrl(
         childColumns = ["musicId"],
         onDelete = CASCADE)], tableName = "lime_artist")
 data class LimeArtist(
-        val name: String,
+        val name: String?,
         val musicId: String,
         val artistId: String,
-        val picUrl: String,
-        val img1vUrl: String
+        val picUrl: String?,
+        val img1vUrl: String?
 ) {
     @PrimaryKey(autoGenerate = true)
     var id: Long = 0
@@ -49,14 +50,14 @@ data class LimeArtist(
         onDelete = CASCADE)], tableName = "lime_album")
 data class LimeAlbum(
         val musicId: String,
-        val name: String,
+        val name: String?,
         val id: String,
-        val type: String,
+        val type: String?,
         val size: Int,
-        val picId: String,
-        val blurPicUrl: String,
-        val picUrl: String,
-        val company: String
+        val picId: String?,
+        val blurPicUrl: String?,
+        val picUrl: String?,
+        val company: String?
 
 ) {
     @PrimaryKey(autoGenerate = true)

@@ -7,6 +7,7 @@ import com.moi.lime.db.LimeDbTest
 import com.moi.lime.util.createProfile
 import com.moi.lime.util.toBean
 import okio.Okio
+import org.junit.Assert.assertTrue
 import org.junit.Test
 
 import org.junit.Before
@@ -92,12 +93,12 @@ class CardinalTest : LimeDbTest() {
     fun testIsSignIn() {
         userManager.init()
                 .test()
-        assert(!userManager.isSignIn())
+        assertTrue(!userManager.isSignIn())
 
         val profile = createProfile(true)
         userManager.updateProfile(profile)
 
-        assert(userManager.isSignIn())
+        assertTrue(userManager.isSignIn())
 
 
     }

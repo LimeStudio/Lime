@@ -1,13 +1,31 @@
 <?xml version="1.0" encoding="utf-8"?>
 <layout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:tools="http://schemas.android.com/tools">
+    xmlns:app="http://schemas.android.com/apk/res-auto">
 
     <data>
+
+
+        <import type="com.moi.lime.vo.Status" />
+
+        <import type="com.moi.lime.vo.Resource" />
+
+        <import type="com.moi.lime.vo.MusicInformation" />
+
+        <import type="java.util.List" />
+
+        <import type="androidx.lifecycle.LiveData" />
+
+        <variable
+            name="musicInformation"
+            type="LiveData&lt;Resource&lt;List&lt;MusicInformation>>>" />
 
         <variable
             name="adapter"
             type="androidx.viewpager.widget.PagerAdapter" />
+
+        <variable
+            name="onViewClick"
+            type="com.moi.lime.ui.callback.ViewClickCallback" />
     </data>
 
 
@@ -32,7 +50,6 @@
             app:layout_constraintTop_toTopOf="parent" />
 
         <androidx.viewpager.widget.ViewPager
-            app:viewPagerAdapter="@{adapter}"
             android:id="@+id/recommend_view_pager"
             android:layout_width="0dp"
             android:layout_height="0dp"
@@ -42,7 +59,18 @@
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/textView3" />
+            app:layout_constraintTop_toBottomOf="@+id/textView3"
+            app:viewPagerAdapter="@{adapter}" />
 
+        <include
+            layout="@layout/loading_layout"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            app:layout_constraintBottom_toBottomOf="@+id/recommend_view_pager"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="@+id/recommend_view_pager"
+            app:onViewClick="@{onViewClick::click}"
+            app:resource="@{(Resource) musicInformation}" />
     </androidx.constraintlayout.widget.ConstraintLayout>
 </layout>

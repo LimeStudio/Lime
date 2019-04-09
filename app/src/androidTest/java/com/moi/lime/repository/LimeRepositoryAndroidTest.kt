@@ -1,21 +1,21 @@
 package com.moi.lime.repository
 
 import androidx.arch.core.executor.testing.InstantTaskExecutorRule
+import androidx.lifecycle.Observer
 import com.moi.lime.api.MoiService
 import com.moi.lime.core.user.UserManager
 import com.moi.lime.db.LimeDbTest
+import com.moi.lime.util.MusicEntityCreater
+import com.moi.lime.util.MusicMapper
 import com.moi.lime.util.RxSchedulerRule
 import com.moi.lime.util.mock
-import com.moi.lime.util.toBean
-import com.moi.lime.vo.MusicUrlsEntity
-import com.moi.lime.vo.RecommendSongsEntity
+import com.moi.lime.vo.MusicInformation
+import com.moi.lime.vo.Resource
 import io.reactivex.Flowable
-import okio.Okio
 import org.junit.Rule
 import org.junit.Test
 import org.mockito.ArgumentMatchers
-import org.mockito.Mockito.`when`
-import org.mockito.Mockito.verify
+import org.mockito.Mockito.*
 
 class LimeRepositoryAndroidTest : LimeDbTest() {
     @Rule
@@ -30,13 +30,13 @@ class LimeRepositoryAndroidTest : LimeDbTest() {
     private val service = mock<MoiService>()
     private val userManager = mock<UserManager>()
     @Test
-    fun fetchRecommendMusics() {
-        val recommendMusicEntity = createRecommendMusicEntity()
-        `when`(service.fetchMusicUrlById(ArgumentMatchers.anyString())).thenReturn(Flowable.just(createMusicUrlsEntity()))
+    fun fetchRecommendMusicsWithNetWork() {
+        val recommendMusicEntity = MusicEntityCreater.createRecommendMusicEntity()
+        `when`(service.fetchMusicUrlById(ArgumentMatchers.anyString())).thenReturn(Flowable.just(MusicEntityCreater.createMusicUrlsEntity()))
         `when`(service.fetchRecommendSongs()).thenReturn(Flowable.just(recommendMusicEntity))
         limeRepository = LimeRepository(userManager, service, db)
 
-        limeRepository.fetchRecommendMusics(true)
+        limeRepository.fetchRecommendMusics(false)
         verify(service).fetchRecommendSongs()
         verify(service).fetchMusicUrlById(recommendMusicEntity.recommend.map { it.id }.joinToString(","))
         db.musicInformationDao().getAllMusicInformation()
@@ -44,19 +44,20 @@ class LimeRepositoryAndroidTest : LimeDbTest() {
                 .assertValue {
                     it.size == 30
                 }
+
     }
 
-    private fun createRecommendMusicEntity(): RecommendSongsEntity {
-        val inputStream = javaClass
-                .getResourceAsStream("/json/RecommendSongsResponse")
-        val source = Okio.buffer(Okio.source(inputStream!!))
-        return source.readString(Charsets.UTF_8).toBean<RecommendSongsEntity>()!!
-    }
+    @Test
+    fun fetchRecommendMusicsWithDb() {
+        val musicMapper = MusicMapper(MusicEntityCreater.createRecommendMusicEntity(), MusicEntityCreater.createMusicUrlsEntity())
+        musicMapper.saveMusic(db)
+        limeRepository = LimeRepository(userManager, service, db)
+        val observer = mock<Observer<Resource<List<MusicInformation>>>>()
+        limeRepository.fetchRecommendMusics(true)
+                .observeForever(observer)
+        verify(observer).onChanged(ArgumentMatchers.any())
+        verify(service, never()).fetchRecommendSongs()
+        verify(service, never()).fetchMusicUrlById(ArgumentMatchers.anyString())
 
-    private fun createMusicUrlsEntity(): MusicUrlsEntity {
-        val inputStream = javaClass
-                .getResourceAsStream("/json/MusicUrlsResponse")
-        val source = Okio.buffer(Okio.source(inputStream!!))
-        return source.readString(Charsets.UTF_8).toBean<MusicUrlsEntity>()!!
     }
 }

@@ -3,7 +3,7 @@ package com.moi.lime.vo
 import com.google.gson.annotations.SerializedName
 
 data class Music(@SerializedName("extension")
-                  val extension: String = "",
+                  val extension: String? = "",
                  @SerializedName("size")
                   val size: Int = 0,
                  @SerializedName("volumeDelta")
@@ -15,7 +15,7 @@ data class Music(@SerializedName("extension")
                  @SerializedName("playTime")
                   val playTime: Int = 0,
                  @SerializedName("id")
-                  val id: String = "",
+                  val id: String? = "",
                  @SerializedName("dfsId")
                   val dfsId: Int = 0,
                  @SerializedName("sr")

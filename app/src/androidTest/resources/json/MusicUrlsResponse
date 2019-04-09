@@ -1,43 +1,43 @@
 {
-  "data": [
-    {
-      "id": 33071205,
-      "url": "http://m8c.music.126.net/20190405195914/4a40a3ab8ed5a614dace2703153c2289/ymusic/5865/d2ea/cf88/4756822fc740c3c7e36e34ec67b3e7bc.mp3",
-      "br": 320000,
-      "size": 7447030,
-      "md5": "4756822fc740c3c7e36e34ec67b3e7bc",
-      "code": 200,
-      "expi": 1200,
-      "type": "mp3",
-      "gain": -3.01,
-      "fee": 8,
-      "uf": null,
-      "payed": 1,
-      "flag": 132,
-      "canExtend": false,
-      "freeTrialInfo": null,
-      "level": "exhigh",
-      "encodeType": "mp3"
-    },
-    {
-      "id": 461080452,
-      "url": "http://m8c.music.126.net/20190405195914/23c71e0901b67c8d3c47d5b0f2f699f3/ymusic/f382/b239/29bc/fd1735858ff70603ccaf4ac0ae1774e1.flac",
-      "br": 818076,
-      "size": 22893761,
-      "md5": "fd1735858ff70603ccaf4ac0ae1774e1",
-      "code": 200,
-      "expi": 1200,
-      "type": "flac",
-      "gain": 0,
-      "fee": 8,
-      "uf": null,
-      "payed": 1,
-      "flag": 0,
-      "canExtend": false,
-      "freeTrialInfo": null,
-      "level": null,
-      "encodeType": null
-    }
-  ],
-  "code": 200
+    "data": [
+        {
+            "id": 22703777,
+            "url": "http://m7c.music.126.net/20190408144736/f3603792ab3c64b85f56b84866e4806f/ymusic/2153/c2e9/1026/2f684e06ff3b69fd7fb5c0128d9427e3.mp3",
+            "br": 320000,
+            "size": 13600497,
+            "md5": "2f684e06ff3b69fd7fb5c0128d9427e3",
+            "code": 200,
+            "expi": 1200,
+            "type": "mp3",
+            "gain": -0.28,
+            "fee": 0,
+            "uf": null,
+            "payed": 0,
+            "flag": 0,
+            "canExtend": false,
+            "freeTrialInfo": null,
+            "level": "exhigh",
+            "encodeType": "mp3"
+        },
+        {
+            "id": 572354726,
+            "url": "http://m8c.music.126.net/20190408144736/c187955557705b39a2239943a31c05af/ymusic/cdd2/db14/f1b3/1bb9fd54c81ed71da71a161917967dfe.flac",
+            "br": 966770,
+            "size": 26763999,
+            "md5": "1bb9fd54c81ed71da71a161917967dfe",
+            "code": 200,
+            "expi": 1200,
+            "type": "flac",
+            "gain": -3.05,
+            "fee": 0,
+            "uf": null,
+            "payed": 0,
+            "flag": 0,
+            "canExtend": false,
+            "freeTrialInfo": null,
+            "level": null,
+            "encodeType": null
+        }
+    ],
+    "code": 200
 }

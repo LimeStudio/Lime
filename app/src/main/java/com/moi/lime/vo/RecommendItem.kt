@@ -5,7 +5,7 @@ import com.google.gson.annotations.SerializedName
 data class RecommendItem(@SerializedName("no")
                          val no: Int = 0,
                          @SerializedName("reason")
-                         val reason: String = "",
+                         val reason: String? = "",
                          @SerializedName("copyright")
                          val copyright: Int = 0,
                          @SerializedName("dayPlays")
@@ -55,11 +55,11 @@ data class RecommendItem(@SerializedName("no")
                          @SerializedName("lMusic")
                          val lMusic: Music,
                          @SerializedName("ringtone")
-                         val ringtone: String = "",
+                         val ringtone: String? = "",
                          @SerializedName("commentThreadId")
-                         val commentThreadId: String = "",
+                         val commentThreadId: String? = "",
                          @SerializedName("copyFrom")
-                         val copyFrom: String = "",
+                         val copyFrom: String? = "",
                          @SerializedName("crbt")
                          val crbt: String? = null,
                          @SerializedName("rtUrl")
@@ -73,9 +73,9 @@ data class RecommendItem(@SerializedName("no")
                          @SerializedName("mvid")
                          val mvid: Int = 0,
                          @SerializedName("name")
-                         val name: String = "",
+                         val name: String? = "",
                          @SerializedName("disc")
-                         val disc: String = "",
+                         val disc: String? = "",
                          @SerializedName("position")
                          val position: Int = 0,
                          @SerializedName("status")

@@ -40,8 +40,8 @@ class LimeUrlTest : LimeDbTest() {
     }
 
     private fun createLimeUrlList(): List<LimeUrl> {
-        val limeUrl1 = LimeUrl("1", "400", "400", "test1")
-        val limeUrl2 = LimeUrl("1", "400", "400", "test2")
+        val limeUrl1 = LimeUrl("url", "1", "400", "400", "test1")
+        val limeUrl2 = LimeUrl("url", "1", "400", "400", "test2")
         return listOf(limeUrl1, limeUrl2)
     }
 

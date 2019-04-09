@@ -6,16 +6,25 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.Fragment
+import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.ViewModelProviders
+import com.moi.lime.LimeApp
 import com.moi.lime.R
 import com.moi.lime.databinding.FragmentRecommendBinding
 import com.moi.lime.di.Injectable
+import com.moi.lime.ui.callback.ViewClickCallback
+import com.moi.lime.util.autoCleared
 import javax.inject.Inject
 
 class RecommendFragment : Fragment(), Injectable {
     @Inject
     lateinit var viewModelFactory: ViewModelProvider.Factory
+
+    private val loadingRecommendSwitcher = LoadingRecommendSwitcher(LimeApp.instance, 6)
+
+    private var binding by autoCleared<FragmentRecommendBinding>()
+
 
     private val viewModel by lazy(LazyThreadSafetyMode.NONE) {
         ViewModelProviders.of(this, viewModelFactory)
@@ -23,14 +32,26 @@ class RecommendFragment : Fragment(), Injectable {
     }
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
-        val dataBinding = DataBindingUtil.inflate<FragmentRecommendBinding>(
-                inflater,
-                R.layout.fragment_recommend,
-                container,
-                false
-        )
-        dataBinding.recommendViewPager.offscreenPageLimit = 1
-        dataBinding.adapter = RecommendViewPagerAdapter(childFragmentManager, listOf("", "", "", "", ""))
-        return dataBinding.root
+        binding = DataBindingUtil.inflate(inflater, R.layout.fragment_recommend, container, false)
+        binding.lifecycleOwner = this
+        binding.onViewClick = object : ViewClickCallback {
+            override fun click(view: View) {
+                viewModel.fetchRecommendTrigger.value = loadingRecommendSwitcher.isShouldFetchFromDb(System.currentTimeMillis())
+            }
+        }
+        binding.musicInformation = viewModel.recommendResource
+        return binding.root
+    }
+
+    override fun onActivityCreated(savedInstanceState: Bundle?) {
+        super.onActivityCreated(savedInstanceState)
+        loadingRecommendSwitcher.bindRecommendResource(this, viewModel.recommendResource)
+        viewModel.recommendResource.observe(this, Observer { resource ->
+            resource.data?.let {
+                binding.recommendViewPager.offscreenPageLimit = 1
+                binding.adapter = RecommendViewPagerAdapter(childFragmentManager, it)
+            }
+        })
+        viewModel.fetchRecommendTrigger.value = loadingRecommendSwitcher.isShouldFetchFromDb(System.currentTimeMillis())
     }
 }

@@ -3,6 +3,7 @@ package com.moi.lime.di
 import com.moi.lime.ui.home.HomeFragment
 import com.moi.lime.ui.SecondFragment
 import com.moi.lime.ui.home.recommend.RecommendFragment
+import com.moi.lime.ui.home.recommend.RecommendItemFragment
 import com.moi.lime.ui.signin.SignInFragment
 import com.moi.lime.ui.splash.SplashFragment
 import dagger.Module
@@ -24,5 +25,8 @@ abstract class FragmentBuildersModule {
 
     @ContributesAndroidInjector
     abstract fun contributeRecommendFragment(): RecommendFragment
+
+    @ContributesAndroidInjector
+    abstract fun contributeRecommendItemFragment(): RecommendItemFragment
 
 }
