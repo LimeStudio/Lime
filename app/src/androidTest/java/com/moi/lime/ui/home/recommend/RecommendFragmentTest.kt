@@ -85,15 +85,15 @@ class RecommendFragmentTest : LimeDbTest() {
         onView(withId(R.id.contentLoadingProgressBar)).check(matches(isDisplayed()))
     }
 
-    @Test
-    fun testLoaded() {
-
-        MusicMapper(MusicEntityCreator.createRecommendMusicEntity(), MusicEntityCreator.createMusicUrlsEntity())
-                .saveMusic(db)
-        val musicInformation = db.musicInformationDao().getAllMusicInformation().test().values().first().first()
-        resource.value = Resource.success(listOf(musicInformation))
-        onView(withId(R.id.recommend_item_root)).check(matches(isDisplayed()))
-
-    }
+//    @Test
+//    fun testLoaded() {
+//
+//        MusicMapper(MusicEntityCreator.createRecommendMusicEntity(), MusicEntityCreator.createMusicUrlsEntity())
+//                .saveMusic(db)
+//        val musicInformation = db.musicInformationDao().getAllMusicInformation().test().values().first().first()
+//        resource.value = Resource.success(listOf(musicInformation))
+//        onView(withId(R.id.recommend_item_root)).check(matches(isDisplayed()))
+//
+//    }
 
 }
