@@ -59,7 +59,7 @@ class RecommendFragmentTest : LimeDbTest() {
 
     @Test
     fun testInit() {
-        Thread.sleep(500)
+        onView(withId(R.id.layout_recommend)).check(matches(isDisplayed()))
         val observer = mock<Observer<Boolean>>()
         trigger.observeForever(observer)
         verify(observer).onChanged(ArgumentMatchers.anyBoolean())
