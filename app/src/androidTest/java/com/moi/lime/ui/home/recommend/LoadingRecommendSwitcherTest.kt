@@ -22,36 +22,36 @@ class LoadingRecommendSwitcherTest {
 
     @get:Rule
     val rule = InstantTaskExecutorRule()
-//
-//    @Test
-//    fun testIsShouldFetchFromDb() {
-//        val sp = ApplicationProvider.getApplicationContext<Context>().getSharedPreferences("lime", Context.MODE_PRIVATE)
-//
-//        sp.edit().apply {
-//            clear()
-//            apply()
-//        }
-//        assertTrue(!loadingRecommendSwitcher.isShouldFetchFromDb(1554795140000))
-//
-//        sp.edit().apply {
-//            putLong(RECOMMEND_DAY_KEY, 1554782461000)
-//            apply()
-//        }
-//        assertTrue(loadingRecommendSwitcher.isShouldFetchFromDb(1554795140000))
-//
-//        sp.edit().apply {
-//            putLong(RECOMMEND_DAY_KEY, 1554782461000)
-//            apply()
-//        }
-//        assertTrue(loadingRecommendSwitcher.isShouldFetchFromDb(1554829261000))
-//
-//        sp.edit().apply {
-//            putLong(RECOMMEND_DAY_KEY, 1554782461000)
-//            apply()
-//        }
-//        assertTrue(!loadingRecommendSwitcher.isShouldFetchFromDb(1554847261000))
-//
-//    }
+
+    @Test
+    fun testIsShouldFetchFromDb() {
+        val sp = ApplicationProvider.getApplicationContext<Context>().getSharedPreferences("lime", Context.MODE_PRIVATE)
+
+        sp.edit().apply {
+            clear()
+            commit()
+        }
+        assertTrue(!loadingRecommendSwitcher.isShouldFetchFromDb(1554795140000))
+
+        sp.edit().apply {
+            putLong(RECOMMEND_DAY_KEY, 1554782461000)
+            commit()
+        }
+        assertTrue(loadingRecommendSwitcher.isShouldFetchFromDb(1554795140000))
+
+        sp.edit().apply {
+            putLong(RECOMMEND_DAY_KEY, 1554782461000)
+            commit()
+        }
+        assertTrue(loadingRecommendSwitcher.isShouldFetchFromDb(1554829261000))
+
+        sp.edit().apply {
+            putLong(RECOMMEND_DAY_KEY, 1554782461000)
+            commit()
+        }
+        assertTrue(!loadingRecommendSwitcher.isShouldFetchFromDb(1554847261000))
+
+    }
 
     @Test
     fun testBindRecommendResource() {
@@ -59,7 +59,7 @@ class LoadingRecommendSwitcherTest {
 
         sp.edit().apply {
             clear()
-            apply()
+            commit()
         }
 
         val liveData = MutableLiveData<Resource<*>>()
