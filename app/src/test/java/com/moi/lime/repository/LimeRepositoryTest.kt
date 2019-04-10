@@ -4,6 +4,7 @@ import androidx.arch.core.executor.testing.InstantTaskExecutorRule
 import androidx.lifecycle.Observer
 import com.moi.lime.api.MoiService
 import com.moi.lime.core.user.UserManager
+import com.moi.lime.db.LimeDb
 import com.moi.lime.util.RxSchedulerRule
 import com.moi.lime.util.mock
 import com.moi.lime.util.toBean
@@ -12,10 +13,11 @@ import com.moi.lime.vo.Resource
 import com.moi.lime.vo.SignInByPhoneBean
 import io.reactivex.Flowable
 import okio.Okio
-import org.junit.Test
 import org.junit.Before
 import org.junit.Rule
+import org.junit.Test
 import org.mockito.ArgumentMatchers
+import org.mockito.Mockito
 import org.mockito.Mockito.*
 
 class LimeRepositoryTest {
@@ -34,8 +36,9 @@ class LimeRepositoryTest {
 
     @Before
     fun setUp() {
+        val db = Mockito.mock(LimeDb::class.java)
         `when`(service.signInRefresh()).thenReturn(Flowable.just(OnlyCodeBean(200)))
-        limeRepository = LimeRepository(userManager, service)
+        limeRepository = LimeRepository(userManager, service, db)
     }
 
     @Test
@@ -44,7 +47,7 @@ class LimeRepositoryTest {
                 .getResourceAsStream("/api-response/SignInResponse")
         val source = Okio.buffer(Okio.source(inputStream!!))
 
-        val signInByPhoneBean = source.readString(Charsets.UTF_8).toBean<SignInByPhoneBean>()
+        val signInByPhoneBean = source.readString(Charsets.UTF_8).toBean<SignInByPhoneBean>()!!
         `when`(service.signInByPhone(ArgumentMatchers.anyString(), ArgumentMatchers.anyString()))
                 .thenReturn(Flowable.just(signInByPhoneBean))
 
@@ -55,4 +58,5 @@ class LimeRepositoryTest {
         verify(service).signInByPhone("test", "test")
         verify(observer).onChanged(Resource.success(true))
     }
+
 }

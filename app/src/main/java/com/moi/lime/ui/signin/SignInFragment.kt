@@ -38,6 +38,8 @@ class SignInFragment : Fragment(), Injectable {
                 false
         )
         binding = dataBinding
+        binding.lifecycleOwner = this
+        binding.signInViewModel = viewModel
         return dataBinding.root
     }
 
@@ -49,7 +51,6 @@ class SignInFragment : Fragment(), Injectable {
             viewModel.loginInfo.setValue(Pair(phoneNumber.toString(), password.toString()))
         }
         viewModel.loginResource.observe(this, Observer {
-            binding.user = it
             if (it.data == true) {
                 navController()
                         .navigate(SignInFragmentDirections.goToHomeFragmentFromSign())

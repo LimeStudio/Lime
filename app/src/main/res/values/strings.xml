@@ -5,6 +5,9 @@
     <string name="password">Password</string>
 
     <string name="recommend">RECOMMEND</string>
+    <string name="like">LIKE</string>
+    <string name="comments">COMMENTS</string>
+    <string name="retry">RETRY</string>
 
 
 </resources>

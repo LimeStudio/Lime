@@ -7,6 +7,7 @@ import android.view.ViewGroup
 import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.Fragment
 import androidx.navigation.fragment.findNavController
+import com.lime.testing.OpenForTesting
 import com.moi.lime.MainNavDirections
 import com.moi.lime.R
 import com.moi.lime.databinding.FragmentHomeBinding
@@ -16,6 +17,7 @@ import com.moi.lime.ui.home.profile.ProfileFragment
 import com.moi.lime.ui.home.recommend.RecommendFragment
 import com.moi.lime.util.autoCleared
 
+@OpenForTesting
 class HomeFragment : Fragment(), Injectable {
 
     var binding by autoCleared<FragmentHomeBinding>()
@@ -53,8 +55,13 @@ class HomeFragment : Fragment(), Injectable {
     }
 
     private fun initViewPager() {
-        val fragmentList = listOf(RecommendFragment(),ProfileFragment())
+        val fragmentList = getFragments()
         val fragmentAdapter = HomeFragmentPageAdapter(childFragmentManager,fragmentList)
         binding.viewPager.adapter = fragmentAdapter
     }
+
+    /**
+     * Created to be able to override in tests
+     */
+    fun getFragments() = listOf(RecommendFragment(),ProfileFragment())
 }

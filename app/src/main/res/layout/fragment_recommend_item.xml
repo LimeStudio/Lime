@@ -1,0 +1,157 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <data>
+
+        <variable
+            name="music"
+            type="com.moi.lime.vo.LimeMusic" />
+
+        <variable
+            name="album"
+            type="com.moi.lime.vo.LimeAlbum" />
+
+        <variable
+            name="artist"
+            type="com.moi.lime.vo.LimeArtist" />
+
+    </data>
+
+    <FrameLayout
+        android:id="@+id/recommend_item_root"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <com.google.android.material.card.MaterialCardView
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_marginStart="@dimen/margin_normal"
+            android:layout_marginTop="@dimen/margin_large"
+            android:layout_marginEnd="@dimen/margin_normal"
+            android:layout_marginBottom="@dimen/margin_large"
+            app:cardElevation="12dp"
+            app:cardMaxElevation="24dp">
+
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent">
+
+                <androidx.appcompat.widget.AppCompatImageView
+                    android:id="@+id/image_album"
+                    android:layout_width="0dp"
+                    android:layout_height="0dp"
+                    app:imageUrl="@{album.picUrl}"
+                    app:layout_constraintDimensionRatio="1:1"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent"
+                    tools:background="@android:color/holo_red_light" />
+
+                <TextView
+                    android:id="@+id/text_name"
+                    style="@style/TextOnPrimaryH6"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="@dimen/margin_normal"
+                    android:layout_marginTop="@dimen/margin_normal"
+                    android:layout_marginEnd="@dimen/margin_normal"
+                    android:ellipsize="end"
+                    android:letterSpacing="0.1"
+                    android:maxLines="1"
+                    android:text="@{music.name}"
+                    android:textStyle="bold"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/image_album"
+                    tools:text="WANTED" />
+
+                <TextView
+                    android:id="@+id/text_artist"
+                    style="@style/TextOnPrimarySubtitle1"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="@dimen/margin_normal"
+                    android:layout_marginEnd="@dimen/margin_normal"
+                    android:ellipsize="end"
+                    android:letterSpacing="0.1"
+                    android:maxLines="1"
+                    android:text="@{artist.name}"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="@+id/text_name"
+                    app:layout_constraintTop_toBottomOf="@+id/text_name"
+                    tools:text="BLUE NEIGHBOURHOOD" />
+
+                <TextView
+                    android:id="@+id/text_album"
+                    style="@style/TextOnPrimaryBody3"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="@dimen/margin_normal"
+                    android:text="@{album.name}"
+                    app:layout_constraintStart_toStartOf="@+id/text_artist"
+                    app:layout_constraintTop_toBottomOf="@+id/text_artist"
+                    tools:text="by troye sivan" />
+
+                <TextView
+                    android:id="@+id/text_duration"
+                    style="@style/TextOnPrimaryBody3"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginEnd="@dimen/margin_normal"
+                    android:text='@{music.getLength()}'
+                    app:layout_constraintBottom_toBottomOf="@+id/text_album"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintTop_toTopOf="@+id/text_album"
+                    tools:text="3:42" />
+
+                <androidx.appcompat.widget.AppCompatImageView
+                    android:id="@+id/appCompatImageView4"
+                    android:layout_width="@dimen/image_size_normal"
+                    android:layout_height="@dimen/image_size_normal"
+                    android:layout_marginEnd="@dimen/margin_large"
+                    android:layout_marginBottom="@dimen/margin_small"
+                    app:layout_constraintBottom_toTopOf="@+id/textView6"
+                    app:layout_constraintEnd_toStartOf="@+id/appCompatImageView3"
+                    app:layout_constraintHorizontal_chainStyle="spread"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:srcCompat="@drawable/ic_favorite_border_black" />
+
+                <androidx.appcompat.widget.AppCompatImageView
+                    android:id="@+id/appCompatImageView3"
+                    android:layout_width="@dimen/image_size_normal"
+                    android:layout_height="@dimen/image_size_normal"
+                    android:layout_marginStart="@dimen/margin_large"
+                    app:layout_constraintBottom_toBottomOf="@+id/appCompatImageView4"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toEndOf="@+id/appCompatImageView4"
+                    app:layout_constraintTop_toTopOf="@+id/appCompatImageView4"
+                    app:srcCompat="@drawable/ic_comment_black" />
+
+                <TextView
+                    android:id="@+id/textView6"
+                    style="@style/TextOnPrimaryBody3"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginBottom="@dimen/margin_middle"
+                    android:letterSpacing="0.1"
+                    android:text="@string/like"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintEnd_toEndOf="@+id/appCompatImageView4"
+                    app:layout_constraintStart_toStartOf="@+id/appCompatImageView4" />
+
+                <TextView
+                    style="@style/TextOnPrimaryBody3"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:letterSpacing="0.1"
+                    android:text="@string/comments"
+                    app:layout_constraintBottom_toBottomOf="@+id/textView6"
+                    app:layout_constraintEnd_toEndOf="@+id/appCompatImageView3"
+                    app:layout_constraintStart_toStartOf="@+id/appCompatImageView3"
+                    app:layout_constraintTop_toTopOf="@+id/textView6" />
+            </androidx.constraintlayout.widget.ConstraintLayout>
+        </com.google.android.material.card.MaterialCardView>
+    </FrameLayout>
+</layout>

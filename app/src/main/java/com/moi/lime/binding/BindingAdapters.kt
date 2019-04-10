@@ -18,6 +18,10 @@ package com.moi.lime.binding
 
 import androidx.databinding.BindingAdapter
 import android.view.View
+import androidx.appcompat.widget.AppCompatImageView
+import androidx.viewpager.widget.PagerAdapter
+import androidx.viewpager.widget.ViewPager
+import com.bumptech.glide.Glide
 
 /**
  * Data Binding adapters specific to the app.
@@ -27,5 +31,16 @@ object BindingAdapters {
     @BindingAdapter("visibleGone")
     fun showHide(view: View, show: Boolean) {
         view.visibility = if (show) View.VISIBLE else View.GONE
+    }
+    @JvmStatic
+    @BindingAdapter("imageUrl")
+    fun loadImage(appCompatImageView: AppCompatImageView, url: String?) {
+        if (url.isNullOrEmpty()) return
+        Glide.with(appCompatImageView).load(url).into(appCompatImageView)
+    }
+    @JvmStatic
+    @BindingAdapter("viewPagerAdapter")
+    fun setViewPagerAdapter(viewPager: ViewPager, adapter: PagerAdapter?) {
+        viewPager.adapter = adapter
     }
 }

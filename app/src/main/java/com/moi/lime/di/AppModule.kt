@@ -13,6 +13,7 @@ import com.moi.lime.core.user.Cardinal
 import com.moi.lime.core.user.UserManager
 import com.moi.lime.db.LimeDb
 import com.moi.lime.db.ProfileDao
+import com.moi.lime.ui.home.recommend.LoadingRecommendSwitcher
 import dagger.Module
 import dagger.Provides
 import okhttp3.OkHttpClient
@@ -35,7 +36,7 @@ class AppModule {
 
         return Retrofit.Builder()
                 .client(okHttpClient)
-                .baseUrl("http://www.lime.kim:3000/")
+                .baseUrl("http://180.76.149.111:3000/")
                 .addConverterFactory(GsonConverterFactory.create())
                 .addCallAdapterFactory(RxJava2CallAdapterFactory.create())
                 .build()
@@ -67,5 +68,10 @@ class AppModule {
     @Provides
     fun provideContext(): Context {
         return LimeApp.instance
+    }
+
+    @Provides
+    fun provideLoadingRecommendSwitcher(context: Context): LoadingRecommendSwitcher {
+        return LoadingRecommendSwitcher(context as Application, 6)
     }
 }
