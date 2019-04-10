@@ -55,11 +55,11 @@ class RecommendFragmentTest : LimeDbTest() {
         fragment.loadingRecommendSwitcher = LoadingRecommendSwitcher(ApplicationProvider.getApplicationContext(), 6)
         fragment.viewModelFactory = ViewModelUtil.createFor(viewModel)
         activityRule.activity.setFragment(fragment)
-        InstrumentationRegistry.getInstrumentation().waitForIdleSync()
     }
 
     @Test
     fun testInit() {
+        Thread.sleep(500)
         val observer = mock<Observer<Boolean>>()
         trigger.observeForever(observer)
         verify(observer).onChanged(ArgumentMatchers.anyBoolean())
@@ -85,15 +85,15 @@ class RecommendFragmentTest : LimeDbTest() {
         onView(withId(R.id.contentLoadingProgressBar)).check(matches(isDisplayed()))
     }
 
-//    @Test
-//    fun testLoaded() {
-//
-//        MusicMapper(MusicEntityCreator.createRecommendMusicEntity(), MusicEntityCreator.createMusicUrlsEntity())
-//                .saveMusic(db)
-//        val musicInformation = db.musicInformationDao().getAllMusicInformation().test().values().first().first()
-//        resource.value = Resource.success(listOf(musicInformation))
-//        onView(withId(R.id.recommend_item_root)).check(matches(isDisplayed()))
-//
-//    }
+    @Test
+    fun testLoaded() {
+
+        MusicMapper(MusicEntityCreator.createRecommendMusicEntity(), MusicEntityCreator.createMusicUrlsEntity())
+                .saveMusic(db)
+        val musicInformation = db.musicInformationDao().getAllMusicInformation().test().values().first().first()
+        resource.value = Resource.success(listOf(musicInformation))
+        onView(withId(R.id.recommend_item_root)).check(matches(isDisplayed()))
+
+    }
 
 }
