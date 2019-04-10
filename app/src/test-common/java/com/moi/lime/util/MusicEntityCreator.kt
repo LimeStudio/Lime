@@ -4,7 +4,7 @@ import com.moi.lime.vo.MusicUrlsEntity
 import com.moi.lime.vo.RecommendSongsEntity
 import okio.Okio
 
-object MusicEntityCreater {
+object MusicEntityCreator {
     fun createRecommendMusicEntity(): RecommendSongsEntity {
         val inputStream = javaClass
                 .getResourceAsStream("/json/RecommendSongsResponse")

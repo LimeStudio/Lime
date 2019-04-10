@@ -5,7 +5,7 @@ import androidx.lifecycle.Observer
 import com.moi.lime.api.MoiService
 import com.moi.lime.core.user.UserManager
 import com.moi.lime.db.LimeDbTest
-import com.moi.lime.util.MusicEntityCreater
+import com.moi.lime.util.MusicEntityCreator
 import com.moi.lime.util.MusicMapper
 import com.moi.lime.util.RxSchedulerRule
 import com.moi.lime.util.mock
@@ -31,8 +31,8 @@ class LimeRepositoryAndroidTest : LimeDbTest() {
     private val userManager = mock<UserManager>()
     @Test
     fun fetchRecommendMusicsWithNetWork() {
-        val recommendMusicEntity = MusicEntityCreater.createRecommendMusicEntity()
-        `when`(service.fetchMusicUrlById(ArgumentMatchers.anyString())).thenReturn(Flowable.just(MusicEntityCreater.createMusicUrlsEntity()))
+        val recommendMusicEntity = MusicEntityCreator.createRecommendMusicEntity()
+        `when`(service.fetchMusicUrlById(ArgumentMatchers.anyString())).thenReturn(Flowable.just(MusicEntityCreator.createMusicUrlsEntity()))
         `when`(service.fetchRecommendSongs()).thenReturn(Flowable.just(recommendMusicEntity))
         limeRepository = LimeRepository(userManager, service, db)
 
@@ -49,7 +49,7 @@ class LimeRepositoryAndroidTest : LimeDbTest() {
 
     @Test
     fun fetchRecommendMusicsWithDb() {
-        val musicMapper = MusicMapper(MusicEntityCreater.createRecommendMusicEntity(), MusicEntityCreater.createMusicUrlsEntity())
+        val musicMapper = MusicMapper(MusicEntityCreator.createRecommendMusicEntity(), MusicEntityCreator.createMusicUrlsEntity())
         musicMapper.saveMusic(db)
         limeRepository = LimeRepository(userManager, service, db)
         val observer = mock<Observer<Resource<List<MusicInformation>>>>()

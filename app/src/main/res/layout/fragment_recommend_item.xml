@@ -20,6 +20,7 @@
     </data>
 
     <FrameLayout
+        android:id="@+id/recommend_item_root"
         android:layout_width="match_parent"
         android:layout_height="match_parent">
 

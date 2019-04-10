@@ -18,7 +18,7 @@ class MusicMapperTest : LimeDbTest() {
 
     @Test
     fun testSaveAll(){
-        val musicMapper = MusicMapper(MusicEntityCreater.createRecommendMusicEntity(),MusicEntityCreater.createMusicUrlsEntity())
+        val musicMapper = MusicMapper(MusicEntityCreator.createRecommendMusicEntity(),MusicEntityCreator.createMusicUrlsEntity())
         musicMapper.saveMusic(db)
         db.musicInformationDao().getAllMusicInformation()
                 .test()

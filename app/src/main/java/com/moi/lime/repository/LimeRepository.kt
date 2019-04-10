@@ -56,11 +56,20 @@ class LimeRepository @Inject constructor(private val userManager: UserManager, p
                     moiService.fetchMusicUrlById(ids)
                 }
                 .flatMap {
+                    cleanRecommendDb()
                     MusicMapper(recommendSongsEntity!!, it).saveMusic(db)
                     db.musicInformationDao().getAllMusicInformation().toFlowable()
                 }
 
     }
 
+    private fun cleanRecommendDb() {
+        with(db) {
+            limeArtistDao().deleteAll()
+            limeAlbumDao().deleteAll()
+            limeUrlDao().deleteAll()
+            limeMusicDao().deleteAll()
+        }
+    }
 
 }

@@ -10,7 +10,7 @@ import com.lime.testing.SingleFragmentActivity
 import com.moi.lime.R
 import com.moi.lime.db.LimeDbTest
 import com.moi.lime.util.DataBindingIdlingResourceRule
-import com.moi.lime.util.MusicEntityCreater
+import com.moi.lime.util.MusicEntityCreator
 import com.moi.lime.util.MusicMapper
 import com.moi.lime.vo.MusicInformation
 import org.junit.Before
@@ -34,12 +34,12 @@ class RecommendItemFragmentTest : LimeDbTest() {
 
     @Before
     fun setUp() {
-        MusicMapper(MusicEntityCreater.createRecommendMusicEntity(),MusicEntityCreater.createMusicUrlsEntity())
+        MusicMapper(MusicEntityCreator.createRecommendMusicEntity(),MusicEntityCreator.createMusicUrlsEntity())
                 .saveMusic(db)
          musicInformation = db.musicInformationDao().getAllMusicInformation().test().values().first().first()
         fragment = RecommendItemFragment.newInstance(musicInformation)
         activityRule.activity.setFragment(fragment)
-        InstrumentationRegistry.getInstrumentation().waitForIdleSync()
+       // InstrumentationRegistry.getInstrumentation().waitForIdleSync()
     }
 
     @Test

@@ -9,7 +9,6 @@ import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.ViewModelProviders
-import com.moi.lime.LimeApp
 import com.moi.lime.R
 import com.moi.lime.databinding.FragmentRecommendBinding
 import com.moi.lime.di.Injectable
@@ -21,7 +20,8 @@ class RecommendFragment : Fragment(), Injectable {
     @Inject
     lateinit var viewModelFactory: ViewModelProvider.Factory
 
-    private val loadingRecommendSwitcher = LoadingRecommendSwitcher(LimeApp.instance, 6)
+    @Inject
+    lateinit var loadingRecommendSwitcher: LoadingRecommendSwitcher
 
     private var binding by autoCleared<FragmentRecommendBinding>()
 
@@ -34,17 +34,17 @@ class RecommendFragment : Fragment(), Injectable {
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
         binding = DataBindingUtil.inflate(inflater, R.layout.fragment_recommend, container, false)
         binding.lifecycleOwner = this
+        return binding.root
+    }
+
+    override fun onActivityCreated(savedInstanceState: Bundle?) {
+        super.onActivityCreated(savedInstanceState)
         binding.onViewClick = object : ViewClickCallback {
             override fun click(view: View) {
                 viewModel.fetchRecommendTrigger.value = loadingRecommendSwitcher.isShouldFetchFromDb(System.currentTimeMillis())
             }
         }
         binding.musicInformation = viewModel.recommendResource
-        return binding.root
-    }
-
-    override fun onActivityCreated(savedInstanceState: Bundle?) {
-        super.onActivityCreated(savedInstanceState)
         loadingRecommendSwitcher.bindRecommendResource(this, viewModel.recommendResource)
         viewModel.recommendResource.observe(this, Observer { resource ->
             resource.data?.let {
