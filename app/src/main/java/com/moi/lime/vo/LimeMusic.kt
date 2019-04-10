@@ -4,6 +4,7 @@ import androidx.room.Entity
 import androidx.room.ForeignKey
 import androidx.room.ForeignKey.CASCADE
 import androidx.room.PrimaryKey
+import com.moi.lime.util.millisecondToMinute
 
 @Entity(tableName = "lime_music")
 data class LimeMusic(
@@ -11,7 +12,9 @@ data class LimeMusic(
         @PrimaryKey
         val id: String,
         val duration: Long,
-        val reason: String?)
+        val reason: String?){
+    fun getLength()=millisecondToMinute(duration)
+}
 
 
 @Entity(foreignKeys = [ForeignKey(entity = LimeMusic::class,
