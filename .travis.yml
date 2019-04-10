@@ -18,6 +18,7 @@ android:
   - android-$EMULATOR_API
   - extra-google-m2repository
   - extra-android-m2repository
+  - sys-img-armeabi-v7a-android-$ANDROID_API
   - sys-img-armeabi-v7a-android-$EMULATOR_API
   licenses:
   - android-sdk-preview-license-.+
@@ -35,6 +36,7 @@ before_script:
 - echo no | android create avd --force -n test -t android-$EMULATOR_API --abi armeabi-v7a
 - emulator -avd test -no-skin -no-audio -no-window &
      - android-wait-for-emulator
+     - adb devices
      - adb shell input keyevent 82 &
 before_install:
 - openssl aes-256-cbc -K $encrypted_b05b3cd5a93c_key -iv $encrypted_b05b3cd5a93c_iv -in keystore.properties.enc -out keystore.properties -d
