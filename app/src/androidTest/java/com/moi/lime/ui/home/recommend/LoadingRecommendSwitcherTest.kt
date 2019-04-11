@@ -1,22 +1,22 @@
 package com.moi.lime.ui.home.recommend
 
-import android.content.Context
+import android.content.SharedPreferences
 import androidx.arch.core.executor.testing.InstantTaskExecutorRule
 import androidx.lifecycle.MutableLiveData
-import androidx.test.core.app.ApplicationProvider
 import androidx.test.ext.junit.runners.AndroidJUnit4
 import androidx.test.rule.ActivityTestRule
 import com.lime.testing.SingleFragmentActivity
-import com.moi.lime.ui.home.recommend.LoadingRecommendSwitcher.Companion.RECOMMEND_DAY_KEY
+import com.moi.lime.util.mock
 import com.moi.lime.vo.Resource
 import org.hamcrest.CoreMatchers.`is`
 import org.hamcrest.CoreMatchers.not
-import org.junit.After
 import org.junit.Assert.assertThat
-import org.junit.Assert.assertTrue
+import org.junit.Before
 import org.junit.Rule
 import org.junit.Test
 import org.junit.runner.RunWith
+import org.mockito.ArgumentMatchers
+import org.mockito.Mockito.*
 
 @RunWith(AndroidJUnit4::class)
 class LoadingRecommendSwitcherTest {
@@ -25,75 +25,54 @@ class LoadingRecommendSwitcherTest {
     @JvmField
     val activityRule = ActivityTestRule(SingleFragmentActivity::class.java, true, true)
 
-    private val loadingRecommendSwitcher = LoadingRecommendSwitcher(ApplicationProvider.getApplicationContext(), 6)
+    private val edit: SharedPreferences.Editor = mock()
+
+    private lateinit var loadingRecommendSwitcher: LoadingRecommendSwitcher
 
     @get:Rule
     val rule = InstantTaskExecutorRule()
 
-    private val sp = ApplicationProvider.getApplicationContext<Context>().getSharedPreferences("lime", Context.MODE_PRIVATE)
+    private val sp = mock<SharedPreferences>()
 
+    @Before
+    fun setUp() {
+
+        `when`(sp.edit()).thenReturn(edit)
+        loadingRecommendSwitcher = LoadingRecommendSwitcher(sp, 6)
+    }
 
     @Test
     fun testFirstLoading() {
-        sp.edit().apply {
-            clear()
-            apply()
-        }
-        assertThat(true,not(loadingRecommendSwitcher.isShouldFetchFromDb(1554795140000)))
+        `when`(sp.getLong(ArgumentMatchers.anyString(), ArgumentMatchers.anyLong())).thenReturn(-1L)
+        assertThat(true, not(loadingRecommendSwitcher.isShouldFetchFromDb(1554795140000)))
     }
 
     @Test
     fun testLoadingFromDb() {
-
-        sp.edit().apply {
-            putLong(RECOMMEND_DAY_KEY, 1554782461000)
-            apply()
-        }
-        assertThat(true,`is`(loadingRecommendSwitcher.isShouldFetchFromDb(1554795140000)))
-
+        `when`(sp.getLong(ArgumentMatchers.anyString(), ArgumentMatchers.anyLong())).thenReturn(1554782461000L)
+        assertThat(true, `is`(loadingRecommendSwitcher.isShouldFetchFromDb(1554795140000)))
     }
 
     @Test
     fun testLoadingFromDbNextDay() {
-
-
-        sp.edit().apply {
-            putLong(RECOMMEND_DAY_KEY, 1554782461000)
-            apply()
-        }
-        assertThat(true,`is`(loadingRecommendSwitcher.isShouldFetchFromDb(1554829261000)))
+        `when`(sp.getLong(ArgumentMatchers.anyString(), ArgumentMatchers.anyLong())).thenReturn(1554782461000L)
+        assertThat(true, `is`(loadingRecommendSwitcher.isShouldFetchFromDb(1554829261000)))
     }
 
     @Test
     fun testLoadingFromNetWorkNextDay() {
-
-        sp.edit().apply {
-            putLong(RECOMMEND_DAY_KEY, 1554782461000)
-            apply()
-        }
-
-        assertThat(true,not(loadingRecommendSwitcher.isShouldFetchFromDb(1554847261000)))
+        `when`(sp.getLong(ArgumentMatchers.anyString(), ArgumentMatchers.anyLong())).thenReturn(1554782461000L)
+        assertThat(true, not(loadingRecommendSwitcher.isShouldFetchFromDb(1554847261000)))
     }
 
     @Test
     fun testBindRecommendResource() {
-        sp.edit().apply {
-            clear()
-            apply()
-        }
-
+        `when`(sp.getLong(ArgumentMatchers.anyString(), ArgumentMatchers.anyLong())).thenReturn(-1L)
         val liveData = MutableLiveData<Resource<*>>()
         loadingRecommendSwitcher.bindRecommendResource(activityRule.activity, liveData)
         liveData.value = Resource.success(null)
-        assertTrue(sp.getLong(RECOMMEND_DAY_KEY, -1) > 1)
+        verify(edit).putLong(ArgumentMatchers.anyString(), ArgumentMatchers.anyLong())
 
     }
 
-    @After
-    fun after() {
-        sp.edit().apply {
-            clear()
-            apply()
-        }
-    }
 }

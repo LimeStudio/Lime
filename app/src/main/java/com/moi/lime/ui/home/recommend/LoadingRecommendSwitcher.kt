@@ -2,6 +2,7 @@ package com.moi.lime.ui.home.recommend
 
 import android.app.Application
 import android.content.Context
+import android.content.SharedPreferences
 import androidx.lifecycle.LifecycleOwner
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.Observer
@@ -9,11 +10,7 @@ import com.moi.lime.vo.Resource
 import com.moi.lime.vo.Status
 import java.util.*
 
-class LoadingRecommendSwitcher(application: Application, private val resettingTime: Int) {
-
-    private val sp by lazy(LazyThreadSafetyMode.NONE) {
-        application.getSharedPreferences("lime", Context.MODE_PRIVATE)
-    }
+class LoadingRecommendSwitcher(private val sp: SharedPreferences, private val resettingTime: Int) {
 
     companion object {
         const val RECOMMEND_DAY_KEY = "LoadingRecommendSwitcher.key"

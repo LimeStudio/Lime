@@ -1,16 +1,15 @@
 package com.moi.lime.ui.home.recommend
 
+import android.content.SharedPreferences
 import androidx.arch.core.executor.testing.InstantTaskExecutorRule
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.Observer
-import androidx.test.core.app.ApplicationProvider
 import androidx.test.espresso.Espresso.onView
 import androidx.test.espresso.action.ViewActions
 import androidx.test.espresso.assertion.ViewAssertions.matches
 import androidx.test.espresso.matcher.ViewMatchers.isDisplayed
 import androidx.test.espresso.matcher.ViewMatchers.withId
 import androidx.test.ext.junit.runners.AndroidJUnit4
-import androidx.test.platform.app.InstrumentationRegistry
 import androidx.test.rule.ActivityTestRule
 import com.lime.testing.SingleFragmentActivity
 import com.moi.lime.R
@@ -47,12 +46,15 @@ class RecommendFragmentTest : LimeDbTest() {
     private val trigger = SingleLiveEvent<Boolean>()
     private val resource = MutableLiveData<Resource<List<MusicInformation>>>()
 
+    private val edit: SharedPreferences.Editor = mock()
+    private val sp = mock<SharedPreferences>()
 
     @Before
     fun setUp() {
+        `when`(sp.edit()).thenReturn(edit)
         `when`(viewModel.fetchRecommendTrigger).thenReturn(trigger)
         `when`(viewModel.recommendResource).thenReturn(resource)
-        fragment.loadingRecommendSwitcher = LoadingRecommendSwitcher(ApplicationProvider.getApplicationContext(), 6)
+        fragment.loadingRecommendSwitcher = LoadingRecommendSwitcher(sp, 6)
         fragment.viewModelFactory = ViewModelUtil.createFor(viewModel)
         activityRule.activity.setFragment(fragment)
         EspressoTestUtil.disableProgressBarAnimations(activityRule)

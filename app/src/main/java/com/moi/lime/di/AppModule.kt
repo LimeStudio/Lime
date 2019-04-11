@@ -72,6 +72,7 @@ class AppModule {
 
     @Provides
     fun provideLoadingRecommendSwitcher(context: Context): LoadingRecommendSwitcher {
-        return LoadingRecommendSwitcher(context as Application, 6)
+        val sp = context.getSharedPreferences("lime", Context.MODE_PRIVATE)
+        return LoadingRecommendSwitcher(sp, 6)
     }
 }
