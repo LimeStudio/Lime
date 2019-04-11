@@ -37,7 +37,7 @@ class LoadingRecommendSwitcherTest {
     fun testFirstLoading() {
         sp.edit().apply {
             clear()
-            commit()
+            apply()
         }
         assertThat(true,not(loadingRecommendSwitcher.isShouldFetchFromDb(1554795140000)))
     }
@@ -47,7 +47,7 @@ class LoadingRecommendSwitcherTest {
 
         sp.edit().apply {
             putLong(RECOMMEND_DAY_KEY, 1554782461000)
-            commit()
+            apply()
         }
         assertThat(true,`is`(loadingRecommendSwitcher.isShouldFetchFromDb(1554795140000)))
 
@@ -59,7 +59,7 @@ class LoadingRecommendSwitcherTest {
 
         sp.edit().apply {
             putLong(RECOMMEND_DAY_KEY, 1554782461000)
-            commit()
+            apply()
         }
         assertThat(true,`is`(loadingRecommendSwitcher.isShouldFetchFromDb(1554829261000)))
     }
@@ -69,7 +69,7 @@ class LoadingRecommendSwitcherTest {
 
         sp.edit().apply {
             putLong(RECOMMEND_DAY_KEY, 1554782461000)
-            commit()
+            apply()
         }
 
         assertThat(true,not(loadingRecommendSwitcher.isShouldFetchFromDb(1554847261000)))
@@ -79,7 +79,7 @@ class LoadingRecommendSwitcherTest {
     fun testBindRecommendResource() {
         sp.edit().apply {
             clear()
-            commit()
+            apply()
         }
 
         val liveData = MutableLiveData<Resource<*>>()
@@ -93,7 +93,7 @@ class LoadingRecommendSwitcherTest {
     fun after() {
         sp.edit().apply {
             clear()
-            commit()
+            apply()
         }
     }
 }
