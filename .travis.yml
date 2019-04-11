@@ -31,7 +31,7 @@ cache:
     - $HOME/.gradle/wrapper/
     - $HOME/.android/build-cache
 before_script:
-- echo no | android create avd --force -n test -k 'system-images;android-26;google_apis;x86_64'
+- echo no | android create avd --force -n test -t android-26
 - emulator -avd test -no-skin -no-audio -no-window &
      - android-wait-for-emulator
      - adb devices
