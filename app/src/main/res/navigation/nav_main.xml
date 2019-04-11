@@ -46,19 +46,6 @@
         android:name="com.moi.lime.ui.home.HomeFragment"
         android:label="home fragment"
         tools:layout="@layout/fragment_home">
-        <action
-            android:id="@+id/go_to_second_fragment_from_home"
-            app:destination="@id/second_fragment" />
-    </fragment>
-    <fragment
-        android:id="@+id/second_fragment"
-        android:name="com.moi.lime.ui.SecondFragment"
-        android:label="second fragment"
-        tools:layout="@layout/fragment_second">
-        <argument
-            android:name="title"
-            app:argType="string" />
-        <deepLink app:uri="www.moi.pub" />
     </fragment>
 
 </navigation>
