@@ -34,7 +34,7 @@ class LoadingRecommendSwitcher(private val sp: SharedPreferences, private val re
 
     private fun getResettingDate(currentTime: Long): Date {
         val date = Date(currentTime)
-        val calendar = GregorianCalendar()
+        val calendar = GregorianCalendar(TimeZone.getTimeZone("Asia/Shanghai"))
         calendar.time = date
         val hour = calendar.get(Calendar.HOUR_OF_DAY)
         if (hour < resettingTime) {
