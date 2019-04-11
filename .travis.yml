@@ -18,7 +18,6 @@ android:
   - android-$EMULATOR_API
   - extra-google-m2repository
   - extra-android-m2repository
-  - sys-img-armeabi-v7a-android-$ANDROID_API
   - sys-img-armeabi-v7a-android-$EMULATOR_API
   licenses:
   - android-sdk-preview-license-.+
