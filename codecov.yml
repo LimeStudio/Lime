@@ -29,4 +29,4 @@ ignore:
   - "app/src/main/java/com/moi/lime/vo/.*"
   - "app/src/main/java/com/moi/lime/di/.*"
   - "app/src/main/java/com/moi/lime/LimeApp.kt"  
-  - "app/src/main/java/com/moi/lime/viewmodel/LimeViewModelFactory.kt.kt"
+  - "app/src/main/java/com/moi/lime/viewmodel/LimeViewModelFactory.kt"
