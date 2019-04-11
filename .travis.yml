@@ -34,7 +34,7 @@ cache:
   - $HOME/.android/build-cache
 before_script:
 - android list targets
-- echo no | android create avd --force -n test -t android-26 --abi armeabi-v7a
+- echo no | android create avd --force -n test -t android-28
 - emulator -avd test -no-skin -no-audio -no-window &
   - android-wait-for-emulator
   - adb devices
