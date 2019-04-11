@@ -9,6 +9,10 @@ import androidx.test.rule.ActivityTestRule
 import com.lime.testing.SingleFragmentActivity
 import com.moi.lime.ui.home.recommend.LoadingRecommendSwitcher.Companion.RECOMMEND_DAY_KEY
 import com.moi.lime.vo.Resource
+import org.hamcrest.CoreMatchers.`is`
+import org.hamcrest.CoreMatchers.not
+import org.junit.After
+import org.junit.Assert.assertThat
 import org.junit.Assert.assertTrue
 import org.junit.Rule
 import org.junit.Test
@@ -26,40 +30,53 @@ class LoadingRecommendSwitcherTest {
     @get:Rule
     val rule = InstantTaskExecutorRule()
 
-    @Test
-    fun testIsShouldFetchFromDb() {
-        val sp = ApplicationProvider.getApplicationContext<Context>().getSharedPreferences("lime", Context.MODE_PRIVATE)
+    private val sp = ApplicationProvider.getApplicationContext<Context>().getSharedPreferences("lime", Context.MODE_PRIVATE)
 
+
+    @Test
+    fun testFirstLoading() {
         sp.edit().apply {
             clear()
             commit()
         }
-        assertTrue(!loadingRecommendSwitcher.isShouldFetchFromDb(1554795140000))
+        assertThat(true,not(loadingRecommendSwitcher.isShouldFetchFromDb(1554795140000)))
+    }
+
+    @Test
+    fun testLoadingFromDb() {
 
         sp.edit().apply {
             putLong(RECOMMEND_DAY_KEY, 1554782461000)
             commit()
         }
-        assertTrue(loadingRecommendSwitcher.isShouldFetchFromDb(1554795140000))
-
-        sp.edit().apply {
-            putLong(RECOMMEND_DAY_KEY, 1554782461000)
-            commit()
-        }
-        assertTrue(loadingRecommendSwitcher.isShouldFetchFromDb(1554829261000))
-
-        sp.edit().apply {
-            putLong(RECOMMEND_DAY_KEY, 1554782461000)
-            commit()
-        }
-        assertTrue(!loadingRecommendSwitcher.isShouldFetchFromDb(1554847261000))
+        assertThat(true,`is`(loadingRecommendSwitcher.isShouldFetchFromDb(1554795140000)))
 
     }
 
     @Test
-    fun testBindRecommendResource() {
-        val sp = ApplicationProvider.getApplicationContext<Context>().getSharedPreferences("lime", Context.MODE_PRIVATE)
+    fun testLoadingFromDbNextDay() {
 
+
+        sp.edit().apply {
+            putLong(RECOMMEND_DAY_KEY, 1554782461000)
+            commit()
+        }
+        assertThat(true,`is`(loadingRecommendSwitcher.isShouldFetchFromDb(1554829261000)))
+    }
+
+    @Test
+    fun testLoadingFromNetWorkNextDay() {
+
+        sp.edit().apply {
+            putLong(RECOMMEND_DAY_KEY, 1554782461000)
+            commit()
+        }
+
+        assertThat(true,not(loadingRecommendSwitcher.isShouldFetchFromDb(1554847261000)))
+    }
+
+    @Test
+    fun testBindRecommendResource() {
         sp.edit().apply {
             clear()
             commit()
@@ -70,5 +87,13 @@ class LoadingRecommendSwitcherTest {
         liveData.value = Resource.success(null)
         assertTrue(sp.getLong(RECOMMEND_DAY_KEY, -1) > 1)
 
+    }
+
+    @After
+    fun after() {
+        sp.edit().apply {
+            clear()
+            commit()
+        }
     }
 }

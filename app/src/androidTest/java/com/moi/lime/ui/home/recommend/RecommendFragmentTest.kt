@@ -55,6 +55,8 @@ class RecommendFragmentTest : LimeDbTest() {
         fragment.loadingRecommendSwitcher = LoadingRecommendSwitcher(ApplicationProvider.getApplicationContext(), 6)
         fragment.viewModelFactory = ViewModelUtil.createFor(viewModel)
         activityRule.activity.setFragment(fragment)
+        EspressoTestUtil.disableProgressBarAnimations(activityRule)
+
     }
 
     @Test
