@@ -4,7 +4,7 @@ sudo: required
 env:
   global:
   - ANDROID_API=28
-  - EMULATOR_API=21
+  - EMULATOR_API=26
   - ANDROID_BUILD_TOOLS=28.0.3
   - ADB_INSTALL_TIMEOUT=5
   - secure: GVd0umbBBzfmPCSrBdUbh4EEwdlvM3o07Q3DPhUGqy2Bn6X8V2lSdTJT71JJ8rb9bM2JAnNotw9XEID0RDZ9SDtyfPqwBoPTmc2xmaIS3vq8w8XX1GLnF1lTZPcmThI3sVWbzMJmsBpsoorvqL62JVTvu16+HIvmmaXyWrSgXbd41fB0BwUeOZX8uQXaPtl7YQ5Pm/VRhqlNi2NUJCYg73stQYGSpGU7Sdd16v1I0Jm+GU2y7zmSVx1aq8pkyH5JoApVcH6r9flSb9dyRh1YIOreDvCaLvGweLjnSssfq09gx3aKlT3oYD4C5cnAiCO4EhbCuWfEqKtN3fkizHsSDoi8wBEYtfSS+tve4y2ciYhkjvpCw3lO6+xn5DIzHobuZC3Vo2PcrxzNhfb+8QnxEuYClE6B5Mx0EXAdPZYocd7g7RnPRQoEev+JOyXYo8U06jBGAWCU2P3jCQ/dIFVMrDsdz/C3IKyCx83mFCptCBA8JLusFmVFwtVVbv3nh4Ci3leyOYhHe1/I5B/WgVtevctLM3dOjHo+n/Kq6HVAryfCILr3KAHZVeo8rIa7L+/VmvdlujjVSuY9GsGHUHipDkGibq1QE9ojOGzMOGtetVXu1mSmzjSYcAZRxP0L+P+qEL0apOH7GP99a/PNenACYgB9Obj8+S0sSxW7ktDtvfA=
@@ -15,10 +15,9 @@ android:
   - platform-tools
   - build-tools-$ANDROID_BUILD_TOOLS
   - android-$ANDROID_API
-  - android-$EMULATOR_API
   - extra-google-m2repository
   - extra-android-m2repository
-  - sys-img-armeabi-v7a-android-$EMULATOR_API
+  - sys-img-x86-android-android-$EMULATOR_API
   licenses:
   - android-sdk-preview-license-.+
   - android-sdk-license-.+
@@ -32,7 +31,7 @@ cache:
     - $HOME/.gradle/wrapper/
     - $HOME/.android/build-cache
 before_script:
-- echo no | android create avd --force -n test -t android-$EMULATOR_API --abi armeabi-v7a
+- echo no | android create avd --force -n test -t android-$EMULATOR_API --abi x86
 - emulator -avd test -no-skin -no-audio -no-window &
      - android-wait-for-emulator
      - adb devices
