@@ -4,7 +4,6 @@ sudo: required
 env:
   global:
   - ANDROID_API=28
-  - EMULATOR_API=21
   - ANDROID_BUILD_TOOLS=28.0.3
   - ADB_INSTALL_TIMEOUT=5
   - secure: GVd0umbBBzfmPCSrBdUbh4EEwdlvM3o07Q3DPhUGqy2Bn6X8V2lSdTJT71JJ8rb9bM2JAnNotw9XEID0RDZ9SDtyfPqwBoPTmc2xmaIS3vq8w8XX1GLnF1lTZPcmThI3sVWbzMJmsBpsoorvqL62JVTvu16+HIvmmaXyWrSgXbd41fB0BwUeOZX8uQXaPtl7YQ5Pm/VRhqlNi2NUJCYg73stQYGSpGU7Sdd16v1I0Jm+GU2y7zmSVx1aq8pkyH5JoApVcH6r9flSb9dyRh1YIOreDvCaLvGweLjnSssfq09gx3aKlT3oYD4C5cnAiCO4EhbCuWfEqKtN3fkizHsSDoi8wBEYtfSS+tve4y2ciYhkjvpCw3lO6+xn5DIzHobuZC3Vo2PcrxzNhfb+8QnxEuYClE6B5Mx0EXAdPZYocd7g7RnPRQoEev+JOyXYo8U06jBGAWCU2P3jCQ/dIFVMrDsdz/C3IKyCx83mFCptCBA8JLusFmVFwtVVbv3nh4Ci3leyOYhHe1/I5B/WgVtevctLM3dOjHo+n/Kq6HVAryfCILr3KAHZVeo8rIa7L+/VmvdlujjVSuY9GsGHUHipDkGibq1QE9ojOGzMOGtetVXu1mSmzjSYcAZRxP0L+P+qEL0apOH7GP99a/PNenACYgB9Obj8+S0sSxW7ktDtvfA=
@@ -15,27 +14,31 @@ android:
   - platform-tools
   - build-tools-$ANDROID_BUILD_TOOLS
   - android-$ANDROID_API
+  - android-26
   - extra-google-m2repository
   - extra-android-m2repository
-  - sys-img-x86-android-android-$EMULATOR_API
+  - addon-google_apis-google-26
+  - sys-img-x86-android-android-26
+  - sys-img-armeabi-v7a-android-26
   licenses:
   - android-sdk-preview-license-.+
   - android-sdk-license-.+
   - google-gdk-license-.+
 before_cache:
-  - rm -f  $HOME/.gradle/caches/modules-2/modules-2.lock
-  - rm -fr $HOME/.gradle/caches/*/plugin-resolution/
+- rm -f  $HOME/.gradle/caches/modules-2/modules-2.lock
+- rm -fr $HOME/.gradle/caches/*/plugin-resolution/
 cache:
   directories:
-    - $HOME/.gradle/caches/
-    - $HOME/.gradle/wrapper/
-    - $HOME/.android/build-cache
+  - $HOME/.gradle/caches/
+  - $HOME/.gradle/wrapper/
+  - $HOME/.android/build-cache
 before_script:
-- echo no | android create avd --force -n test -t android-$EMULATOR_API --abi armeabi-v7a
+- android list targets
+- echo no | android create avd --force -n test -t android-26 --abi armeabi-v7a
 - emulator -avd test -no-skin -no-audio -no-window &
-     - android-wait-for-emulator
-     - adb devices
-     - adb shell input keyevent 82 &
+  - android-wait-for-emulator
+  - adb devices
+  - adb shell input keyevent 82 &
 before_install:
 - openssl aes-256-cbc -K $encrypted_b05b3cd5a93c_key -iv $encrypted_b05b3cd5a93c_iv -in keystore.properties.enc -out keystore.properties -d
 - openssl aes-256-cbc -K $encrypted_8ff20515eeac_key -iv $encrypted_8ff20515eeac_iv -in appkey.jks.enc -out appkey.jks -d
@@ -47,9 +50,9 @@ before_install:
 script:
 #  - ./gradlew test
 #  - ./gradlew connectedCheck
-  - ./gradlew jacocoUnitTestReport
-  - ./gradlew createDebugCoverageReport
-  - ./gradlew assembleRelease
+- ./gradlew jacocoUnitTestReport
+- ./gradlew createDebugCoverageReport
+- ./gradlew assembleRelease
 #after_success:
 #- cp $TRAVIS_BUILD_DIR/appkey.jks $HOME
 #- cd $TRAVIS_BUILD_DIR/app/build/outputs/apk/release
@@ -60,13 +63,13 @@ script:
 after_script:
 - set -e
 - $TRAVIS_BUILD_DIR/pgyer_upload.sh "${TRAVIS_BUILD_DIR}/app/build/outputs/apk/release/app-release.apk"
-  "318e91cdb7e069286d1dcc56acfe203a"
+    "318e91cdb7e069286d1dcc56acfe203a"
 - rm $TRAVIS_BUILD_DIR/pgyer_upload.sh
 - bash <(curl -s https://codecov.io/bash) -t d81700f5-9e56-4c39-8a8c-963640934898
 
 
 before_deploy:
-  - ls app/build/outputs/apk/
+- ls app/build/outputs/apk/
 
 # safelist
 branches:
