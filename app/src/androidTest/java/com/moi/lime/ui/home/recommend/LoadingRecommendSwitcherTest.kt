@@ -4,6 +4,7 @@ import android.content.Context
 import androidx.arch.core.executor.testing.InstantTaskExecutorRule
 import androidx.lifecycle.MutableLiveData
 import androidx.test.core.app.ApplicationProvider
+import androidx.test.ext.junit.runners.AndroidJUnit4
 import androidx.test.rule.ActivityTestRule
 import com.lime.testing.SingleFragmentActivity
 import com.moi.lime.ui.home.recommend.LoadingRecommendSwitcher.Companion.RECOMMEND_DAY_KEY
@@ -11,7 +12,9 @@ import com.moi.lime.vo.Resource
 import org.junit.Assert.assertTrue
 import org.junit.Rule
 import org.junit.Test
+import org.junit.runner.RunWith
 
+@RunWith(AndroidJUnit4::class)
 class LoadingRecommendSwitcherTest {
 
     @Rule
