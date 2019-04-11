@@ -8,7 +8,7 @@
 
 
 
-[buildSvg]: https://travis-ci.org/LimeStudio/Lime.svg?branch=master
+[buildSvg]: https://travis-ci.org/LimeStudio/Lime.svg?branch=feature%2F1.0
 [build]: https://travis-ci.org/LimeStudio/Lime
 
 [codeCovSvg]: https://codecov.io/gh/LimeStudio/Lime/branch/master/graph/badge.svg
