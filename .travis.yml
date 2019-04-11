@@ -17,7 +17,7 @@ android:
   - android-$ANDROID_API
   - extra-google-m2repository
   - extra-android-m2repository
-  - sys-img-x86-android-android-$EMULATOR_API
+  - sys-img-x86-android-$EMULATOR_API
   licenses:
   - android-sdk-preview-license-.+
   - android-sdk-license-.+
@@ -31,7 +31,7 @@ cache:
     - $HOME/.gradle/wrapper/
     - $HOME/.android/build-cache
 before_script:
-- echo no | android create avd --force -n test -t android-$EMULATOR_API --abi x86_64
+- echo no | android create avd --force -n test -t android-$EMULATOR_API -b x86
 - emulator -avd test -no-skin -no-audio -no-window &
      - android-wait-for-emulator
      - adb devices
