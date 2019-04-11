@@ -5,7 +5,7 @@ codecov:
 coverage:
   precision: 2
   round: down
-  range: "70...100"
+  range: "60...100"
 
   status:
     project: yes
@@ -24,8 +24,8 @@ comment:
   layout: "header, diff"
   behavior: default
   require_changes: no
-  
-  ignore:
-  - "app/src/main/java/com/moi/lime/ov/.*"  
-  - "app/src/main/java/com/moi/lime/di/.*"  
+
+ignore:
+  - "app/src/main/java/com/moi/lime/ov/.*"
+  - "app/src/main/java/com/moi/lime/di/.*"
   - "app/src/main/java/com/moi/lime/LimeApp.kt"  
