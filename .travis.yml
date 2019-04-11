@@ -16,7 +16,7 @@ android:
   - android-$ANDROID_API
   - extra-google-m2repository
   - extra-android-m2repository
-  - sys-img-armeabi-v7a-addon-google_apis-google-28
+  - sys-img-armeabi-v7a-addon-google_apis-google-25
   licenses:
   - android-sdk-preview-license-.+
   - android-sdk-license-.+
@@ -31,7 +31,7 @@ cache:
   - $HOME/.android/build-cache
 before_script:
 - android list targets
-- echo no | android create avd --force -n test -t "Google Inc.:Google APIs:28 --abi google_apis/armeabi-v7a
+- echo no | android create avd --force -n test -t "Google Inc.:Google APIs:25" --abi google_apis/armeabi-v7a
 - emulator -avd test -no-skin -no-audio -no-window &
   - android-wait-for-emulator
   - adb devices
