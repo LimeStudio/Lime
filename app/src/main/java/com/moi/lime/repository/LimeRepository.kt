@@ -10,6 +10,7 @@ import com.moi.lime.util.asLiveData
 import com.moi.lime.vo.MusicInformation
 import com.moi.lime.vo.RecommendSongsEntity
 import com.moi.lime.vo.Resource
+import com.moi.lime.vo.UserPlayLists
 import io.reactivex.Flowable
 import javax.inject.Inject
 
@@ -37,6 +38,10 @@ class LimeRepository @Inject constructor(private val userManager: UserManager, p
         } else {
             db.musicInformationDao().getAllMusicInformation().asLiveData()
         }
+    }
+
+    fun fetchUserList():LiveData<Resource<UserPlayLists>>{
+        return moiService.fetchUserPlayLists(userManager.getProfile()?.uid?:"").asLiveData()
     }
 
     private fun fetchAndSaveCommendMusics(): Flowable<List<MusicInformation>> {

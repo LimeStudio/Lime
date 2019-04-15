@@ -1,30 +1,56 @@
 package com.moi.lime.vo
 
-data class Creator(
-	val birthday: Long? = null,
-	val detailDescription: String? = null,
-	val backgroundUrl: String? = null,
-	val gender: Int? = null,
-	val city: Int? = null,
-	val signature: String? = null,
-	val description: String? = null,
-	val remarkName: Any? = null,
-	val accountStatus: Int? = null,
-	val avatarImgId: Long? = null,
-	val defaultAvatar: Boolean? = null,
-	val avatarImgIdStr: String? = null,
-	val backgroundImgIdStr: String? = null,
-	val province: Int? = null,
-	val nickname: String? = null,
-	val expertTags: Any? = null,
-	val djStatus: Int? = null,
-	val avatarUrl: String? = null,
-	val authStatus: Int? = null,
-	val vipType: Int? = null,
-	val userId: Int? = null,
-	val followed: Boolean? = null,
-	val mutual: Boolean? = null,
-	val authority: Int? = null,
-	val userType: Int? = null,
-	val backgroundImgId: Long? = null
-)
+import com.google.gson.annotations.SerializedName
+
+data class Creator(@SerializedName("birthday")
+                   val birthday: Long?,
+                   @SerializedName("detailDescription")
+                   val detailDescription: String?,
+                   @SerializedName("backgroundUrl")
+                   val backgroundUrl: String?,
+                   @SerializedName("gender")
+                   val gender: Long?,
+                   @SerializedName("city")
+                   val city: Long?,
+                   @SerializedName("signature")
+                   val signature: String?,
+                   @SerializedName("description")
+                   val description: String?,
+                   @SerializedName("remarkName")
+                   val remarkName: String?,
+                   @SerializedName("accountStatus")
+                   val accountStatus: Long?,
+                   @SerializedName("avatarImgId")
+                   val avatarImgId: Long?,
+                   @SerializedName("defaultAvatar")
+                   val defaultAvatar: Boolean? = false,
+                   @SerializedName("avatarImgIdStr")
+                   val avatarImgIdStr: String?,
+                   @SerializedName("backgroundImgIdStr")
+                   val backgroundImgIdStr: String?,
+                   @SerializedName("province")
+                   val province: Long?,
+                   @SerializedName("nickname")
+                   val nickname: String?,
+                   @SerializedName("expertTags")
+                   val expertTags: List<String>?,
+                   @SerializedName("djStatus")
+                   val djStatus: Long?,
+                   @SerializedName("avatarUrl")
+                   val avatarUrl: String?,
+                   @SerializedName("authStatus")
+                   val authStatus: Long?,
+                   @SerializedName("vipType")
+                   val vipType: Long?,
+                   @SerializedName("followed")
+                   val followed: Boolean? = false,
+                   @SerializedName("userId")
+                   val userId: Long?,
+                   @SerializedName("mutual")
+                   val mutual: Boolean? = false,
+                   @SerializedName("authority")
+                   val authority: Long?,
+                   @SerializedName("userType")
+                   val userType: Long?,
+                   @SerializedName("backgroundImgId")
+                   val backgroundImgId: Long?)

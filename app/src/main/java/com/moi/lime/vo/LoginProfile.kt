@@ -27,5 +27,7 @@ data class LoginProfile(
         val authority: Int? = null,
         val backgroundImgId: Long? = null,
         val userType: Int? = null,
-        val experts: Experts? = null
+        val experts: Experts? = null,
+        val followeds: Int = 0,
+        val follows: Int = 0
 )

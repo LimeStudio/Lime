@@ -5,7 +5,6 @@ import com.moi.lime.vo.LoginProfile
 import com.moi.lime.vo.Profile
 import com.moi.lime.vo.SignInByPhoneBean
 import io.reactivex.Single
-import java.lang.IllegalStateException
 
 class Cardinal(private val profileDao: ProfileDao) : UserManager {
 
@@ -69,9 +68,13 @@ class Cardinal(private val profileDao: ProfileDao) : UserManager {
                     , (gender ?: 0).toString()
                     , birthday ?: 0L
                     , (province ?: 0L).toString()
+                    , (city ?: 0L).toString()
                     , defaultAvatar ?: true
                     , avatarUrl ?: ""
-                    , backgroundUrl ?: "")
+                    , backgroundUrl ?: ""
+                    , follows
+                    , followeds
+            )
         }
     }
 

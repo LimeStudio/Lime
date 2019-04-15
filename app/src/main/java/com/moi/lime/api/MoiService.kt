@@ -24,4 +24,7 @@ interface MoiService {
     @GET("music/url")
     fun fetchMusicUrlById(@Query("id") ids: String): Flowable<MusicUrlsEntity>
 
+    @GET("user/playlist")
+    fun fetchUserPlayLists(@Query("uid") uid: String):Flowable<UserPlayLists>
+
 }

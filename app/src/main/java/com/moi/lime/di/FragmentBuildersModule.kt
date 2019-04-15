@@ -1,6 +1,7 @@
 package com.moi.lime.di
 
 import com.moi.lime.ui.home.HomeFragment
+import com.moi.lime.ui.home.profile.ProfileFragment
 import com.moi.lime.ui.home.recommend.RecommendFragment
 import com.moi.lime.ui.home.recommend.RecommendItemFragment
 import com.moi.lime.ui.signin.SignInFragment
@@ -24,5 +25,8 @@ abstract class FragmentBuildersModule {
 
     @ContributesAndroidInjector
     abstract fun contributeRecommendItemFragment(): RecommendItemFragment
+
+    @ContributesAndroidInjector
+    abstract fun contributeProfileFragment(): ProfileFragment
 
 }

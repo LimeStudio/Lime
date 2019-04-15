@@ -12,6 +12,7 @@ import com.moi.lime.MainNavDirections
 import com.moi.lime.R
 import com.moi.lime.databinding.FragmentHomeBinding
 import com.moi.lime.di.Injectable
+import com.moi.lime.ui.LimeFragmentPageAdapter
 import com.moi.lime.ui.callback.ViewClickCallback
 import com.moi.lime.ui.home.profile.ProfileFragment
 import com.moi.lime.ui.home.recommend.RecommendFragment
@@ -34,10 +35,10 @@ class HomeFragment : Fragment(), Injectable {
             override fun click(view: View) {
                 when (view.id) {
                     R.id.homeImage -> {
-                        dataBinding.viewPager.setCurrentItem(0,false)
+                        dataBinding.viewPager.setCurrentItem(0, false)
                     }
                     R.id.personImage -> {
-                        dataBinding.viewPager.setCurrentItem(1,false)
+                        dataBinding.viewPager.setCurrentItem(1, false)
                     }
                     R.id.floatingButton -> {
                         findNavController().navigate(MainNavDirections.actionGlobalSignInFragment())
@@ -56,12 +57,12 @@ class HomeFragment : Fragment(), Injectable {
 
     private fun initViewPager() {
         val fragmentList = getFragments()
-        val fragmentAdapter = HomeFragmentPageAdapter(childFragmentManager,fragmentList)
+        val fragmentAdapter = LimeFragmentPageAdapter(childFragmentManager, fragmentList)
         binding.viewPager.adapter = fragmentAdapter
     }
 
     /**
      * Created to be able to override in tests
      */
-    fun getFragments() = listOf(RecommendFragment(),ProfileFragment())
+    fun getFragments(): List<Fragment> = listOf(RecommendFragment(), ProfileFragment())
 }

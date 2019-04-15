@@ -14,9 +14,12 @@ fun createProfile(isSignIn: Boolean = true): Profile {
             "1",
             123456,
             "1",
+            "1",
             true,
             "1",
-            "1")
+            "1"
+            , 1,
+            1)
 }
 
 fun asyncToSync() {
