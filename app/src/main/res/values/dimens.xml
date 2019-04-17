@@ -16,4 +16,5 @@
 
 <dimen name="avatar_size_normal">64dp</dimen>
 <dimen name="avatar_size_big">72dp</dimen>
+<dimen name="avatar_radius_big">36dp</dimen>
 </resources>
