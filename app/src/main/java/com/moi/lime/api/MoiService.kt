@@ -11,9 +11,9 @@ interface MoiService {
     fun getMusicUrl(@Query("id") id: String): Flowable<MusicUrlBean>
 
     @GET("login/cellphone")
-    fun signInByPhone(@Query("phone") phoneNumber: String,
+    suspend fun signInByPhone(@Query("phone") phoneNumber: String,
                       @Query("password") password: String)
-            : Flowable<SignInByPhoneBean>
+            : SignInByPhoneBean
 
     @GET("login/refresh")
     fun signInRefresh(): Flowable<OnlyCodeBean>

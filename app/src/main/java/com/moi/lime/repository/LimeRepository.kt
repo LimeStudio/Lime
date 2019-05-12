@@ -15,20 +15,15 @@ import javax.inject.Inject
 
 @OpenForTesting
 class LimeRepository @Inject constructor(private val userManager: UserManager, private val moiService: MoiService, private val db: LimeDb) {
-    fun signIn(phoneNumber: String, password: String): LiveData<Resource<Boolean>> {
-        return moiService.signInByPhone(phoneNumber, password)
-                .flatMap { signInByPhoneBean ->
-                    moiService.signInRefresh()
-                            .map {
-                                if (it.code == 200) {
-                                    userManager.saveUser(signInByPhoneBean)
-                                    true
-                                } else {
-                                    false
-                                }
-                            }
-                }
-                .asLiveData()
+
+    suspend fun signIn(phoneNumber: String, password: String): Boolean {
+        val signInByPhoneBean = moiService.signInByPhone(phoneNumber, password)
+        return if (signInByPhoneBean.code == 200) {
+            userManager.saveUser(signInByPhoneBean)
+            true
+        } else {
+            false
+        }
     }
 
     fun fetchRecommendMusics(shouldLoadFromDb: Boolean): LiveData<Resource<List<MusicInformation>>> {

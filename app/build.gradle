@@ -31,6 +31,10 @@ if (!keyStoreFile.exists()) {
 
 
 android {
+    compileOptions {
+        sourceCompatibility JavaVersion.VERSION_1_8
+        targetCompatibility JavaVersion.VERSION_1_8
+    }
     signingConfigs {
         config {
             keyAlias keystoreProperties['keyAlias']
@@ -90,6 +94,9 @@ dependencies {
     //kotlin
     implementation deps.kotlin.stdlib
     //lifecycle
+    implementation deps.lifecycle.java8
+    implementation deps.lifecycle.viewmodel
+    implementation deps.lifecycle.livedata
     implementation deps.lifecycle.runtime
     implementation deps.lifecycle.extensions
     kapt deps.lifecycle.compiler
@@ -123,6 +130,8 @@ dependencies {
     implementation deps.rxjava2
     //rxAndroid
     implementation deps.rx_android
+    //coroutines_android
+    implementation deps.coroutines_android
     //retrofit
     implementation deps.retrofit.runtime
     implementation deps.retrofit.gson
@@ -170,6 +179,9 @@ dependencies {
     androidTestImplementation deps.support.recyclerview
     androidTestImplementation deps.support.cardview
     androidTestImplementation deps.support.material
+
+    testImplementation 'org.jetbrains.kotlinx:kotlinx-coroutines-test:1.2.1'
+
 }
 
 tasks.withType(Test) {
