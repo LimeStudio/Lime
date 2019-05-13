@@ -6,10 +6,12 @@ import androidx.lifecycle.Observer
 import com.moi.lime.api.MoiService
 import com.moi.lime.core.user.UserManager
 import com.moi.lime.db.LimeDb
-import com.moi.lime.util.RxSchedulerRule
+import com.moi.lime.util.TestDispatchers
 import com.moi.lime.util.mock
+import com.moi.lime.util.observeForTesting
 import com.moi.lime.util.toBean
 import com.moi.lime.vo.OnlyCodeBean
+import com.moi.lime.vo.Resource
 import com.moi.lime.vo.SignInByPhoneBean
 import io.reactivex.Flowable
 import kotlinx.coroutines.Dispatchers
@@ -35,9 +37,6 @@ class LimeRepositoryTest {
     @ExperimentalCoroutinesApi
     val testScope = TestCoroutineScope(testDispatcher)
 
-    @Rule
-    @JvmField
-    val rxSchedulerRule = RxSchedulerRule()
 
     private lateinit var limeRepository: LimeRepository
     private val service = mock<MoiService>()
@@ -50,7 +49,7 @@ class LimeRepositoryTest {
         Dispatchers.setMain(testDispatcher)
         val db = mock(LimeDb::class.java)
         `when`(service.signInRefresh()).thenReturn(Flowable.just(OnlyCodeBean(200)))
-        limeRepository = LimeRepository(userManager, service, db)
+        limeRepository = LimeRepository(userManager, service, db, TestDispatchers(testDispatcher))
     }
 
     @ExperimentalCoroutinesApi
@@ -72,8 +71,12 @@ class LimeRepositoryTest {
                 .thenReturn(signInByPhoneBean)
 
         val subject = limeRepository.signIn("test", "test")
-        assert(subject)
-        verify(userManager).saveUser(signInByPhoneBean)
-        Mockito.verify(service).signInByPhone("test", "test")
-       }
+        subject.observeForTesting {
+            assertEquals(Resource.success(true), subject.value)
+            verify(userManager).saveUser(signInByPhoneBean)
+            Mockito.verify(service).signInByPhone("test", "test")
+        }
+
+    }
+
 }

@@ -3,10 +3,12 @@ package com.moi.lime.repository
 import androidx.lifecycle.LiveData
 import com.lime.testing.OpenForTesting
 import com.moi.lime.api.MoiService
+import com.moi.lime.core.dispatch.Dispatchers
 import com.moi.lime.core.user.UserManager
 import com.moi.lime.db.LimeDb
 import com.moi.lime.util.MusicMapper
 import com.moi.lime.util.asLiveData
+import com.moi.lime.util.resourceLiveData
 import com.moi.lime.vo.MusicInformation
 import com.moi.lime.vo.RecommendSongsEntity
 import com.moi.lime.vo.Resource
@@ -14,17 +16,23 @@ import io.reactivex.Flowable
 import javax.inject.Inject
 
 @OpenForTesting
-class LimeRepository @Inject constructor(private val userManager: UserManager, private val moiService: MoiService, private val db: LimeDb) {
+class LimeRepository @Inject constructor(
+        private val userManager: UserManager,
+        private val moiService: MoiService,
+        private val db: LimeDb,
+        private val dispatchers: Dispatchers
+) {
 
-    suspend fun signIn(phoneNumber: String, password: String): Boolean {
-        val signInByPhoneBean = moiService.signInByPhone(phoneNumber, password)
-        return if (signInByPhoneBean.code == 200) {
-            userManager.saveUser(signInByPhoneBean)
-            true
-        } else {
-            false
-        }
-    }
+    fun signIn(phoneNumber: String, password: String) =
+            resourceLiveData(dispatchers.provideIO()) {
+                val signInByPhoneBean = moiService.signInByPhone(phoneNumber, password)
+                if (signInByPhoneBean.code == 200) {
+                    userManager.saveUser(signInByPhoneBean)
+                    true
+                } else {
+                    false
+                }
+            }
 
     fun fetchRecommendMusics(shouldLoadFromDb: Boolean): LiveData<Resource<List<MusicInformation>>> {
         return if (!shouldLoadFromDb) {
@@ -57,6 +65,7 @@ class LimeRepository @Inject constructor(private val userManager: UserManager, p
                 }
 
     }
+
 
     private fun cleanRecommendDb() {
         with(db) {

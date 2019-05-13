@@ -4,15 +4,12 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.switchMap
 import com.moi.lime.core.livedata.SingleLiveEvent
 import com.moi.lime.repository.LimeRepository
-import com.moi.lime.util.resourceLiveData
 import javax.inject.Inject
 
 class SignInViewModel @Inject constructor(private val limeRepository: LimeRepository) : ViewModel() {
 
     val loginInfo = SingleLiveEvent<Pair<String, String>>()
     val loginResource = loginInfo.switchMap {
-        resourceLiveData {
-            limeRepository.signIn(it.first, it.second)
-        }
+        limeRepository.signIn(it.first,it.second)
     }
 }

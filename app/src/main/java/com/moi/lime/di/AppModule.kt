@@ -9,6 +9,8 @@ import com.franmontiel.persistentcookiejar.persistence.SharedPrefsCookiePersisto
 import com.moi.lime.LimeApp
 import com.moi.lime.api.MoiService
 import com.moi.lime.api.SignInExpireInterceptor
+import com.moi.lime.core.dispatch.DefaultDispatchers
+import com.moi.lime.core.dispatch.Dispatchers
 import com.moi.lime.core.user.Cardinal
 import com.moi.lime.core.user.UserManager
 import com.moi.lime.db.LimeDb
@@ -69,6 +71,11 @@ class AppModule {
     fun provideContext(): Context {
         return LimeApp.instance
     }
+
+
+    @Singleton
+    @Provides
+    fun provideDispachers() = DefaultDispatchers() as Dispatchers
 
     @Provides
     fun provideLoadingRecommendSwitcher(context: Context): LoadingRecommendSwitcher {
