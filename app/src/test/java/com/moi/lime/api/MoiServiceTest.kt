@@ -80,21 +80,20 @@ class MoiServiceTest {
     }
 
     @Test
-    fun testFetchRecommendSongs() {
+    fun testFetchRecommendSongs()= runBlocking {
         enqueueResponse("RecommendSongsResponse")
-        service.fetchRecommendSongs().test().assertValue {
-            it.recommend?.size == 30
-        }
+        val recommend = service.fetchRecommendSongs()
+        assertEquals(30,recommend.recommend.size)
         val request = mockWebServer.takeRequest()
         Assert.assertThat(request.path, `is`("/recommend/songs"))
     }
 
     @Test
-    fun testFetchMusicUrls() {
+    fun testFetchMusicUrls()= runBlocking {
         enqueueResponse("MusicUrlsResponse")
-        service.fetchMusicUrlById("123").test().assertValue {
-            it.data?.size == 2 && it.data?.first()?.id == 33071205L
-        }
+        val musicUrlsEntity =  service.fetchMusicUrlById("123")
+        assertEquals(2,musicUrlsEntity.data.size)
+        assertEquals(33071205L,musicUrlsEntity.data.first().id)
         val request = mockWebServer.takeRequest()
         Assert.assertThat(request.path, `is`("/music/url?id=123"))
 

@@ -1,32 +1,40 @@
 package com.moi.lime.db
 
 import androidx.arch.core.executor.testing.InstantTaskExecutorRule
+import com.moi.lime.util.TestDispatchersRule
 import com.moi.lime.vo.LimeAlbum
 import com.moi.lime.vo.LimeArtist
 import com.moi.lime.vo.LimeMusic
 import com.moi.lime.vo.LimeUrl
+import kotlinx.coroutines.ExperimentalCoroutinesApi
+import kotlinx.coroutines.test.runBlockingTest
 import org.junit.Rule
 import org.junit.Test
+import kotlin.test.assertEquals
 
 class MusicInformationDaoTest : LimeDbTest() {
     @Rule
     @JvmField
     val instantExecutorRule = InstantTaskExecutorRule()
 
-    @Test
-    fun testLoadAll() {
-        createAndInsertData()
-        db.musicInformationDao()
-                .getAllMusicInformation()
-                .test()
-                .assertValue {
-                    it.size == 1 &&
-                            it.first().limeMusic?.id == "1" &&
-                            it.first().limeUrls.size == 2 &&
-                            it.first().limeAlbum.size == 1 &&
-                            it.first().limeArtist.size == 1
-                }
+    @ExperimentalCoroutinesApi
+    @Rule
+    @JvmField
+    val testDispatchersRule = TestDispatchersRule()
 
+    @ExperimentalCoroutinesApi
+    @Test
+    fun testLoadAll() = testDispatchersRule.testScope.runBlockingTest {
+        createAndInsertData()
+        val musicInformation = db.musicInformationDao().getAllMusicInformation()
+        with(musicInformation) {
+            assertEquals(1, size)
+            assertEquals("1", first().limeMusic?.id ?: "-1")
+            assertEquals(2, first().limeUrls.size)
+            assertEquals(1, first().limeAlbum.size)
+            assertEquals(1, first().limeArtist.size)
+
+        }
     }
 
 

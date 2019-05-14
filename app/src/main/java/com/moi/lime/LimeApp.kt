@@ -3,13 +3,12 @@ package com.moi.lime
 import android.annotation.SuppressLint
 import android.app.Activity
 import android.app.Application
-import com.google.gson.Gson
 import com.moi.lime.core.user.UserManager
 import com.moi.lime.di.AppInjector
-import dagger.android.AndroidInjector
 import dagger.android.DispatchingAndroidInjector
 import dagger.android.HasActivityInjector
-import io.reactivex.schedulers.Schedulers
+import kotlinx.coroutines.GlobalScope
+import kotlinx.coroutines.launch
 import javax.inject.Inject
 
 class LimeApp : Application(), HasActivityInjector {
@@ -28,7 +27,10 @@ class LimeApp : Application(), HasActivityInjector {
         super.onCreate()
         instance = this
         AppInjector.init(this)
-        userManager.init().subscribeOn(Schedulers.io()).subscribe({}, {})
+        GlobalScope.launch {
+            userManager.init()
+        }
+
     }
 
     override fun activityInjector() = dispatchingAndroidInjector

@@ -4,7 +4,6 @@ import com.moi.lime.db.ProfileDao
 import com.moi.lime.vo.LoginProfile
 import com.moi.lime.vo.Profile
 import com.moi.lime.vo.SignInByPhoneBean
-import io.reactivex.Single
 import java.lang.IllegalStateException
 
 class Cardinal(private val profileDao: ProfileDao) : UserManager {
@@ -12,10 +11,9 @@ class Cardinal(private val profileDao: ProfileDao) : UserManager {
     private var isInit = false
     private var profile: Profile? = null
 
-    override fun init(): Single<Profile> {
+    override suspend fun init() {
         isInit = true
-        return profileDao.findUserBySignIn(true)
-                .doOnSuccess { profile = it }
+        profile = profileDao.findUserBySignIn(true)
     }
 
     override fun saveUser(signInByPhoneBean: SignInByPhoneBean): Boolean {

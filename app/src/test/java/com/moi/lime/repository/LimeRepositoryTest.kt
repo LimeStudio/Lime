@@ -1,24 +1,17 @@
 package com.moi.lime.repository
 
 import androidx.arch.core.executor.testing.InstantTaskExecutorRule
-import androidx.lifecycle.LiveData
-import androidx.lifecycle.Observer
 import com.moi.lime.api.MoiService
 import com.moi.lime.core.user.UserManager
 import com.moi.lime.db.LimeDb
-import com.moi.lime.util.TestDispatchers
-import com.moi.lime.util.mock
-import com.moi.lime.util.observeForTesting
-import com.moi.lime.util.toBean
+import com.moi.lime.util.*
 import com.moi.lime.vo.OnlyCodeBean
 import com.moi.lime.vo.Resource
 import com.moi.lime.vo.SignInByPhoneBean
 import io.reactivex.Flowable
-import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.ExperimentalCoroutinesApi
-import kotlinx.coroutines.test.*
+import kotlinx.coroutines.test.runBlockingTest
 import okio.Okio
-import org.junit.After
 import org.junit.Before
 import org.junit.Rule
 import org.junit.Test
@@ -33,10 +26,9 @@ class LimeRepositoryTest {
     val instantExecutorRule = InstantTaskExecutorRule()
 
     @ExperimentalCoroutinesApi
-    val testDispatcher = TestCoroutineDispatcher()
-    @ExperimentalCoroutinesApi
-    val testScope = TestCoroutineScope(testDispatcher)
-
+    @Rule
+    @JvmField
+    val testDispatchersRule = TestDispatchersRule()
 
     private lateinit var limeRepository: LimeRepository
     private val service = mock<MoiService>()
@@ -46,22 +38,14 @@ class LimeRepositoryTest {
     @ExperimentalCoroutinesApi
     @Before
     fun setUp() {
-        Dispatchers.setMain(testDispatcher)
         val db = mock(LimeDb::class.java)
         `when`(service.signInRefresh()).thenReturn(Flowable.just(OnlyCodeBean(200)))
-        limeRepository = LimeRepository(userManager, service, db, TestDispatchers(testDispatcher))
-    }
-
-    @ExperimentalCoroutinesApi
-    @After
-    fun testDown() {
-        Dispatchers.resetMain()
-        testScope.cleanupTestCoroutines()
+        limeRepository = LimeRepository(userManager, service, db, TestDispatchers(testDispatchersRule.testDispatcher))
     }
 
     @ExperimentalCoroutinesApi
     @Test
-    fun testSignIn() = testScope.runBlockingTest {
+    fun testSignIn() = testDispatchersRule.testScope.runBlockingTest {
         val inputStream = javaClass
                 .getResourceAsStream("/api-response/SignInResponse")
         val source = Okio.buffer(Okio.source(inputStream!!))

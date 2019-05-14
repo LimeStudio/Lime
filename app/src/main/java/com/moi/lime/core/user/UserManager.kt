@@ -10,5 +10,5 @@ interface UserManager {
     fun updateProfile(profile: Profile)
     fun cleanUser()
     fun isSignIn(): Boolean
-    fun init(): Single<Profile>
+    suspend fun init()
 }

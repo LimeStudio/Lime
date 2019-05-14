@@ -19,9 +19,9 @@ interface MoiService {
     fun signInRefresh(): Flowable<OnlyCodeBean>
 
     @GET("recommend/songs")
-    fun fetchRecommendSongs(): Flowable<RecommendSongsEntity>
+    suspend fun fetchRecommendSongs(): RecommendSongsEntity
 
     @GET("music/url")
-    fun fetchMusicUrlById(@Query("id") ids: String): Flowable<MusicUrlsEntity>
+    suspend fun fetchMusicUrlById(@Query("id") ids: String): MusicUrlsEntity
 
 }

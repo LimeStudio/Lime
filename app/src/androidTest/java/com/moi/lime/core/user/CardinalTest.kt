@@ -1,19 +1,22 @@
 package com.moi.lime.core.user
 
 import androidx.arch.core.executor.testing.InstantTaskExecutorRule
-import androidx.room.EmptyResultSetException
 import androidx.test.ext.junit.runners.AndroidJUnit4
 import com.moi.lime.db.LimeDbTest
+import com.moi.lime.util.TestDispatchersRule
 import com.moi.lime.util.createProfile
 import com.moi.lime.util.toBean
+import kotlinx.coroutines.ExperimentalCoroutinesApi
+import kotlinx.coroutines.test.runBlockingTest
 import okio.Okio
 import org.junit.Assert.assertTrue
-import org.junit.Test
-
 import org.junit.Before
 import org.junit.Rule
+import org.junit.Test
 import org.junit.runner.RunWith
+import kotlin.test.assertNull
 
+@ExperimentalCoroutinesApi
 @RunWith(AndroidJUnit4::class)
 class CardinalTest : LimeDbTest() {
     @Rule
@@ -22,82 +25,59 @@ class CardinalTest : LimeDbTest() {
 
     private lateinit var userManager: UserManager
 
+    @Rule
+    @JvmField
+    val testDispatchersRule = TestDispatchersRule()
+
     @Before
     fun setUp() {
         userManager = Cardinal(db.profileDao())
     }
 
     @Test
-    fun testInitAndSave() {
+    fun testInitAndSave() = testDispatchersRule.testScope.runBlockingTest {
         userManager.init()
-                .test()
-                .assertError(EmptyResultSetException::class.java)
         val result = userManager.saveUser(getSignInJson().toBean()!!)
-        assert(result)
+        assertTrue(result)
 
     }
 
     @Test
-    fun testInitAndGetProfile() {
+    fun testInitAndGetProfile() = testDispatchersRule.testScope.runBlockingTest {
         val profile = createProfile(true)
         db.profileDao().insert(profile)
         userManager.init()
-                .test()
-                .assertValue {
-                    it.uid == profile.uid
-                }
-        assert(userManager.getProfile()?.uid == profile.uid)
+        assertTrue(userManager.getProfile()?.uid == profile.uid)
 
     }
 
     @Test
-    fun testUpdateProfile() {
+    fun testUpdateProfile() = testDispatchersRule.testScope.runBlockingTest {
         val profile = createProfile(true)
         db.profileDao().insert(profile)
 
         userManager.init()
-                .test()
-                .assertValue {
-                    it.uid == profile.uid
-                }
-
-        val newProfile = createProfile(true).copy(uid = "test")
-
+        val newProfile = profile.copy(uid = "test")
         userManager.updateProfile(newProfile)
 
-        assert(userManager.getProfile()?.uid == newProfile.uid)
-        db.profileDao().findUserBySignIn(true)
-                .map { it.uid }
-                .test()
-                .assertValue(newProfile.uid)
+        assertTrue(userManager.getProfile()?.uid == newProfile.uid)
     }
 
     @Test
-    fun testCleanUser() {
+    fun testCleanUser() = testDispatchersRule.testScope.runBlockingTest {
         val profile = createProfile(true)
         db.profileDao().insert(profile)
         userManager.init()
-                .test()
-                .assertValue {
-                    it.uid == profile.uid
-                }
         userManager.cleanUser()
-        db.profileDao()
-                .findUserBySignIn(true)
-                .test()
-                .assertError(EmptyResultSetException::class.java)
-
+        assertNull(db.profileDao()
+                .findUserBySignIn(true))
     }
 
     @Test
-    fun testIsSignIn() {
+    fun testIsSignIn() = testDispatchersRule.testScope.runBlockingTest {
         userManager.init()
-                .test()
-        assertTrue(!userManager.isSignIn())
-
         val profile = createProfile(true)
         userManager.updateProfile(profile)
-
         assertTrue(userManager.isSignIn())
 
 
