@@ -15,6 +15,7 @@ import com.moi.lime.util.TestDispatchersRule
 import com.moi.lime.vo.MusicInformation
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.ExperimentalCoroutinesApi
+import kotlinx.coroutines.runBlocking
 import kotlinx.coroutines.test.runBlockingTest
 import kotlinx.coroutines.withContext
 import org.junit.Before
@@ -33,9 +34,6 @@ class RecommendItemFragmentTest : LimeDbTest() {
     @JvmField
     val testDispatchersRule = TestDispatchersRule()
 
-    @Rule
-    @JvmField
-    val dataBindingIdlingResourceRule = DataBindingIdlingResourceRule(activityRule)
 
     private lateinit var fragment: RecommendItemFragment
 
@@ -43,7 +41,7 @@ class RecommendItemFragmentTest : LimeDbTest() {
 
     @ExperimentalCoroutinesApi
     @Before
-    fun setUp() = testDispatchersRule.testScope.runBlockingTest {
+    fun setUp() = runBlocking {
             MusicMapper(MusicEntityCreator.createRecommendMusicEntity(), MusicEntityCreator.createMusicUrlsEntity())
                     .saveMusic(db)
             musicInformation = db.musicInformationDao().getAllMusicInformation().first()

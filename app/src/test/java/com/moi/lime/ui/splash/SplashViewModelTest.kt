@@ -4,13 +4,20 @@ import androidx.arch.core.executor.testing.InstantTaskExecutorRule
 import androidx.lifecycle.Observer
 import com.moi.lime.core.user.UserManager
 import com.moi.lime.util.RxSchedulerRule
+import com.moi.lime.util.TestDispatchers
+import com.moi.lime.util.TestDispatchersRule
 import com.moi.lime.util.mock
+import kotlinx.coroutines.ExperimentalCoroutinesApi
+import kotlinx.coroutines.test.runBlockingTest
 import org.junit.Rule
 import org.junit.Test
 import org.junit.runner.RunWith
 import org.junit.runners.JUnit4
 import org.mockito.Mockito
+import kotlin.test.assertFalse
+import kotlin.test.assertTrue
 
+@ExperimentalCoroutinesApi
 @RunWith(JUnit4::class)
 class SplashViewModelTest {
     @Rule
@@ -19,26 +26,28 @@ class SplashViewModelTest {
 
     @Rule
     @JvmField
-    val rxSchedulerRule = RxSchedulerRule()
+    val testDispatchersRule = TestDispatchersRule()
 
     private val userManager = mock<UserManager>()
-    private val viewModel = SplashViewModel(userManager)
+    private val viewModel = SplashViewModel(userManager,TestDispatchers(testDispatchersRule.testDispatcher))
 
     @Test
-    fun testInitWithSignIn() {
+    fun testInitWithSignIn() = testDispatchersRule.testScope.runBlockingTest {
         Mockito.`when`(userManager.isSignIn()).thenReturn(true)
-        val observer = mock<Observer<Boolean>>()
-        viewModel.isSignInValue.observeForever(observer)
         viewModel.init()
-        Mockito.verify(observer).onChanged(true)
+        advanceTimeBy(2000)
+        assertTrue {
+            viewModel.isSignInValue.value==true
+        }
     }
 
     @Test
-    fun testInitWithSignOut() {
+    fun testInitWithSignOut() = testDispatchersRule.testScope.runBlockingTest {
         Mockito.`when`(userManager.isSignIn()).thenReturn(false)
-        val observer = mock<Observer<Boolean>>()
-        viewModel.isSignInValue.observeForever(observer)
         viewModel.init()
-        Mockito.verify(observer).onChanged(false)
+        advanceTimeBy(2000)
+        assertFalse {
+            viewModel.isSignInValue.value==true
+        }
     }
 }

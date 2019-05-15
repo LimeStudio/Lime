@@ -18,10 +18,8 @@ import com.moi.lime.db.LimeDbTest
 import com.moi.lime.util.*
 import com.moi.lime.vo.MusicInformation
 import com.moi.lime.vo.Resource
-import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.ExperimentalCoroutinesApi
-import kotlinx.coroutines.test.runBlockingTest
-import kotlinx.coroutines.withContext
+import kotlinx.coroutines.runBlocking
 import org.hamcrest.CoreMatchers.not
 import org.junit.Before
 import org.junit.Rule
@@ -43,10 +41,6 @@ class RecommendFragmentTest : LimeDbTest() {
     @JvmField
     val dataBindingIdlingResourceRule = DataBindingIdlingResourceRule(activityRule)
 
-    @ExperimentalCoroutinesApi
-    @Rule
-    @JvmField
-    val testDispatchersRule = TestDispatchersRule()
 
     private val fragment = RecommendFragment()
 
@@ -100,15 +94,12 @@ class RecommendFragmentTest : LimeDbTest() {
 
     @ExperimentalCoroutinesApi
     @Test
-    fun testLoaded()=testDispatchersRule.testScope.runBlockingTest{
-        withContext(Dispatchers.Main){
-            MusicMapper(MusicEntityCreator.createRecommendMusicEntity(), MusicEntityCreator.createMusicUrlsEntity())
-                    .saveMusic(db)
-            val musicInformation = db.musicInformationDao().getAllMusicInformation().first()
-            resource.value = Resource.success(listOf(musicInformation))
-            onView(withId(R.id.recommend_item_root)).check(matches(isDisplayed()))
-        }
-
+    fun testLoaded() = runBlocking<Unit> {
+        MusicMapper(MusicEntityCreator.createRecommendMusicEntity(), MusicEntityCreator.createMusicUrlsEntity())
+                .saveMusic(db)
+        val musicInformation = db.musicInformationDao().getAllMusicInformation().first()
+        resource.value = Resource.success(listOf(musicInformation))
+        onView(withId(R.id.recommend_item_root)).check(matches(isDisplayed()))
 
     }
 
