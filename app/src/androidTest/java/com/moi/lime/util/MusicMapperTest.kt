@@ -18,10 +18,6 @@ class MusicMapperTest : LimeDbTest() {
     @JvmField
     val testDispatchersRule = TestDispatchersRule()
 
-    @Rule
-    @JvmField
-    val rxSchedulerRule = RxSchedulerRule()
-
 
     @ExperimentalCoroutinesApi
     @Test

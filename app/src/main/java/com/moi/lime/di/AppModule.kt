@@ -20,7 +20,6 @@ import dagger.Module
 import dagger.Provides
 import okhttp3.OkHttpClient
 import retrofit2.Retrofit
-import retrofit2.adapter.rxjava2.RxJava2CallAdapterFactory
 import retrofit2.converter.gson.GsonConverterFactory
 import javax.inject.Singleton
 
@@ -28,21 +27,26 @@ import javax.inject.Singleton
 class AppModule {
     @Singleton
     @Provides
-    fun provideMoiService(context: Context): MoiService {
+    fun provideMoiService(context: Context, signInExpireInterceptor: SignInExpireInterceptor): MoiService {
         val cookieJar = PersistentCookieJar(SetCookieCache(), SharedPrefsCookiePersistor(context))
 
         val okHttpClient = OkHttpClient.Builder()
                 .cookieJar(cookieJar)
-                .addInterceptor(SignInExpireInterceptor())
+                .addInterceptor(signInExpireInterceptor)
                 .build()
 
         return Retrofit.Builder()
                 .client(okHttpClient)
                 .baseUrl("http://192.168.1.23:3000/")
                 .addConverterFactory(GsonConverterFactory.create())
-                .addCallAdapterFactory(RxJava2CallAdapterFactory.create())
                 .build()
                 .create(MoiService::class.java)
+    }
+
+    @Singleton
+    @Provides
+    fun provideSignInExpireInterceptor(): SignInExpireInterceptor {
+        return SignInExpireInterceptor()
     }
 
     @Singleton
@@ -75,7 +79,7 @@ class AppModule {
 
     @Singleton
     @Provides
-    fun provideDispachers() = DefaultDispatchers() as Dispatchers
+    fun provideDispatchers() = DefaultDispatchers() as Dispatchers
 
     @Provides
     fun provideLoadingRecommendSwitcher(context: Context): LoadingRecommendSwitcher {

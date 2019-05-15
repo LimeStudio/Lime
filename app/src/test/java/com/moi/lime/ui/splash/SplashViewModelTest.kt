@@ -1,9 +1,7 @@
 package com.moi.lime.ui.splash
 
 import androidx.arch.core.executor.testing.InstantTaskExecutorRule
-import androidx.lifecycle.Observer
 import com.moi.lime.core.user.UserManager
-import com.moi.lime.util.RxSchedulerRule
 import com.moi.lime.util.TestDispatchers
 import com.moi.lime.util.TestDispatchersRule
 import com.moi.lime.util.mock

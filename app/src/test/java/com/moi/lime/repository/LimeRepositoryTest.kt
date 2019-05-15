@@ -8,8 +8,8 @@ import com.moi.lime.util.*
 import com.moi.lime.vo.OnlyCodeBean
 import com.moi.lime.vo.Resource
 import com.moi.lime.vo.SignInByPhoneBean
-import io.reactivex.Flowable
 import kotlinx.coroutines.ExperimentalCoroutinesApi
+import kotlinx.coroutines.runBlocking
 import kotlinx.coroutines.test.runBlockingTest
 import okio.Okio
 import org.junit.Before
@@ -37,9 +37,9 @@ class LimeRepositoryTest {
 
     @ExperimentalCoroutinesApi
     @Before
-    fun setUp() {
+    fun setUp() = runBlocking {
         val db = mock(LimeDb::class.java)
-        `when`(service.signInRefresh()).thenReturn(Flowable.just(OnlyCodeBean(200)))
+        `when`(service.signInRefresh()).thenReturn(OnlyCodeBean(200))
         limeRepository = LimeRepository(userManager, service, db, TestDispatchers(testDispatchersRule.testDispatcher))
     }
 

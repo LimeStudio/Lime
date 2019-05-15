@@ -1,8 +1,6 @@
 package com.moi.lime.util
 
 import com.moi.lime.vo.Profile
-import io.reactivex.plugins.RxJavaPlugins
-import io.reactivex.schedulers.Schedulers
 
 fun createProfile(isSignIn: Boolean = true): Profile {
     return Profile(
@@ -17,11 +15,5 @@ fun createProfile(isSignIn: Boolean = true): Profile {
             true,
             "1",
             "1")
-}
 
-fun asyncToSync() {
-    RxJavaPlugins.reset()
-    RxJavaPlugins.setIoSchedulerHandler {
-        return@setIoSchedulerHandler Schedulers.trampoline()
-    }
 }

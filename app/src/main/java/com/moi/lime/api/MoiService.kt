@@ -1,14 +1,13 @@
 package com.moi.lime.api
 
 import com.moi.lime.vo.*
-import io.reactivex.Flowable
 import retrofit2.http.GET
 import retrofit2.http.Query
 
 
 interface MoiService {
     @GET("music/url")
-    fun getMusicUrl(@Query("id") id: String): Flowable<MusicUrlBean>
+    suspend fun getMusicUrl(@Query("id") id: String): MusicUrlBean
 
     @GET("login/cellphone")
     suspend fun signInByPhone(@Query("phone") phoneNumber: String,
@@ -16,7 +15,7 @@ interface MoiService {
             : SignInByPhoneBean
 
     @GET("login/refresh")
-    fun signInRefresh(): Flowable<OnlyCodeBean>
+    suspend fun signInRefresh(): OnlyCodeBean
 
     @GET("recommend/songs")
     suspend fun fetchRecommendSongs(): RecommendSongsEntity

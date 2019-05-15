@@ -134,6 +134,11 @@ android_junit.junit = "androidx.test.ext:junit:$versions.android_junit"
 android_junit.truth = "androidx.test.ext:truth:$versions.android_junit"
 deps.android_junit = android_junit
 
+def coroutines = [:]
+coroutines.android = "org.jetbrains.kotlinx:kotlinx-coroutines-android:$versions.coroutines"
+coroutines.test = "org.jetbrains.kotlinx:kotlinx-coroutines-test:$versions.coroutines"
+deps.coroutines = coroutines
+
 deps.androidx_test_core = "androidx.test:core:$versions.androidx_test_core"
 deps.rxjava2 = "io.reactivex.rxjava2:rxjava:$versions.rxjava2"
 deps.rx_android = "io.reactivex.rxjava2:rxandroid:$versions.rx_android"
@@ -141,6 +146,5 @@ deps.junit = "junit:junit:$versions.junit"
 deps.android_gradle_plugin = "com.android.tools.build:gradle:$versions.android_gradle_plugin"
 deps.mock_web_server = "com.squareup.okhttp3:mockwebserver:$versions.mockwebserver"
 deps.persistent_cookie_jar = "com.github.franmontiel:PersistentCookieJar:$versions.persistent_cookie_jar"
-deps.coroutines_android = "org.jetbrains.kotlinx:kotlinx-coroutines-android:$versions.coroutines"
 
 ext.deps = deps

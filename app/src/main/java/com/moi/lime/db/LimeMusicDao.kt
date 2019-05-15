@@ -5,7 +5,6 @@ import androidx.room.Insert
 import androidx.room.OnConflictStrategy
 import androidx.room.Query
 import com.moi.lime.vo.LimeMusic
-import io.reactivex.Single
 
 @Dao
 interface LimeMusicDao {
@@ -13,7 +12,7 @@ interface LimeMusicDao {
     fun insertAll(vararg limeMusic: LimeMusic)
 
     @Query("SELECT * FROM lime_music")
-    fun getAll(): Single<List<LimeMusic>>
+    suspend fun getAll(): List<LimeMusic>
 
     @Query("DELETE FROM lime_music")
     fun deleteAll()

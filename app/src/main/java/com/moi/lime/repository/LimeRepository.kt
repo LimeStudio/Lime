@@ -10,9 +10,7 @@ import com.moi.lime.db.LimeDb
 import com.moi.lime.util.MusicMapper
 import com.moi.lime.util.resourceLiveData
 import com.moi.lime.vo.MusicInformation
-import com.moi.lime.vo.RecommendSongsEntity
 import com.moi.lime.vo.Resource
-import io.reactivex.Flowable
 import javax.inject.Inject
 
 @OpenForTesting

@@ -7,11 +7,8 @@ import androidx.lifecycle.viewModelScope
 import com.lime.testing.OpenForTesting
 import com.moi.lime.core.dispatch.Dispatchers
 import com.moi.lime.core.user.UserManager
-import io.reactivex.Single
-import io.reactivex.android.schedulers.AndroidSchedulers
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.launch
-import java.util.concurrent.TimeUnit
 import javax.inject.Inject
 
 @OpenForTesting

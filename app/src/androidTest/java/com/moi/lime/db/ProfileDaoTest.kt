@@ -1,7 +1,6 @@
 package com.moi.lime.db
 
 import androidx.arch.core.executor.testing.InstantTaskExecutorRule
-import androidx.room.EmptyResultSetException
 import androidx.test.ext.junit.runners.AndroidJUnit4
 import com.moi.lime.util.TestDispatchersRule
 import com.moi.lime.util.createProfile

@@ -3,8 +3,11 @@ package com.moi.lime.db
 import androidx.arch.core.executor.testing.InstantTaskExecutorRule
 import com.moi.lime.vo.LimeArtist
 import com.moi.lime.vo.LimeMusic
+import kotlinx.coroutines.runBlocking
 import org.junit.Rule
 import org.junit.Test
+import kotlin.test.assertEquals
+import kotlin.test.assertNull
 
 
 class LimeArtistDaoTest : LimeDbTest() {
@@ -13,30 +16,23 @@ class LimeArtistDaoTest : LimeDbTest() {
     val instantExecutorRule = InstantTaskExecutorRule()
 
     @Test
-    fun insertAndLoadAllTest() {
+    fun insertAndLoadAllTest() = runBlocking {
         val list = createLimeArtistList()
         db.limeMusicDao().insertAll(LimeMusic("test", "1", 400, "test"))
         db.limeArtistDao().insertAll(*list.toTypedArray())
-        db.limeArtistDao().getAll()
-                .test()
-                .assertValue {
-                    it == list && it.size == 2
-                }
+        val artists = db.limeArtistDao().getAll()
+        assertEquals(2, artists.size)
 
     }
 
     @Test
-    fun insertAndDeleteAllTest() {
+    fun insertAndDeleteAllTest() = runBlocking {
         val list = createLimeArtistList()
         db.limeMusicDao().insertAll(LimeMusic("test", "1", 400, "test"))
         db.limeArtistDao().insertAll(*list.toTypedArray())
         db.limeArtistDao().deleteAll()
-        db.limeArtistDao()
-                .getAll()
-                .test()
-                .assertValue {
-                    it.isEmpty()
-                }
+        val artists = db.limeArtistDao().getAll()
+        assertEquals(0, artists.size)
 
     }
 
