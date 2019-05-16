@@ -9,6 +9,8 @@ import com.franmontiel.persistentcookiejar.persistence.SharedPrefsCookiePersisto
 import com.moi.lime.LimeApp
 import com.moi.lime.api.MoiService
 import com.moi.lime.api.SignInExpireInterceptor
+import com.moi.lime.core.dispatch.DefaultDispatchers
+import com.moi.lime.core.dispatch.Dispatchers
 import com.moi.lime.core.user.Cardinal
 import com.moi.lime.core.user.UserManager
 import com.moi.lime.db.LimeDb
@@ -18,7 +20,6 @@ import dagger.Module
 import dagger.Provides
 import okhttp3.OkHttpClient
 import retrofit2.Retrofit
-import retrofit2.adapter.rxjava2.RxJava2CallAdapterFactory
 import retrofit2.converter.gson.GsonConverterFactory
 import javax.inject.Singleton
 
@@ -26,21 +27,26 @@ import javax.inject.Singleton
 class AppModule {
     @Singleton
     @Provides
-    fun provideMoiService(context: Context): MoiService {
+    fun provideMoiService(context: Context, signInExpireInterceptor: SignInExpireInterceptor): MoiService {
         val cookieJar = PersistentCookieJar(SetCookieCache(), SharedPrefsCookiePersistor(context))
 
         val okHttpClient = OkHttpClient.Builder()
                 .cookieJar(cookieJar)
-                .addInterceptor(SignInExpireInterceptor())
+                .addInterceptor(signInExpireInterceptor)
                 .build()
 
         return Retrofit.Builder()
                 .client(okHttpClient)
-                .baseUrl("http://180.76.149.111:3000/")
+                .baseUrl("http://192.168.6.116:3000/")
                 .addConverterFactory(GsonConverterFactory.create())
-                .addCallAdapterFactory(RxJava2CallAdapterFactory.create())
                 .build()
                 .create(MoiService::class.java)
+    }
+
+    @Singleton
+    @Provides
+    fun provideSignInExpireInterceptor(): SignInExpireInterceptor {
+        return SignInExpireInterceptor()
     }
 
     @Singleton
@@ -69,6 +75,11 @@ class AppModule {
     fun provideContext(): Context {
         return LimeApp.instance
     }
+
+
+    @Singleton
+    @Provides
+    fun provideDispatchers() = DefaultDispatchers() as Dispatchers
 
     @Provides
     fun provideLoadingRecommendSwitcher(context: Context): LoadingRecommendSwitcher {

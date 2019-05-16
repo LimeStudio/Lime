@@ -33,7 +33,7 @@ class HomeFragmentTest {
     fun setUp() {
         val homeFragment = TestHomeFragment()
         activityRule.activity.setFragment(homeFragment)
-      //  InstrumentationRegistry.getInstrumentation().waitForIdleSync()
+        InstrumentationRegistry.getInstrumentation().waitForIdleSync()
     }
 
     @Test

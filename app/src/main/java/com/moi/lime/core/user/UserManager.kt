@@ -2,7 +2,6 @@ package com.moi.lime.core.user
 
 import com.moi.lime.vo.Profile
 import com.moi.lime.vo.SignInByPhoneBean
-import io.reactivex.Single
 
 interface UserManager {
     fun saveUser(signInByPhoneBean: SignInByPhoneBean): Boolean
@@ -10,5 +9,5 @@ interface UserManager {
     fun updateProfile(profile: Profile)
     fun cleanUser()
     fun isSignIn(): Boolean
-    fun init(): Single<Profile>
+    suspend fun init()
 }

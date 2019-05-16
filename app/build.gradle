@@ -31,6 +31,10 @@ if (!keyStoreFile.exists()) {
 
 
 android {
+    compileOptions {
+        sourceCompatibility JavaVersion.VERSION_1_8
+        targetCompatibility JavaVersion.VERSION_1_8
+    }
     signingConfigs {
         config {
             keyAlias keystoreProperties['keyAlias']
@@ -90,16 +94,18 @@ dependencies {
     //kotlin
     implementation deps.kotlin.stdlib
     //lifecycle
+    implementation deps.lifecycle.java8
+    implementation deps.lifecycle.viewmodel
+    implementation deps.lifecycle.livedata
     implementation deps.lifecycle.runtime
     implementation deps.lifecycle.extensions
     kapt deps.lifecycle.compiler
     //room
     implementation deps.room.runtime
-    implementation deps.room.rxjava2
+    implementation deps.room.coroutines
     kapt deps.room.compiler
     //paging
     implementation deps.paging.runtime
-    implementation deps.paging.rxjava2
     //workManager
     implementation deps.work.runtime_ktx
     //navigation
@@ -119,15 +125,12 @@ dependencies {
     //glide
     implementation deps.glide.core
     kapt deps.glide.compiler
-    //rxJava
-    implementation deps.rxjava2
-    //rxAndroid
-    implementation deps.rx_android
+    //coroutines_android
+    implementation deps.coroutines.android
     //retrofit
     implementation deps.retrofit.runtime
     implementation deps.retrofit.gson
     implementation deps.retrofit.mock
-    implementation deps.retrofit.rxjava2
     //dagger
     implementation deps.dagger.runtime
     implementation deps.dagger.android
@@ -145,6 +148,8 @@ dependencies {
     testImplementation deps.mockito.core
     androidTestImplementation deps.mockito.core
     androidTestImplementation deps.mockito.android
+    androidTestImplementation deps.kotlin.test
+
 
     // Core library
     androidTestImplementation deps.androidx_test_core
@@ -170,6 +175,11 @@ dependencies {
     androidTestImplementation deps.support.recyclerview
     androidTestImplementation deps.support.cardview
     androidTestImplementation deps.support.material
+
+    //coroutines test
+    testImplementation   deps.coroutines.test
+    androidTestImplementation deps.coroutines.test
+
 }
 
 tasks.withType(Test) {

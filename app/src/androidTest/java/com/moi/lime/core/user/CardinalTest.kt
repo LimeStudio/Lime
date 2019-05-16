@@ -1,19 +1,23 @@
 package com.moi.lime.core.user
 
 import androidx.arch.core.executor.testing.InstantTaskExecutorRule
-import androidx.room.EmptyResultSetException
 import androidx.test.ext.junit.runners.AndroidJUnit4
 import com.moi.lime.db.LimeDbTest
 import com.moi.lime.util.createProfile
 import com.moi.lime.util.toBean
+import com.moi.lime.vo.SignInByPhoneBean
+import kotlinx.coroutines.ExperimentalCoroutinesApi
+import kotlinx.coroutines.runBlocking
 import okio.Okio
 import org.junit.Assert.assertTrue
-import org.junit.Test
-
 import org.junit.Before
 import org.junit.Rule
+import org.junit.Test
 import org.junit.runner.RunWith
+import kotlin.test.assertFalse
+import kotlin.test.assertNull
 
+@ExperimentalCoroutinesApi
 @RunWith(AndroidJUnit4::class)
 class CardinalTest : LimeDbTest() {
     @Rule
@@ -28,76 +32,59 @@ class CardinalTest : LimeDbTest() {
     }
 
     @Test
-    fun testInitAndSave() {
+    fun testInitAndSave() = runBlocking {
         userManager.init()
-                .test()
-                .assertError(EmptyResultSetException::class.java)
         val result = userManager.saveUser(getSignInJson().toBean()!!)
-        assert(result)
+        assertTrue(result)
 
     }
 
     @Test
-    fun testInitAndGetProfile() {
-        val profile = createProfile(true)
-        db.profileDao().insert(profile)
+    fun testInitAndSaveFailed() = runBlocking {
         userManager.init()
-                .test()
-                .assertValue {
-                    it.uid == profile.uid
-                }
-        assert(userManager.getProfile()?.uid == profile.uid)
+        val signInByPhoneBean: SignInByPhoneBean = getSignInJson().toBean()!!
+        val profile = signInByPhoneBean.profile?.copy(userId = null)
+        val result = userManager.saveUser(signInByPhoneBean.copy(profile = profile))
+        assertFalse(result)
 
     }
 
     @Test
-    fun testUpdateProfile() {
+    fun testInitAndGetProfile() = runBlocking {
+        val profile = createProfile(true)
+        db.profileDao().insert(profile)
+        userManager.init()
+        assertTrue(userManager.getProfile()?.uid == profile.uid)
+
+    }
+
+    @Test
+    fun testUpdateProfile() = runBlocking {
         val profile = createProfile(true)
         db.profileDao().insert(profile)
 
         userManager.init()
-                .test()
-                .assertValue {
-                    it.uid == profile.uid
-                }
-
-        val newProfile = createProfile(true).copy(uid = "test")
-
+        val newProfile = profile.copy(uid = "test")
         userManager.updateProfile(newProfile)
 
-        assert(userManager.getProfile()?.uid == newProfile.uid)
-        db.profileDao().findUserBySignIn(true)
-                .map { it.uid }
-                .test()
-                .assertValue(newProfile.uid)
+        assertTrue(userManager.getProfile()?.uid == newProfile.uid)
     }
 
     @Test
-    fun testCleanUser() {
+    fun testCleanUser() = runBlocking {
         val profile = createProfile(true)
         db.profileDao().insert(profile)
         userManager.init()
-                .test()
-                .assertValue {
-                    it.uid == profile.uid
-                }
         userManager.cleanUser()
-        db.profileDao()
-                .findUserBySignIn(true)
-                .test()
-                .assertError(EmptyResultSetException::class.java)
-
+        assertNull(db.profileDao()
+                .findUserBySignIn(true))
     }
 
     @Test
-    fun testIsSignIn() {
+    fun testIsSignIn() = runBlocking {
         userManager.init()
-                .test()
-        assertTrue(!userManager.isSignIn())
-
         val profile = createProfile(true)
         userManager.updateProfile(profile)
-
         assertTrue(userManager.isSignIn())
 
 

@@ -3,9 +3,12 @@ package com.moi.lime.db
 import androidx.arch.core.executor.testing.InstantTaskExecutorRule
 import androidx.test.ext.junit.runners.AndroidJUnit4
 import com.moi.lime.vo.LimeMusic
+import kotlinx.coroutines.runBlocking
 import org.junit.Rule
 import org.junit.Test
 import org.junit.runner.RunWith
+import kotlin.test.assertEquals
+import kotlin.test.assertNull
 
 @RunWith(AndroidJUnit4::class)
 class LimeMusicDaoTest : LimeDbTest() {
@@ -14,29 +17,21 @@ class LimeMusicDaoTest : LimeDbTest() {
     val instantExecutorRule = InstantTaskExecutorRule()
 
     @Test
-    fun insertAndLoadAllTest() {
+    fun insertAndLoadAllTest() = runBlocking {
         val list = createLimeMusicList()
         db.limeMusicDao().insertAll(*list.toTypedArray())
-        db.limeMusicDao().getAll()
-                .test()
-                .assertValue {
-                    it == list && it.size==2
-                }
+        val music = db.limeMusicDao().getAll()
+        assertEquals(2, music.size)
 
     }
 
     @Test
-    fun insertAndDeleteAllTest() {
+    fun insertAndDeleteAllTest() = runBlocking {
         val list = createLimeMusicList()
         db.limeMusicDao().insertAll(*list.toTypedArray())
         db.limeMusicDao().deleteAll()
-        db.limeMusicDao()
-                .getAll()
-                .test()
-                .assertValue {
-                    it.isEmpty()
-                }
-
+        val music = db.limeMusicDao().getAll()
+        assertEquals(0, music.size)
     }
 
     private fun createLimeMusicList(): List<LimeMusic> {
