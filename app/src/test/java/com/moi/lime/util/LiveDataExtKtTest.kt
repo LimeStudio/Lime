@@ -12,6 +12,7 @@ import org.junit.Rule
 import org.junit.Test
 import org.junit.runner.RunWith
 import org.junit.runners.JUnit4
+import java.lang.Exception
 import kotlin.test.assertEquals
 
 @RunWith(JUnit4::class)
@@ -51,6 +52,22 @@ class LiveDataExtKtTest {
             assertEquals(Resource.loading(null), subject.value)
             advanceTimeBy(1000)
             assertEquals(Resource.success("test"), subject.value)
+
+        }
+    }
+
+    @ExperimentalCoroutinesApi
+    @Test
+    fun testResourceLiveDataError() = testScope.runBlockingTest {
+        val exception = Exception()
+        val subject = resourceLiveData {
+            delay(1000)
+            throw exception
+        }
+        subject.observeForTesting {
+            assertEquals(Resource.loading(null), subject.value)
+            advanceTimeBy(1000)
+            assertEquals(Resource.error(exception,null), subject.value)
 
         }
     }

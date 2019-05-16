@@ -37,7 +37,7 @@ class AppModule {
 
         return Retrofit.Builder()
                 .client(okHttpClient)
-                .baseUrl("http://192.168.1.23:3000/")
+                .baseUrl("http://192.168.6.116:3000/")
                 .addConverterFactory(GsonConverterFactory.create())
                 .build()
                 .create(MoiService::class.java)

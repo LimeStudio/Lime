@@ -3,17 +3,18 @@ package com.moi.lime.core.user
 import androidx.arch.core.executor.testing.InstantTaskExecutorRule
 import androidx.test.ext.junit.runners.AndroidJUnit4
 import com.moi.lime.db.LimeDbTest
-import com.moi.lime.util.TestDispatchersRule
 import com.moi.lime.util.createProfile
 import com.moi.lime.util.toBean
+import com.moi.lime.vo.SignInByPhoneBean
 import kotlinx.coroutines.ExperimentalCoroutinesApi
-import kotlinx.coroutines.test.runBlockingTest
+import kotlinx.coroutines.runBlocking
 import okio.Okio
 import org.junit.Assert.assertTrue
 import org.junit.Before
 import org.junit.Rule
 import org.junit.Test
 import org.junit.runner.RunWith
+import kotlin.test.assertFalse
 import kotlin.test.assertNull
 
 @ExperimentalCoroutinesApi
@@ -25,17 +26,13 @@ class CardinalTest : LimeDbTest() {
 
     private lateinit var userManager: UserManager
 
-    @Rule
-    @JvmField
-    val testDispatchersRule = TestDispatchersRule()
-
     @Before
     fun setUp() {
         userManager = Cardinal(db.profileDao())
     }
 
     @Test
-    fun testInitAndSave() = testDispatchersRule.testScope.runBlockingTest {
+    fun testInitAndSave() = runBlocking {
         userManager.init()
         val result = userManager.saveUser(getSignInJson().toBean()!!)
         assertTrue(result)
@@ -43,7 +40,17 @@ class CardinalTest : LimeDbTest() {
     }
 
     @Test
-    fun testInitAndGetProfile() = testDispatchersRule.testScope.runBlockingTest {
+    fun testInitAndSaveFailed() = runBlocking {
+        userManager.init()
+        val signInByPhoneBean: SignInByPhoneBean = getSignInJson().toBean()!!
+        val profile = signInByPhoneBean.profile?.copy(userId = null)
+        val result = userManager.saveUser(signInByPhoneBean.copy(profile = profile))
+        assertFalse(result)
+
+    }
+
+    @Test
+    fun testInitAndGetProfile() = runBlocking {
         val profile = createProfile(true)
         db.profileDao().insert(profile)
         userManager.init()
@@ -52,7 +59,7 @@ class CardinalTest : LimeDbTest() {
     }
 
     @Test
-    fun testUpdateProfile() = testDispatchersRule.testScope.runBlockingTest {
+    fun testUpdateProfile() = runBlocking {
         val profile = createProfile(true)
         db.profileDao().insert(profile)
 
@@ -64,7 +71,7 @@ class CardinalTest : LimeDbTest() {
     }
 
     @Test
-    fun testCleanUser() = testDispatchersRule.testScope.runBlockingTest {
+    fun testCleanUser() = runBlocking {
         val profile = createProfile(true)
         db.profileDao().insert(profile)
         userManager.init()
@@ -74,7 +81,7 @@ class CardinalTest : LimeDbTest() {
     }
 
     @Test
-    fun testIsSignIn() = testDispatchersRule.testScope.runBlockingTest {
+    fun testIsSignIn() = runBlocking {
         userManager.init()
         val profile = createProfile(true)
         userManager.updateProfile(profile)

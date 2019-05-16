@@ -45,7 +45,7 @@ class LimeRepositoryTest {
 
     @ExperimentalCoroutinesApi
     @Test
-    fun testSignIn() = testDispatchersRule.testScope.runBlockingTest {
+    fun testSignInSuccess() = testDispatchersRule.testScope.runBlockingTest {
         val inputStream = javaClass
                 .getResourceAsStream("/api-response/SignInResponse")
         val source = Okio.buffer(Okio.source(inputStream!!))
@@ -58,6 +58,26 @@ class LimeRepositoryTest {
         subject.observeForTesting {
             assertEquals(Resource.success(true), subject.value)
             verify(userManager).saveUser(signInByPhoneBean)
+            Mockito.verify(service).signInByPhone("test", "test")
+        }
+
+    }
+
+    @ExperimentalCoroutinesApi
+    @Test
+    fun testSignInFailed() = testDispatchersRule.testScope.runBlockingTest {
+        val inputStream = javaClass
+                .getResourceAsStream("/api-response/SignInResponse")
+        val source = Okio.buffer(Okio.source(inputStream!!))
+
+        val signInByPhoneBean = source.readString(Charsets.UTF_8).toBean<SignInByPhoneBean>()!!
+        `when`(service.signInByPhone(ArgumentMatchers.anyString(), ArgumentMatchers.anyString()))
+                .thenReturn(signInByPhoneBean.copy(code = 400))
+
+        val subject = limeRepository.signIn("test", "test")
+        subject.observeForTesting {
+            assertEquals(Resource.success(false), subject.value)
+            verify(userManager, never()).saveUser(signInByPhoneBean)
             Mockito.verify(service).signInByPhone("test", "test")
         }
 

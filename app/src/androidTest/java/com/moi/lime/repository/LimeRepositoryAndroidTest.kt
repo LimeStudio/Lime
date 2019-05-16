@@ -10,10 +10,13 @@ import com.moi.lime.vo.MusicInformation
 import com.moi.lime.vo.Resource
 import kotlinx.coroutines.ExperimentalCoroutinesApi
 import kotlinx.coroutines.test.runBlockingTest
+import okhttp3.ResponseBody
 import org.junit.Rule
 import org.junit.Test
 import org.mockito.ArgumentMatchers
 import org.mockito.Mockito.*
+import retrofit2.HttpException
+import retrofit2.Response
 import kotlin.test.assertEquals
 
 class LimeRepositoryAndroidTest : LimeDbTest() {
@@ -61,4 +64,18 @@ class LimeRepositoryAndroidTest : LimeDbTest() {
         verify(service, never()).fetchMusicUrlById(ArgumentMatchers.anyString())
 
     }
+
+    @ExperimentalCoroutinesApi
+    @Test
+    fun fetchRecommendMusicsFailed() = testDispatchersRule.testScope.runBlockingTest {
+        val testException = HttpException(Response.error<String>(400, ResponseBody.create(null, "{}")))
+        `when`(service.fetchRecommendSongs()).thenThrow(testException)
+        limeRepository = LimeRepository(userManager, service, db, TestDispatchers(testDispatchersRule.testDispatcher))
+        val subject = limeRepository.fetchRecommendMusics(false)
+        subject.observeForever { Unit }
+        verify(service).fetchRecommendSongs()
+        verify(service, never()).fetchMusicUrlById(ArgumentMatchers.anyString())
+        assertEquals(Resource.error(testException, null), subject.value)
+    }
+
 }
