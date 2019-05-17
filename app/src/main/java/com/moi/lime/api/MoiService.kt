@@ -11,7 +11,7 @@ interface MoiService {
 
     @GET("login/cellphone")
     suspend fun signInByPhone(@Query("phone") phoneNumber: String,
-                      @Query("password") password: String)
+                              @Query("password") password: String)
             : SignInByPhoneBean
 
     @GET("login/refresh")
@@ -24,6 +24,6 @@ interface MoiService {
     suspend fun fetchMusicUrlById(@Query("id") ids: String): MusicUrlsEntity
 
     @GET("user/playlist")
-    fun fetchUserPlayLists(@Query("uid") uid: String):Flowable<UserPlayLists>
+    suspend fun fetchUserPlayLists(@Query("uid") uid: String): UserPlayLists
 
 }

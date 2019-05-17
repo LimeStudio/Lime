@@ -2,12 +2,12 @@ package com.moi.lime.ui.home.profile
 
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.ViewModel
+import androidx.lifecycle.map
+import androidx.lifecycle.switchMap
 import com.lime.testing.OpenForTesting
 import com.moi.lime.core.livedata.SingleLiveEvent
 import com.moi.lime.core.user.UserManager
 import com.moi.lime.repository.LimeRepository
-import com.moi.lime.util.map
-import com.moi.lime.util.switchMap
 import com.moi.lime.vo.Resource
 import com.moi.lime.vo.Status
 import com.moi.lime.vo.UserPlayLists
