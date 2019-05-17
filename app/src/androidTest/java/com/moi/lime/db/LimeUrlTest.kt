@@ -3,8 +3,11 @@ package com.moi.lime.db
 import androidx.arch.core.executor.testing.InstantTaskExecutorRule
 import com.moi.lime.vo.LimeMusic
 import com.moi.lime.vo.LimeUrl
+import kotlinx.coroutines.runBlocking
 import org.junit.Rule
 import org.junit.Test
+import kotlin.test.assertEquals
+import kotlin.test.assertNull
 
 class LimeUrlTest : LimeDbTest() {
     @Rule
@@ -12,31 +15,24 @@ class LimeUrlTest : LimeDbTest() {
     val instantExecutorRule = InstantTaskExecutorRule()
 
     @Test
-    fun insertAndLoadAllTest() {
+    fun insertAndLoadAllTest() = runBlocking {
         val list = createLimeUrlList()
         db.limeMusicDao().insertAll(LimeMusic("test", "1", 400, "test"))
         db.limeUrlDao().insertAll(*list.toTypedArray())
-        db.limeUrlDao().getAll()
-                .test()
-                .assertValue {
-                    it == list && it.size == 2
-                }
+        val urls = db.limeUrlDao().getAll()
+        assertEquals(2, urls.size)
+
 
     }
 
     @Test
-    fun insertAndDeleteAllTest() {
+    fun insertAndDeleteAllTest() = runBlocking {
         val list = createLimeUrlList()
         db.limeMusicDao().insertAll(LimeMusic("test", "1", 400, "test"))
         db.limeUrlDao().insertAll(*list.toTypedArray())
         db.limeUrlDao().deleteAll()
-        db.limeUrlDao()
-                .getAll()
-                .test()
-                .assertValue {
-                    it.isEmpty()
-                }
-
+        val urls = db.limeUrlDao().getAll()
+        assertEquals(0, urls.size)
     }
 
     private fun createLimeUrlList(): List<LimeUrl> {

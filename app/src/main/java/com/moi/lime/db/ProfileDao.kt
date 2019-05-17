@@ -1,8 +1,10 @@
 package com.moi.lime.db
 
-import androidx.room.*
+import androidx.room.Dao
+import androidx.room.Insert
+import androidx.room.OnConflictStrategy
+import androidx.room.Query
 import com.moi.lime.vo.Profile
-import io.reactivex.Single
 
 @Dao
 interface ProfileDao {
@@ -10,10 +12,10 @@ interface ProfileDao {
     fun insert(profile: Profile)
 
     @Query("SELECT * FROM profile WHERE uid = :uid")
-    fun findByUid(uid: String): Single<Profile>
+    suspend fun findByUid(uid: String): Profile?
 
     @Query("SELECT * FROM profile WHERE isSignIn = :isSignIn")
-    fun findUserBySignIn(isSignIn:Boolean): Single<Profile>
+    suspend fun findUserBySignIn(isSignIn: Boolean): Profile?
 
     @Query("DELETE FROM profile")
     fun clean()

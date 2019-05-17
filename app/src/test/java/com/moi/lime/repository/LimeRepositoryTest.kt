@@ -1,17 +1,16 @@
 package com.moi.lime.repository
 
 import androidx.arch.core.executor.testing.InstantTaskExecutorRule
-import androidx.lifecycle.Observer
 import com.moi.lime.api.MoiService
 import com.moi.lime.core.user.UserManager
 import com.moi.lime.db.LimeDb
-import com.moi.lime.util.RxSchedulerRule
-import com.moi.lime.util.mock
-import com.moi.lime.util.toBean
+import com.moi.lime.util.*
 import com.moi.lime.vo.OnlyCodeBean
 import com.moi.lime.vo.Resource
 import com.moi.lime.vo.SignInByPhoneBean
-import io.reactivex.Flowable
+import kotlinx.coroutines.ExperimentalCoroutinesApi
+import kotlinx.coroutines.runBlocking
+import kotlinx.coroutines.test.runBlockingTest
 import okio.Okio
 import org.junit.Before
 import org.junit.Rule
@@ -19,44 +18,69 @@ import org.junit.Test
 import org.mockito.ArgumentMatchers
 import org.mockito.Mockito
 import org.mockito.Mockito.*
+import kotlin.test.assertEquals
 
 class LimeRepositoryTest {
     @Rule
     @JvmField
     val instantExecutorRule = InstantTaskExecutorRule()
 
+    @ExperimentalCoroutinesApi
     @Rule
     @JvmField
-    val rxSchedulerRule = RxSchedulerRule()
+    val testDispatchersRule = TestDispatchersRule()
 
     private lateinit var limeRepository: LimeRepository
     private val service = mock<MoiService>()
     private val userManager = mock<UserManager>()
 
 
+    @ExperimentalCoroutinesApi
     @Before
-    fun setUp() {
-        val db = Mockito.mock(LimeDb::class.java)
-        `when`(service.signInRefresh()).thenReturn(Flowable.just(OnlyCodeBean(200)))
-        limeRepository = LimeRepository(userManager, service, db)
+    fun setUp() = runBlocking {
+        val db = mock(LimeDb::class.java)
+        `when`(service.signInRefresh()).thenReturn(OnlyCodeBean(200))
+        limeRepository = LimeRepository(userManager, service, db, TestDispatchers(testDispatchersRule.testDispatcher))
     }
 
+    @ExperimentalCoroutinesApi
     @Test
-    fun testSignIn() {
+    fun testSignInSuccess() = testDispatchersRule.testScope.runBlockingTest {
         val inputStream = javaClass
                 .getResourceAsStream("/api-response/SignInResponse")
         val source = Okio.buffer(Okio.source(inputStream!!))
 
         val signInByPhoneBean = source.readString(Charsets.UTF_8).toBean<SignInByPhoneBean>()!!
         `when`(service.signInByPhone(ArgumentMatchers.anyString(), ArgumentMatchers.anyString()))
-                .thenReturn(Flowable.just(signInByPhoneBean))
+                .thenReturn(signInByPhoneBean)
 
-        val data = limeRepository.signIn("test", "test")
-        val observer = mock<Observer<Resource<Boolean>>>()
-        data.observeForever(observer)
-        verify(userManager).saveUser(signInByPhoneBean)
-        verify(service).signInByPhone("test", "test")
-        verify(observer).onChanged(Resource.success(true))
+        val subject = limeRepository.signIn("test", "test")
+        subject.observeForTesting {
+            assertEquals(Resource.success(true), subject.value)
+            verify(userManager).saveUser(signInByPhoneBean)
+            Mockito.verify(service).signInByPhone("test", "test")
+        }
+
+    }
+
+    @ExperimentalCoroutinesApi
+    @Test
+    fun testSignInFailed() = testDispatchersRule.testScope.runBlockingTest {
+        val inputStream = javaClass
+                .getResourceAsStream("/api-response/SignInResponse")
+        val source = Okio.buffer(Okio.source(inputStream!!))
+
+        val signInByPhoneBean = source.readString(Charsets.UTF_8).toBean<SignInByPhoneBean>()!!
+        `when`(service.signInByPhone(ArgumentMatchers.anyString(), ArgumentMatchers.anyString()))
+                .thenReturn(signInByPhoneBean.copy(code = 400))
+
+        val subject = limeRepository.signIn("test", "test")
+        subject.observeForTesting {
+            assertEquals(Resource.success(false), subject.value)
+            verify(userManager, never()).saveUser(signInByPhoneBean)
+            Mockito.verify(service).signInByPhone("test", "test")
+        }
+
     }
 
 }

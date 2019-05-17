@@ -11,11 +11,9 @@ import androidx.fragment.app.Fragment
 import androidx.navigation.findNavController
 import androidx.navigation.fragment.NavHostFragment
 import com.lime.testing.OpenForTesting
-import com.moi.lime.core.rxjava.RxBus
-import com.moi.lime.vo.SignInExpireEvent
+import com.moi.lime.api.SignInExpireInterceptor
 import dagger.android.DispatchingAndroidInjector
 import dagger.android.support.HasSupportFragmentInjector
-import io.reactivex.disposables.Disposable
 import javax.inject.Inject
 
 @OpenForTesting
@@ -24,7 +22,8 @@ class MainActivity : AppCompatActivity(), HasSupportFragmentInjector {
     @Inject
     lateinit var dispatchingAndroidInjector: DispatchingAndroidInjector<Fragment>
 
-    private lateinit var disposable :Disposable
+    @Inject
+    lateinit var signInExpireInterceptor: SignInExpireInterceptor
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -41,17 +40,10 @@ class MainActivity : AppCompatActivity(), HasSupportFragmentInjector {
         }
         setContentView(R.layout.activity_main)
         initNavGraph()
-        disposable = RxBus.INSTANCE.toFlowable<SignInExpireEvent>()
-                .subscribe({
-                    navController(R.id.frag_nav_simple).navigate(MainNavDirections.actionGlobalSignInFragment())
-                },{})
-    }
-
-    override fun onDestroy() {
-        super.onDestroy()
-        if (::disposable.isInitialized){
-            disposable.dispose()
+        signInExpireInterceptor.onLoginExpire = {
+            navController(R.id.frag_nav_simple).navigate(MainNavDirections.actionGlobalSignInFragment())
         }
+
     }
 
 

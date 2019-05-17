@@ -5,7 +5,6 @@ import androidx.room.Insert
 import androidx.room.OnConflictStrategy
 import androidx.room.Query
 import com.moi.lime.vo.LimeArtist
-import io.reactivex.Single
 
 @Dao
 interface LimeArtistDao {
@@ -13,7 +12,7 @@ interface LimeArtistDao {
     fun insertAll(vararg limeArtist: LimeArtist)
 
     @Query("SELECT * FROM lime_artist")
-    fun getAll(): Single<List<LimeArtist>>
+    suspend fun getAll(): List<LimeArtist>
 
     @Query("DELETE FROM lime_artist")
     fun deleteAll()
