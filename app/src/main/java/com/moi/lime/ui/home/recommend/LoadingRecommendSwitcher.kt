@@ -1,7 +1,5 @@
 package com.moi.lime.ui.home.recommend
 
-import android.app.Application
-import android.content.Context
 import android.content.SharedPreferences
 import androidx.lifecycle.LifecycleOwner
 import androidx.lifecycle.LiveData
@@ -25,7 +23,7 @@ class LoadingRecommendSwitcher(private val sp: SharedPreferences, private val re
         liveData.observe(lifecycleOwner, Observer {
             if (it.status == Status.SUCCESS) {
                 sp.edit().apply {
-                    putLong(RECOMMEND_DAY_KEY,System.currentTimeMillis())
+                    putLong(RECOMMEND_DAY_KEY, System.currentTimeMillis())
                     apply()
                 }
             }
