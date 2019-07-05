@@ -8,9 +8,11 @@ import com.moi.lime.util.*
 import com.moi.lime.vo.OnlyCodeBean
 import com.moi.lime.vo.Resource
 import com.moi.lime.vo.SignInByPhoneBean
+import com.moi.lime.vo.UserPlayLists
 import kotlinx.coroutines.ExperimentalCoroutinesApi
 import kotlinx.coroutines.runBlocking
 import kotlinx.coroutines.test.runBlockingTest
+import okhttp3.ResponseBody
 import okio.Okio
 import org.junit.Before
 import org.junit.Rule
@@ -18,6 +20,8 @@ import org.junit.Test
 import org.mockito.ArgumentMatchers
 import org.mockito.Mockito
 import org.mockito.Mockito.*
+import retrofit2.HttpException
+import retrofit2.Response
 import kotlin.test.assertEquals
 
 class LimeRepositoryTest {
@@ -43,6 +47,39 @@ class LimeRepositoryTest {
         limeRepository = LimeRepository(userManager, service, db, TestDispatchers(testDispatchersRule.testDispatcher))
     }
 
+
+    @ExperimentalCoroutinesApi
+    @Test
+    fun testFetchUserPlayList() = testDispatchersRule.testScope.runBlockingTest {
+
+        val result = UserPlayLists(1, null, true)
+
+        `when`(service.fetchUserPlayLists(ArgumentMatchers.anyString()))
+                .thenReturn(result)
+
+        val subject = limeRepository.fetchUserList()
+        subject.observeForTesting {
+            assertEquals(Resource.success(result), subject.value)
+            verify(service).fetchUserPlayLists(ArgumentMatchers.anyString())
+        }
+
+    }
+
+    @ExperimentalCoroutinesApi
+    @Test
+    fun testFetchUserPlayListFailed() = testDispatchersRule.testScope.runBlockingTest {
+
+        val testException = HttpException(Response.error<String>(400, ResponseBody.create(null, "{}")))
+        `when`(service.fetchUserPlayLists(ArgumentMatchers.anyString())).thenThrow(testException)
+
+        val subject = limeRepository.fetchUserList()
+        subject.observeForTesting {
+            assertEquals(Resource.error(testException, null), subject.value)
+            verify(service).fetchUserPlayLists(ArgumentMatchers.anyString())
+        }
+
+    }
+
     @ExperimentalCoroutinesApi
     @Test
     fun testSignInSuccess() = testDispatchersRule.testScope.runBlockingTest {
@@ -58,7 +95,7 @@ class LimeRepositoryTest {
         subject.observeForTesting {
             assertEquals(Resource.success(true), subject.value)
             verify(userManager).saveUser(signInByPhoneBean)
-            Mockito.verify(service).signInByPhone("test", "test")
+            verify(service).signInByPhone("test", "test")
         }
 
     }
@@ -82,5 +119,6 @@ class LimeRepositoryTest {
         }
 
     }
+
 
 }

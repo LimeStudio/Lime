@@ -19,5 +19,3 @@ fun createProfile(isSignIn: Boolean = true): Profile {
             , 1,
             1)
 }
-
-}
