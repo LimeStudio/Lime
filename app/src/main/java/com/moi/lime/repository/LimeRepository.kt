@@ -11,6 +11,7 @@ import com.moi.lime.util.MusicMapper
 import com.moi.lime.util.resourceLiveData
 import com.moi.lime.vo.MusicInformation
 import com.moi.lime.vo.Resource
+import com.moi.lime.vo.UserPlayLists
 import javax.inject.Inject
 
 @OpenForTesting
@@ -55,6 +56,11 @@ class LimeRepository @Inject constructor(
 
     }
 
+    fun fetchUserList():LiveData<Resource<UserPlayLists>>{
+        return resourceLiveData {
+            moiService.fetchUserPlayLists(userManager.getProfile()?.uid?:"")
+        }
+    }
 
     private fun cleanRecommendDb() {
         with(db) {

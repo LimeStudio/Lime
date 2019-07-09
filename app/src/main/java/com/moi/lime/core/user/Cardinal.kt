@@ -67,9 +67,13 @@ class Cardinal(private val profileDao: ProfileDao) : UserManager {
                     , (gender ?: 0).toString()
                     , birthday ?: 0L
                     , (province ?: 0L).toString()
+                    , (city ?: 0L).toString()
                     , defaultAvatar ?: true
                     , avatarUrl ?: ""
-                    , backgroundUrl ?: "")
+                    , backgroundUrl ?: ""
+                    , follows
+                    , followeds
+            )
         }
     }
 

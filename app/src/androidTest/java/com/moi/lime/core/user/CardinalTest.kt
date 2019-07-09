@@ -4,6 +4,7 @@ import androidx.arch.core.executor.testing.InstantTaskExecutorRule
 import androidx.test.ext.junit.runners.AndroidJUnit4
 import com.moi.lime.db.LimeDbTest
 import com.moi.lime.util.createProfile
+import com.moi.lime.util.loadJsonFromFilePath
 import com.moi.lime.util.toBean
 import com.moi.lime.vo.SignInByPhoneBean
 import kotlinx.coroutines.ExperimentalCoroutinesApi
@@ -34,7 +35,7 @@ class CardinalTest : LimeDbTest() {
     @Test
     fun testInitAndSave() = runBlocking {
         userManager.init()
-        val result = userManager.saveUser(getSignInJson().toBean()!!)
+        val result = userManager.saveUser(loadJsonFromFilePath("/json/SignInJson", javaClass).toBean()!!)
         assertTrue(result)
 
     }
@@ -42,7 +43,7 @@ class CardinalTest : LimeDbTest() {
     @Test
     fun testInitAndSaveFailed() = runBlocking {
         userManager.init()
-        val signInByPhoneBean: SignInByPhoneBean = getSignInJson().toBean()!!
+        val signInByPhoneBean: SignInByPhoneBean = loadJsonFromFilePath("/json/SignInJson", javaClass).toBean()!!
         val profile = signInByPhoneBean.profile?.copy(userId = null)
         val result = userManager.saveUser(signInByPhoneBean.copy(profile = profile))
         assertFalse(result)
@@ -88,12 +89,5 @@ class CardinalTest : LimeDbTest() {
         assertTrue(userManager.isSignIn())
 
 
-    }
-
-    private fun getSignInJson(): String {
-        val inputStream = javaClass
-                .getResourceAsStream("/json/SignInJson")
-        val source = Okio.buffer(Okio.source(inputStream!!))
-        return source.readString(Charsets.UTF_8)
     }
 }

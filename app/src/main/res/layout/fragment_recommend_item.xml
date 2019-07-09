@@ -28,7 +28,7 @@
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:layout_marginStart="@dimen/margin_normal"
-            android:layout_marginTop="@dimen/margin_large"
+            android:layout_marginTop="@dimen/margin_middle"
             android:layout_marginEnd="@dimen/margin_normal"
             android:layout_marginBottom="@dimen/margin_large"
             app:cardElevation="12dp"
@@ -42,8 +42,10 @@
                     android:id="@+id/image_album"
                     android:layout_width="0dp"
                     android:layout_height="0dp"
+                    android:layout_marginBottom="8dp"
+                    android:scaleType="centerCrop"
                     app:imageUrl="@{album.picUrl}"
-                    app:layout_constraintDimensionRatio="1:1"
+                    app:layout_constraintBottom_toTopOf="@+id/guideline2"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toTopOf="parent"
@@ -55,16 +57,18 @@
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:layout_marginStart="@dimen/margin_normal"
-                    android:layout_marginTop="@dimen/margin_normal"
                     android:layout_marginEnd="@dimen/margin_normal"
                     android:ellipsize="end"
                     android:letterSpacing="0.1"
                     android:maxLines="1"
                     android:text="@{music.name}"
                     android:textStyle="bold"
+                    app:layout_constraintBottom_toTopOf="@+id/text_artist"
                     app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintHorizontal_bias="0.5"
                     app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toBottomOf="@+id/image_album"
+                    app:layout_constraintTop_toTopOf="@+id/guideline2"
+                    app:layout_constraintVertical_chainStyle="spread"
                     tools:text="WANTED" />
 
                 <TextView
@@ -72,13 +76,14 @@
                     style="@style/TextOnPrimarySubtitle1"
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
-                    android:layout_marginTop="@dimen/margin_normal"
                     android:layout_marginEnd="@dimen/margin_normal"
                     android:ellipsize="end"
                     android:letterSpacing="0.1"
                     android:maxLines="1"
                     android:text="@{artist.name}"
+                    app:layout_constraintBottom_toTopOf="@+id/text_album"
                     app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintHorizontal_bias="0.5"
                     app:layout_constraintStart_toStartOf="@+id/text_name"
                     app:layout_constraintTop_toBottomOf="@+id/text_name"
                     tools:text="BLUE NEIGHBOURHOOD" />
@@ -88,8 +93,8 @@
                     style="@style/TextOnPrimaryBody3"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_marginTop="@dimen/margin_normal"
                     android:text="@{album.name}"
+                    app:layout_constraintBottom_toTopOf="@+id/guideline3"
                     app:layout_constraintStart_toStartOf="@+id/text_artist"
                     app:layout_constraintTop_toBottomOf="@+id/text_artist"
                     tools:text="by troye sivan" />
@@ -114,8 +119,11 @@
                     android:layout_marginBottom="@dimen/margin_small"
                     app:layout_constraintBottom_toTopOf="@+id/textView6"
                     app:layout_constraintEnd_toStartOf="@+id/appCompatImageView3"
+                    app:layout_constraintHorizontal_bias="0.5"
                     app:layout_constraintHorizontal_chainStyle="spread"
                     app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/guideline3"
+                    app:layout_constraintVertical_chainStyle="packed"
                     app:srcCompat="@drawable/ic_favorite_border_black" />
 
                 <androidx.appcompat.widget.AppCompatImageView
@@ -134,12 +142,14 @@
                     style="@style/TextOnPrimaryBody3"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_marginBottom="@dimen/margin_middle"
+                    android:layout_marginTop="@dimen/margin_small"
                     android:letterSpacing="0.1"
                     android:text="@string/like"
                     app:layout_constraintBottom_toBottomOf="parent"
                     app:layout_constraintEnd_toEndOf="@+id/appCompatImageView4"
-                    app:layout_constraintStart_toStartOf="@+id/appCompatImageView4" />
+                    app:layout_constraintHorizontal_bias="0.5"
+                    app:layout_constraintStart_toStartOf="@+id/appCompatImageView4"
+                    app:layout_constraintTop_toBottomOf="@+id/appCompatImageView4" />
 
                 <TextView
                     style="@style/TextOnPrimaryBody3"
@@ -151,6 +161,21 @@
                     app:layout_constraintEnd_toEndOf="@+id/appCompatImageView3"
                     app:layout_constraintStart_toStartOf="@+id/appCompatImageView3"
                     app:layout_constraintTop_toTopOf="@+id/textView6" />
+
+                <androidx.constraintlayout.widget.Guideline
+                    android:id="@+id/guideline2"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal"
+                    app:layout_constraintGuide_percent="0.55" />
+
+                <androidx.constraintlayout.widget.Guideline
+                    android:id="@+id/guideline3"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal"
+                    app:layout_constraintGuide_percent="0.77" />
+
             </androidx.constraintlayout.widget.ConstraintLayout>
         </com.google.android.material.card.MaterialCardView>
     </FrameLayout>

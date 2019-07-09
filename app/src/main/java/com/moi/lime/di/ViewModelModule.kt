@@ -2,6 +2,7 @@ package com.moi.lime.di
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
+import com.moi.lime.ui.home.profile.ProfileFragmentViewModel
 import com.moi.lime.ui.home.recommend.RecommendFragmentViewModel
 import com.moi.lime.ui.signin.SignInViewModel
 import com.moi.lime.ui.splash.SplashViewModel
@@ -27,6 +28,11 @@ abstract class ViewModelModule {
     @IntoMap
     @ViewModelKey(RecommendFragmentViewModel::class)
     abstract fun bindRecommendFragmentViewModel(recommendFragmentViewModel: RecommendFragmentViewModel): ViewModel
+
+    @Binds
+    @IntoMap
+    @ViewModelKey(ProfileFragmentViewModel::class)
+    abstract fun bindProfileFragmentViewModel(profileFragmentViewModel: ProfileFragmentViewModel): ViewModel
 
     @Binds
     abstract fun bindViewModelFactory(factory: LimeViewModelFactory): ViewModelProvider.Factory

@@ -5,6 +5,7 @@ import com.moi.lime.vo.OnlyCodeBean
 import okhttp3.Interceptor
 import okhttp3.Response
 import okhttp3.ResponseBody
+import java.lang.Exception
 
 
 class SignInExpireInterceptor : Interceptor {
@@ -17,10 +18,16 @@ class SignInExpireInterceptor : Interceptor {
                 response.newBuilder()
                         .body(ResponseBody.create(mediaType, content))
                         .build()
-        val codeBean = content.toBean<OnlyCodeBean>() ?: return returnResponse
-        if (codeBean.code == 301) {
-            onLoginExpire()
+
+        try {
+            val codeBean = content.toBean<OnlyCodeBean>() ?: return returnResponse
+            if (codeBean.code == 301) {
+                onLoginExpire()
+            }
+        } catch (e: Exception) {
+            return returnResponse
         }
+
         return returnResponse
     }
 

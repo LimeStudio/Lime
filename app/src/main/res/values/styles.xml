@@ -18,6 +18,14 @@
         <item name="android:textColor">@color/textOnAccent</item>
     </style>
 
+    <style name="TextGrey">
+        <item name="android:textColor">@color/textGrey</item>
+    </style>
+
+    <style name="TextDarkGrey">
+        <item name="android:textColor">@color/textDarkGrey</item>
+    </style>
+
     <style name="TextOnPrimaryH1" parent="TextOnPrimary">
         <item name="android:textSize">96sp</item>
     </style>
@@ -128,6 +136,118 @@
     </style>
 
     <style name="TextOnAccentOverLine" parent="TextOnAccent">
+        <item name="android:textSize">10sp</item>
+    </style>
+
+    <style name="TextGreyH1" parent="TextGrey">
+    <item name="android:textSize">96sp</item>
+</style>
+
+    <style name="TextGreyH2" parent="TextGrey">
+        <item name="android:textSize">60sp</item>
+    </style>
+
+    <style name="TextGreyH3" parent="TextGrey">
+        <item name="android:textSize">48sp</item>
+    </style>
+
+    <style name="TextGreyH4" parent="TextGrey">
+        <item name="android:textSize">34sp</item>
+    </style>
+
+    <style name="TextGreyH5" parent="TextGrey">
+        <item name="android:textSize">24sp</item>
+    </style>
+
+    <style name="TextGreyH6" parent="TextGrey">
+        <item name="android:textSize">20sp</item>
+    </style>
+
+    <style name="TextGreySubtitle1" parent="TextGrey">
+        <item name="android:textSize">16sp</item>
+    </style>
+
+    <style name="TextGreySubtitle2" parent="TextGrey">
+        <item name="android:textSize">14sp</item>
+    </style>
+
+    <style name="TextGreyBody1" parent="TextGrey">
+        <item name="android:textSize">16sp</item>
+    </style>
+
+    <style name="TextGreyBody2" parent="TextGrey">
+        <item name="android:textSize">14sp</item>
+    </style>
+
+    <style name="TextGreyBody3" parent="TextGrey">
+        <item name="android:textSize">12sp</item>
+    </style>
+
+    <style name="TextGreyButton" parent="TextGrey">
+        <item name="android:textSize">14sp</item>
+    </style>
+
+    <style name="TextGreyCaption" parent="TextGrey">
+        <item name="android:textSize">12sp</item>
+    </style>
+
+    <style name="TextGreyOverLine" parent="TextGrey">
+        <item name="android:textSize">10sp</item>
+    </style>
+
+    <style name="TextDarkGreyH1" parent="TextDarkGrey">
+        <item name="android:textSize">96sp</item>
+    </style>
+
+    <style name="TextDarkGreyH2" parent="TextDarkGrey">
+        <item name="android:textSize">60sp</item>
+    </style>
+
+    <style name="TextDarkGreyH3" parent="TextDarkGrey">
+        <item name="android:textSize">48sp</item>
+    </style>
+
+    <style name="TextDarkGreyH4" parent="TextDarkGrey">
+        <item name="android:textSize">34sp</item>
+    </style>
+
+    <style name="TextDarkGreyH5" parent="TextDarkGrey">
+        <item name="android:textSize">24sp</item>
+    </style>
+
+    <style name="TextDarkGreyH6" parent="TextDarkGrey">
+        <item name="android:textSize">20sp</item>
+    </style>
+
+    <style name="TextDarkGreySubtitle1" parent="TextDarkGrey">
+        <item name="android:textSize">16sp</item>
+    </style>
+
+    <style name="TextDarkGreySubtitle2" parent="TextDarkGrey">
+        <item name="android:textSize">14sp</item>
+    </style>
+
+    <style name="TextDarkGreyBody1" parent="TextDarkGrey">
+        <item name="android:textSize">16sp</item>
+    </style>
+
+    <style name="TextDarkGreyBody2" parent="TextDarkGrey">
+        <item name="android:textSize">14sp</item>
+    </style>
+
+    <style name="TextDarkGreyBody3" parent="TextDarkGrey">
+        <item name="android:textSize">12sp</item>
+    </style>
+
+    <style name="TextDarkGreyButton" parent="TextDarkGrey">
+        <item name="android:textSize">14sp</item>
+    </style>
+
+    <style name="TextDarkGreyCaption" parent="TextDarkGrey">
+        <item name="android:textSize">12sp</item>
+    </style>
+
+    <style name="TextDarkGreyOverLine" parent="TextDarkGrey">
         <item name="android:textSize">10sp</item>
     </style>
 

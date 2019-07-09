@@ -13,7 +13,10 @@ data class Profile(
         val gender: String,
         val birthday: Long,
         val province: String,
+        val city: String,
         val defaultAvatar: Boolean,
         val avatarUrl: String,
-        val backgroundUrl: String
+        val backgroundUrl: String,
+        val follows:Int,
+        val followeds:Int
 )

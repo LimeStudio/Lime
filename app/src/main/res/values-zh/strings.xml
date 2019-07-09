@@ -6,4 +6,9 @@
     <string name="like">喜欢</string>
     <string name="comments">评论</string>
     <string name="retry">重试</string>
+    <string name="my_profile_title">我的</string>
+    <string name="following">关注</string>
+    <string name="followers">粉丝</string>
+    <string name="play_list_i_created">我创建的歌单</string>
+    <string name="view_all">查看全部</string>
 </resources>

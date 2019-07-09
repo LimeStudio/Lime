@@ -10,4 +10,6 @@
 
     <color name="textOnPrimary">#000000</color>
     <color name="textOnAccent">#ffffff</color>
+    <color name="textGrey">#666666</color>
+    <color name="textDarkGrey">#444444</color>
 </resources>
