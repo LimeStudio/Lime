@@ -9,6 +9,7 @@ import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.ViewModelProviders
+import com.lime.testing.OpenForTesting
 import com.moi.lime.R
 import com.moi.lime.databinding.FragmentProfileBinding
 import com.moi.lime.di.Injectable
@@ -19,6 +20,7 @@ import com.moi.lime.vo.PlaylistItem
 import com.moi.lime.vo.Status
 import javax.inject.Inject
 
+@OpenForTesting
 class ProfileFragment : Fragment(), Injectable {
 
     @Inject
@@ -38,7 +40,7 @@ class ProfileFragment : Fragment(), Injectable {
         super.onActivityCreated(savedInstanceState)
         binding.lifecycleOwner = this
         binding.viewModel = viewModel
-        binding.onViewClick = object :ViewClickCallback{
+        binding.onViewClick = object : ViewClickCallback {
             override fun click(view: View) {
                 viewModel.fetchPlaylistsTrigger.value = Unit
             }
@@ -54,10 +56,12 @@ class ProfileFragment : Fragment(), Injectable {
 
     private fun initViewPager(list: List<PlaylistItem>?) {
         list?.let { playlistList ->
-            val adapter = LimeFragmentPageAdapter(childFragmentManager, playlistList.map { ProfilePlayListItemFragment.newInstance(it) })
+            val adapter = LimeFragmentPageAdapter(childFragmentManager, getFragment(playlistList))
             binding.viewPager.offscreenPageLimit = 1
             binding.adapter = adapter
         }
     }
+
+    fun getFragment(list: List<PlaylistItem>): List<Fragment> = list.map { ProfilePlayListItemFragment.newInstance(it) }
 
 }

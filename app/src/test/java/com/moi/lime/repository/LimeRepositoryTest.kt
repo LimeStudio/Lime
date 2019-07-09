@@ -83,11 +83,7 @@ class LimeRepositoryTest {
     @ExperimentalCoroutinesApi
     @Test
     fun testSignInSuccess() = testDispatchersRule.testScope.runBlockingTest {
-        val inputStream = javaClass
-                .getResourceAsStream("/api-response/SignInResponse")
-        val source = Okio.buffer(Okio.source(inputStream!!))
-
-        val signInByPhoneBean = source.readString(Charsets.UTF_8).toBean<SignInByPhoneBean>()!!
+        val signInByPhoneBean = loadJsonFromFilePath("/api-response/SignInResponse", javaClass).toBean<SignInByPhoneBean>()!!
         `when`(service.signInByPhone(ArgumentMatchers.anyString(), ArgumentMatchers.anyString()))
                 .thenReturn(signInByPhoneBean)
 
@@ -107,7 +103,7 @@ class LimeRepositoryTest {
                 .getResourceAsStream("/api-response/SignInResponse")
         val source = Okio.buffer(Okio.source(inputStream!!))
 
-        val signInByPhoneBean = source.readString(Charsets.UTF_8).toBean<SignInByPhoneBean>()!!
+        val signInByPhoneBean = loadJsonFromFilePath("/api-response/SignInResponse", javaClass).toBean<SignInByPhoneBean>()!!
         `when`(service.signInByPhone(ArgumentMatchers.anyString(), ArgumentMatchers.anyString()))
                 .thenReturn(signInByPhoneBean.copy(code = 400))
 

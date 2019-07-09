@@ -56,28 +56,28 @@
         </com.google.android.material.card.MaterialCardView>
 
         <TextView
-            android:id="@+id/textView4"
+            android:id="@+id/textName"
             style="@style/TextOnPrimaryBody1"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginStart="@dimen/margin_normal"
             android:text="@{viewModel.profile.nickName}"
             android:textStyle="bold"
-            app:layout_constraintBottom_toTopOf="@+id/textView2"
+            app:layout_constraintBottom_toTopOf="@+id/textCity"
             app:layout_constraintStart_toEndOf="@+id/materialCardView"
             app:layout_constraintTop_toTopOf="@+id/materialCardView"
             app:layout_constraintVertical_chainStyle="spread"
             tools:text="Blanche Reyes" />
 
         <TextView
-            android:id="@+id/textView2"
+            android:id="@+id/textCity"
             style="@style/TextGreyBody3"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="@{viewModel.profile.city}"
             app:layout_constraintBottom_toTopOf="@+id/textView5"
-            app:layout_constraintStart_toStartOf="@+id/textView4"
-            app:layout_constraintTop_toBottomOf="@+id/textView4"
+            app:layout_constraintStart_toStartOf="@+id/textName"
+            app:layout_constraintTop_toBottomOf="@+id/textName"
             tools:text="china sichuan" />
 
         <TextView
@@ -87,8 +87,8 @@
             android:layout_height="wrap_content"
             android:text="@string/followers"
             app:layout_constraintBottom_toBottomOf="@+id/materialCardView"
-            app:layout_constraintStart_toStartOf="@+id/textView2"
-            app:layout_constraintTop_toBottomOf="@+id/textView2" />
+            app:layout_constraintStart_toStartOf="@+id/textCity"
+            app:layout_constraintTop_toBottomOf="@+id/textCity" />
 
         <TextView
             android:id="@+id/followers_count"
