@@ -56,9 +56,9 @@ class LimeRepository @Inject constructor(
 
     }
 
-    fun fetchUserList():LiveData<Resource<UserPlayLists>>{
-        return resourceLiveData {
-            moiService.fetchUserPlayLists(userManager.getProfile()?.uid?:"")
+    fun fetchUserList(): LiveData<Resource<UserPlayLists>> {
+        return resourceLiveData(dispatchers.provideIO()) {
+            moiService.fetchUserPlayLists(userManager.getProfile()?.uid ?: "")
         }
     }
 
