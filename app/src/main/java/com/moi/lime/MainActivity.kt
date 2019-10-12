@@ -12,15 +12,17 @@ import androidx.navigation.findNavController
 import androidx.navigation.fragment.NavHostFragment
 import com.lime.testing.OpenForTesting
 import com.moi.lime.api.SignInExpireInterceptor
+import dagger.android.AndroidInjector
 import dagger.android.DispatchingAndroidInjector
-import dagger.android.support.HasSupportFragmentInjector
+import dagger.android.HasAndroidInjector
 import javax.inject.Inject
 
 @OpenForTesting
-class MainActivity : AppCompatActivity(), HasSupportFragmentInjector {
+class MainActivity : AppCompatActivity(), HasAndroidInjector {
 
     @Inject
-    lateinit var dispatchingAndroidInjector: DispatchingAndroidInjector<Fragment>
+    lateinit var androidInjector: DispatchingAndroidInjector<Any>
+
 
     @Inject
     lateinit var signInExpireInterceptor: SignInExpireInterceptor
@@ -47,8 +49,7 @@ class MainActivity : AppCompatActivity(), HasSupportFragmentInjector {
     }
 
 
-
-    override fun supportFragmentInjector() = dispatchingAndroidInjector
+    override fun androidInjector(): AndroidInjector<Any> = androidInjector
 
     /**
      * Created to be able to override in tests
@@ -58,7 +59,7 @@ class MainActivity : AppCompatActivity(), HasSupportFragmentInjector {
     /**
      * Created to be able to override in tests
      */
-    fun initNavGraph(){
+    fun initNavGraph() {
         val navHostFragment = supportFragmentManager.findFragmentById(R.id.frag_nav_simple) as NavHostFragment
         val navMain = navHostFragment.navController.navInflater.inflate(R.navigation.nav_main)
         navHostFragment.navController.graph = navMain

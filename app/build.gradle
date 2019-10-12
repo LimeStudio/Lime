@@ -129,6 +129,7 @@ dependencies {
     kapt deps.glide.compiler
     //coroutines_android
     implementation deps.coroutines.android
+    implementation deps.coroutines.core
     //retrofit
     implementation deps.retrofit.runtime
     implementation deps.retrofit.gson

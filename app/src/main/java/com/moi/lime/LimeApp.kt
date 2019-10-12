@@ -5,16 +5,17 @@ import android.app.Activity
 import android.app.Application
 import com.moi.lime.core.user.UserManager
 import com.moi.lime.di.AppInjector
+import dagger.android.AndroidInjector
 import dagger.android.DispatchingAndroidInjector
-import dagger.android.HasActivityInjector
+import dagger.android.HasAndroidInjector
 import kotlinx.coroutines.GlobalScope
 import kotlinx.coroutines.launch
 import javax.inject.Inject
 
-class LimeApp : Application(), HasActivityInjector {
-    @Inject
-    lateinit var dispatchingAndroidInjector: DispatchingAndroidInjector<Activity>
+class LimeApp : Application(), HasAndroidInjector {
 
+    @Inject
+    lateinit var androidInjector: DispatchingAndroidInjector<Any>
     @Inject
     lateinit var userManager: UserManager
 
@@ -33,5 +34,6 @@ class LimeApp : Application(), HasActivityInjector {
 
     }
 
-    override fun activityInjector() = dispatchingAndroidInjector
+    override fun androidInjector(): AndroidInjector<Any> = androidInjector
+
 }
