@@ -86,7 +86,9 @@ android {
         experimental = true
 
     }
-
+    kotlinOptions {
+        jvmTarget = 1.8
+    }
 }
 
 dependencies {
@@ -177,7 +179,7 @@ dependencies {
     androidTestImplementation deps.support.material
 
     //coroutines test
-    testImplementation   deps.coroutines.test
+    testImplementation deps.coroutines.test
     androidTestImplementation deps.coroutines.test
 
 }
