@@ -8,7 +8,6 @@ import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
-import androidx.lifecycle.ViewModelProviders
 import com.moi.lime.R
 import com.moi.lime.databinding.FragmentRecommendBinding
 import com.moi.lime.di.Injectable
@@ -27,7 +26,7 @@ class RecommendFragment : Fragment(), Injectable {
 
 
     private val viewModel by lazy(LazyThreadSafetyMode.NONE) {
-        ViewModelProviders.of(this, viewModelFactory)
+        ViewModelProvider(this, viewModelFactory)
                 .get(RecommendFragmentViewModel::class.java)
     }
 
