@@ -37,7 +37,7 @@ class AppModule {
 
         return Retrofit.Builder()
                 .client(okHttpClient)
-                .baseUrl("http://musicapi.leanapp.cn/")
+                .baseUrl("https://api.lgsmd.com/")
                 .addConverterFactory(GsonConverterFactory.create())
                 .build()
                 .create(MoiService::class.java)

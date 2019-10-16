@@ -20,7 +20,7 @@ interface MoiService {
     @GET("recommend/songs")
     suspend fun fetchRecommendSongs(): RecommendSongsEntity
 
-    @GET("music/url")
+    @GET("song/url")
     suspend fun fetchMusicUrlById(@Query("id") ids: String): MusicUrlsEntity
 
     @GET("user/playlist")
