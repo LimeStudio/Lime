@@ -33,6 +33,11 @@ object BindingAdapters {
         view.visibility = if (show) View.VISIBLE else View.GONE
     }
     @JvmStatic
+    @BindingAdapter("visibleInvisible")
+    fun visibleInvisible(view: View, show: Boolean) {
+        view.visibility = if (show) View.VISIBLE else View.INVISIBLE
+    }
+    @JvmStatic
     @BindingAdapter("imageUrl")
     fun loadImage(appCompatImageView: AppCompatImageView, url: String?) {
         if (url.isNullOrEmpty()) return

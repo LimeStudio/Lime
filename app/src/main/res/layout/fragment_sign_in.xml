@@ -10,15 +10,15 @@
         <import type="com.moi.lime.vo.Resource" />
 
         <import type="androidx.lifecycle.LiveData" />
-<variable
-    name="signInViewModel"
-    type="com.moi.lime.ui.signin.SignInViewModel"/>
+
+        <variable
+            name="signInViewModel"
+            type="com.moi.lime.ui.signin.SignInViewModel" />
     </data>
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:orientation="vertical">
+        android:layout_height="match_parent">
 
         <androidx.appcompat.widget.AppCompatImageView
             android:id="@+id/appCompatImageView"
@@ -67,6 +67,7 @@
                 android:inputType="number"
                 android:maxLines="1"
                 android:singleLine="true"
+                android:text="@={signInViewModel.phoneNumber}"
                 android:textSize="14sp"
                 tools:targetApi="o" />
         </com.google.android.material.textfield.TextInputLayout>
@@ -92,6 +93,7 @@
                 android:inputType="textPassword"
                 android:maxLines="1"
                 android:singleLine="true"
+                android:text="@={signInViewModel.password}"
                 android:textSize="14sp"
                 tools:targetApi="o" />
         </com.google.android.material.textfield.TextInputLayout>
@@ -100,6 +102,7 @@
             android:id="@+id/signInButton"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:onClick="@{()->signInViewModel.login()}"
             android:text="@string/sign_in"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
@@ -107,17 +110,14 @@
             app:layout_constraintTop_toBottomOf="@+id/password" />
 
         <ProgressBar
-            app:visibleGone="@{signInViewModel.loginResource.status == Status.LOADING}"
-            android:layout_width="56dp"
-            android:layout_height="56dp"
-            android:layout_marginStart="8dp"
-            android:layout_marginTop="8dp"
-            android:layout_marginEnd="8dp"
-            android:layout_marginBottom="8dp"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent" />
+            app:layout_constraintTop_toTopOf="parent"
+            app:visibleInvisible="@{signInViewModel.loginResource.status == Status.LOADING}" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
+
 </layout>

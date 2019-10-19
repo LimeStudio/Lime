@@ -6,6 +6,7 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.Fragment
+import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.fragment.findNavController
@@ -15,6 +16,8 @@ import com.moi.lime.databinding.FragmentSignInBinding
 import com.moi.lime.di.Injectable
 import com.moi.lime.util.Logger
 import com.moi.lime.util.autoCleared
+import com.moi.lime.vo.Resource
+import kotlinx.android.synthetic.main.fragment_sign_in.*
 import javax.inject.Inject
 
 @OpenForTesting
@@ -30,31 +33,23 @@ class SignInFragment : Fragment(), Injectable {
     }
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
-        val dataBinding = DataBindingUtil.inflate<FragmentSignInBinding>(
+        binding = DataBindingUtil.inflate(
                 inflater,
                 R.layout.fragment_sign_in,
                 container,
                 false
         )
-        binding = dataBinding
         binding.lifecycleOwner = this
         binding.signInViewModel = viewModel
-        return dataBinding.root
+        return binding.root
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        binding.signInButton.setOnClickListener {
-            val phoneNumber = binding.phoneNumber.editText?.text ?: ""
-            val password = binding.password.editText?.text ?: ""
-            viewModel.loginInfo.setValue(Pair(phoneNumber.toString(), password.toString()))
-        }
         viewModel.loginResource.observe(this, Observer {
-            if (it.data == true) {
+            if (it?.data == true) {
                 navController()
                         .navigate(SignInFragmentDirections.goToHomeFragmentFromSign())
-            } else {
-                Logger.INS.d("失败")
             }
         })
     }
