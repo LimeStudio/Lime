@@ -13,7 +13,8 @@ import kotlinx.coroutines.ExperimentalCoroutinesApi
 import kotlinx.coroutines.runBlocking
 import kotlinx.coroutines.test.runBlockingTest
 import okhttp3.ResponseBody
-import okio.Okio
+import okio.buffer
+import okio.source
 import org.junit.Before
 import org.junit.Rule
 import org.junit.Test
@@ -101,7 +102,7 @@ class LimeRepositoryTest {
     fun testSignInFailed() = testDispatchersRule.testScope.runBlockingTest {
         val inputStream = javaClass
                 .getResourceAsStream("/api-response/SignInResponse")
-        val source = Okio.buffer(Okio.source(inputStream!!))
+        val source = inputStream!!.source().buffer()
 
         val signInByPhoneBean = loadJsonFromFilePath("/api-response/SignInResponse", javaClass).toBean<SignInByPhoneBean>()!!
         `when`(service.signInByPhone(ArgumentMatchers.anyString(), ArgumentMatchers.anyString()))
@@ -111,7 +112,7 @@ class LimeRepositoryTest {
         subject.observeForTesting {
             assertEquals(Resource.success(false), subject.value)
             verify(userManager, never()).saveUser(signInByPhoneBean)
-            Mockito.verify(service).signInByPhone("test", "test")
+            verify(service).signInByPhone("test", "test")
         }
 
     }

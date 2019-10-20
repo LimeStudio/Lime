@@ -1,7 +1,6 @@
 package com.moi.lime.util
 
 import com.moi.lime.vo.Profile
-import okio.Okio
 
 fun createProfile(isSignIn: Boolean = true): Profile {
     return Profile(
@@ -24,6 +23,6 @@ fun createProfile(isSignIn: Boolean = true): Profile {
 fun <T> loadJsonFromFilePath(path: String, javaClass: Class<T>): String {
     val inputStream = javaClass
             .getResourceAsStream(path)
-    val source = Okio.buffer(Okio.source(inputStream!!))
-    return source.readString(Charsets.UTF_8)
+    return inputStream!!.bufferedReader().use { it.readText() }
+
 }

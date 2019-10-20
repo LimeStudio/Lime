@@ -20,7 +20,9 @@ class SignInViewModelTest {
     fun testCallSignIn(){
         val viewModel = SignInViewModel(limeRepository)
         viewModel.loginResource.observeForever { mock() }
-        viewModel.loginInfo.value = Pair("test","test")
+        viewModel.phoneNumber.value ="test"
+        viewModel.password.value ="test"
+        viewModel.login()
         verify(limeRepository).signIn("test","test")
     }
 }

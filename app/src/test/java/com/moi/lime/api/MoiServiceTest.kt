@@ -4,6 +4,8 @@ import kotlinx.coroutines.runBlocking
 import okhttp3.mockwebserver.MockResponse
 import okhttp3.mockwebserver.MockWebServer
 import okio.Okio
+import okio.buffer
+import okio.source
 import org.hamcrest.CoreMatchers.`is`
 import org.junit.After
 import org.junit.Assert
@@ -39,7 +41,7 @@ class MoiServiceTest {
     private fun enqueueResponse(fileName: String, headers: Map<String, String> = emptyMap()) {
         val inputStream = javaClass
                 .getResourceAsStream("/api-response/$fileName")
-        val source = Okio.buffer(Okio.source(inputStream!!))
+        val source = inputStream!!.source().buffer()
         val mockResponse = MockResponse()
         for ((key, value) in headers) {
             mockResponse.addHeader(key, value)
@@ -85,7 +87,7 @@ class MoiServiceTest {
         assertEquals(2, musicUrlsEntity.data.size)
         assertEquals(33071205L, musicUrlsEntity.data.first().id)
         val request = mockWebServer.takeRequest()
-        Assert.assertThat(request.path, `is`("/music/url?id=123"))
+        Assert.assertThat(request.path, `is`("/song/url?id=123"))
 
     }
 
