@@ -47,7 +47,7 @@ before_install:
 script:
 #  - ./gradlew test
 #  - ./gradlew connectedCheck
-- ./gradlew jacocoUnitTestReport
+- ./gradlew createJacocoUnitTestReportTask
 - ./gradlew createDebugCoverageReport
 - ./gradlew assembleRelease
 #after_success:
