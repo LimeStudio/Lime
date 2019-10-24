@@ -47,9 +47,9 @@ before_install:
 script:
 #  - ./gradlew test
 #  - ./gradlew connectedCheck
-- ./gradlew createJacocoUnitTestReportTask
-- ./gradlew createDebugCoverageReport
-- ./gradlew assembleRelease
+- ./gradlew jacocoUnitTestReport --stacktrace
+- ./gradlew createDebugCoverageReport --stacktrace
+- ./gradlew assembleRelease --stacktrace
 #after_success:
 #- cp $TRAVIS_BUILD_DIR/appkey.jks $HOME
 #- cd $TRAVIS_BUILD_DIR/app/build/outputs/apk/release
