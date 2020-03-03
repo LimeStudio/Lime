@@ -2,13 +2,13 @@ import com.android.build.gradle.internal.dsl.TestOptions
 import org.jetbrains.kotlin.gradle.tasks.KotlinCompile
 
 plugins {
-    id("com.android.application")
-    id("kotlin-android")
-    id("kotlin-kapt")
-    id("kotlin-android-extensions")
-    id("androidx.navigation.safeargs")
-    id("jacoco")
-    id("kotlin-allopen")
+    id(GradlePluginId.ANDROID_APPLICATION)
+    id(GradlePluginId.KOTLIN_ANDROID)
+    id(GradlePluginId.KOTLIN_KAPT)
+    id(GradlePluginId.KOTLIN_ANDROID_EXTENSIONS)
+    id(GradlePluginId.ANDROIDX_NAVIGATION_SAFEARGS)
+    id(GradlePluginId.TOOLS_JACOCO)
+    id(GradlePluginId.KOTLIN_ALLOPEN)
 }
 jacoco {
     toolVersion = "0.8.2"
