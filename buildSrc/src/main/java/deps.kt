@@ -1,5 +1,5 @@
 object deps {
-    private const val androidGradlePluginVersion = "3.5.1"
+    private const val androidGradlePluginVersion = "3.6.0"
     private const val archCoreVersion = "2.1.0"
     private const val roomVersion = "2.2.0"
     private const val lifecycleVersion = "2.2.0-beta01"
@@ -7,7 +7,7 @@ object deps {
     private const val navigationVersion = "2.1.0"
     private const val workVersion = "2.2.0"
     private const val supportVersion = "1.0.0"
-    private const val constraintlayoutVersion = "2.0.0-beta2"
+    private const val constraintlayoutVersion = "2.0.0-beta4"
     private const val glideVersion = "4.10.0"
     private const val rxjava2Version = "2.2.4"
     private const val retrofitVersion = "2.6.2"
