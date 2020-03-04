@@ -4,6 +4,7 @@ import com.moi.lime.ui.home.HomeFragment
 import com.moi.lime.ui.home.profile.ProfileFragment
 import com.moi.lime.ui.home.recommend.RecommendFragment
 import com.moi.lime.ui.home.recommend.RecommendItemFragment
+import com.moi.lime.ui.play.PlayPageFragment
 import com.moi.lime.ui.signin.SignInFragment
 import com.moi.lime.ui.splash.SplashFragment
 import dagger.Module
@@ -28,5 +29,8 @@ abstract class FragmentBuildersModule {
 
     @ContributesAndroidInjector
     abstract fun contributeProfileFragment(): ProfileFragment
+
+    @ContributesAndroidInjector
+    abstract fun contributePlayPageFragment(): PlayPageFragment
 
 }

@@ -7,7 +7,7 @@ import com.moi.lime.vo.MusicInformation
 class RecommendViewPagerAdapter(
         fragmentManager: FragmentManager,
         dataList: List<MusicInformation>
-) : FragmentStatePagerAdapter(fragmentManager) {
+) : FragmentStatePagerAdapter(fragmentManager, BEHAVIOR_RESUME_ONLY_CURRENT_FRAGMENT) {
 
     private val fragments = dataList.map { RecommendItemFragment.newInstance(it) }
 

@@ -11,6 +11,8 @@
 <dimen name="image_size_middle">32dp</dimen>
 <dimen name="image_size_large">48dp</dimen>
 
+<dimen name="card_corner_middle_radius">16dp</dimen>
+
 
 <dimen name="content_height_normal">84dp</dimen>
 

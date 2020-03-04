@@ -8,8 +8,8 @@
         android:id="@+id/action_global_Sign_in_Fragment"
         app:destination="@id/sign_in_fragment"
         app:launchSingleTop="true"
-        app:popUpToInclusive="true"
-        app:popUpTo="@id/home_fragment" />
+        app:popUpTo="@id/home_fragment"
+        app:popUpToInclusive="true" />
     <fragment
         android:id="@+id/splash_fragment"
         android:name="com.moi.lime.ui.splash.SplashFragment"
@@ -46,6 +46,12 @@
         android:name="com.moi.lime.ui.home.HomeFragment"
         android:label="home fragment"
         tools:layout="@layout/fragment_home">
+        <action
+            android:id="@+id/action_home_fragment_to_playPageFragment"
+            app:destination="@id/playPageFragment" />
     </fragment>
-
+    <fragment
+        android:id="@+id/playPageFragment"
+        android:name="com.moi.lime.ui.play.PlayPageFragment"
+        android:label="PlayPageFragment" />
 </navigation>

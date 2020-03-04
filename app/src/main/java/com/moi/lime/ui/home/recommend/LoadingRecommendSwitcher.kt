@@ -4,10 +4,12 @@ import android.content.SharedPreferences
 import androidx.lifecycle.LifecycleOwner
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.Observer
+import com.lime.testing.OpenForTesting
 import com.moi.lime.vo.Resource
 import com.moi.lime.vo.Status
 import java.util.*
 
+@OpenForTesting
 class LoadingRecommendSwitcher(private val sp: SharedPreferences, private val resettingTime: Int) {
 
     companion object {
@@ -19,15 +21,13 @@ class LoadingRecommendSwitcher(private val sp: SharedPreferences, private val re
         return lastSuccessfulDate.time > getResettingDate(currentTime).time
     }
 
-    fun bindRecommendResource(lifecycleOwner: LifecycleOwner, liveData: LiveData<out Resource<*>>) {
-        liveData.observe(lifecycleOwner, Observer {
-            if (it.status == Status.SUCCESS) {
-                sp.edit().apply {
-                    putLong(RECOMMEND_DAY_KEY, System.currentTimeMillis())
-                    apply()
-                }
+    fun refreshState(resource: Resource<*>) {
+        if (resource.status == Status.SUCCESS) {
+            sp.edit().apply {
+                putLong(RECOMMEND_DAY_KEY, System.currentTimeMillis())
+                apply()
             }
-        })
+        }
     }
 
     private fun getResettingDate(currentTime: Long): Date {

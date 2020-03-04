@@ -19,9 +19,6 @@ class RecommendFragment : Fragment(), Injectable {
     @Inject
     lateinit var viewModelFactory: ViewModelProvider.Factory
 
-    @Inject
-    lateinit var loadingRecommendSwitcher: LoadingRecommendSwitcher
-
     private var binding by autoCleared<FragmentRecommendBinding>()
 
 
@@ -40,17 +37,15 @@ class RecommendFragment : Fragment(), Injectable {
         super.onActivityCreated(savedInstanceState)
         binding.onViewClick = object : ViewClickCallback {
             override fun click(view: View) {
-                viewModel.fetchRecommendTrigger.value = loadingRecommendSwitcher.isShouldFetchFromDb(System.currentTimeMillis())
+                viewModel.fetchRecommendMusics()
             }
         }
         binding.musicInformation = viewModel.recommendResource
-        loadingRecommendSwitcher.bindRecommendResource(this, viewModel.recommendResource)
         viewModel.recommendResource.observe(this, Observer { resource ->
             resource.data?.let {
                 binding.recommendViewPager.offscreenPageLimit = 1
                 binding.adapter = RecommendViewPagerAdapter(childFragmentManager, it)
             }
         })
-        viewModel.fetchRecommendTrigger.value = loadingRecommendSwitcher.isShouldFetchFromDb(System.currentTimeMillis())
     }
 }

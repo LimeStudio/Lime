@@ -65,13 +65,11 @@ class LoadingRecommendSwitcherTest {
         assertThat(loadingRecommendSwitcher.isShouldFetchFromDb(1554847261000), not(true))
     }
 
-//    @Test
-//    fun testBindRecommendResource() {
-//        val liveData = MutableLiveData<Resource<*>>()
-//        loadingRecommendSwitcher.bindRecommendResource(activityRule.activity, liveData)
-//        liveData.value = Resource.success(null)
-//        verify(edit).putLong(ArgumentMatchers.anyString(), ArgumentMatchers.anyLong())
-//
-//    }
+    @Test
+    fun testRefreshState() {
+        loadingRecommendSwitcher.refreshState(Resource.success(null))
+        verify(edit).putLong(ArgumentMatchers.anyString(), ArgumentMatchers.anyLong())
+    }
+
 
 }

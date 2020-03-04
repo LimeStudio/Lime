@@ -57,20 +57,12 @@ class RecommendFragmentTest : LimeDbTest() {
         `when`(sp.edit()).thenReturn(edit)
         `when`(viewModel.fetchRecommendTrigger).thenReturn(trigger)
         `when`(viewModel.recommendResource).thenReturn(resource)
-        fragment.loadingRecommendSwitcher = LoadingRecommendSwitcher(sp, 6)
         fragment.viewModelFactory = ViewModelUtil.createFor(viewModel)
         activityRule.activity.setFragment(fragment)
         EspressoTestUtil.disableProgressBarAnimations(activityRule)
 
     }
 
-    @Test
-    fun testInit() {
-        onView(withId(R.id.layout_recommend)).check(matches(isDisplayed()))
-        val observer = mock<Observer<Boolean>>()
-        trigger.observeForever(observer)
-        verify(observer).onChanged(ArgumentMatchers.anyBoolean())
-    }
 
     @Test
     fun testError() {
@@ -78,11 +70,7 @@ class RecommendFragmentTest : LimeDbTest() {
         onView(withId(R.id.retry_button)).check(matches(isDisplayed()))
         onView(withId(R.id.contentLoadingProgressBar)).check(matches(not(isDisplayed())))
         onView(withId(R.id.retry_button)).perform(ViewActions.click())
-
-        val observer = mock<Observer<Boolean>>()
-        trigger.observeForever(observer)
-        verify(observer).onChanged(ArgumentMatchers.anyBoolean())
-
+        verify(viewModel).fetchRecommendMusics()
     }
 
     @Test
