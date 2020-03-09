@@ -2,15 +2,14 @@ package com.moi.lime.db
 
 import androidx.arch.core.executor.testing.InstantTaskExecutorRule
 import com.moi.lime.util.TestDispatchersRule
-import com.moi.lime.vo.LimeAlbum
-import com.moi.lime.vo.LimeArtist
-import com.moi.lime.vo.LimeMusic
-import com.moi.lime.vo.LimeUrl
+import com.moi.lime.vo.*
 import kotlinx.coroutines.ExperimentalCoroutinesApi
 import kotlinx.coroutines.test.runBlockingTest
 import org.junit.Rule
 import org.junit.Test
 import kotlin.test.assertEquals
+import kotlin.test.assertNotNull
+import kotlin.test.assertNull
 
 class MusicInformationDaoTest : LimeDbTest() {
     @Rule
@@ -37,6 +36,27 @@ class MusicInformationDaoTest : LimeDbTest() {
         }
     }
 
+    @ExperimentalCoroutinesApi
+    @Test
+    fun testFindById() = testDispatchersRule.testScope.runBlockingTest {
+        createAndInsertData()
+        val musicInformation = db.musicInformationDao().getMusicInformationFromMusicId("1")
+        assertNotNull(musicInformation)
+        with(musicInformation) {
+            assertEquals("1", limeMusic?.id ?: "-1")
+            assertEquals(2, limeUrls.size)
+            assertEquals(1, limeAlbum.size)
+            assertEquals(1, limeArtist.size)
+        }
+    }
+
+    @ExperimentalCoroutinesApi
+    @Test
+    fun testFindByIdWithNull() = testDispatchersRule.testScope.runBlockingTest {
+        val musicInformation = db.musicInformationDao().getMusicInformationFromMusicId("2")
+        assertNull(musicInformation)
+
+    }
 
     private fun createAndInsertData() {
         val limeMusic = LimeMusic("test1", "1", 100, "test1")

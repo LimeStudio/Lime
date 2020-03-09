@@ -9,7 +9,7 @@ import kotlin.coroutines.EmptyCoroutineContext
 fun <T> resourceLiveData(
         context: CoroutineContext = EmptyCoroutineContext,
         timeoutInMs: Long = 5000L,
-        block: suspend () -> T
+        block: suspend () -> T?
 ) = liveData(context, timeoutInMs) {
     try {
         emit(Resource.loading(null))

@@ -62,6 +62,12 @@ class LimeRepository @Inject constructor(
         }
     }
 
+    fun fetchMusicInfoById(id: String):LiveData<Resource<MusicInformation>>{
+        return resourceLiveData {
+            db.musicInformationDao().getMusicInformationFromMusicId(id)
+        }
+    }
+
     private fun cleanRecommendDb() {
         with(db) {
             limeArtistDao().deleteAll()

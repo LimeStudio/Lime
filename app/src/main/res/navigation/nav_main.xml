@@ -48,10 +48,18 @@
         tools:layout="@layout/fragment_home">
         <action
             android:id="@+id/action_home_fragment_to_playPageFragment"
-            app:destination="@id/playPageFragment" />
+            app:destination="@id/playPageFragment">
+            <argument
+                android:name="musicId"
+                app:argType="string" />
+        </action>
     </fragment>
     <fragment
         android:id="@+id/playPageFragment"
         android:name="com.moi.lime.ui.play.PlayPageFragment"
-        android:label="PlayPageFragment" />
+        android:label="PlayPageFragment">
+        <argument
+            android:name="musicId"
+            app:argType="string" />
+    </fragment>
 </navigation>

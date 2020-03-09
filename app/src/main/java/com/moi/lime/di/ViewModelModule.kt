@@ -4,6 +4,7 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
 import com.moi.lime.ui.home.profile.ProfileFragmentViewModel
 import com.moi.lime.ui.home.recommend.RecommendFragmentViewModel
+import com.moi.lime.ui.play.PlayPageFragmentViewModel
 import com.moi.lime.ui.signin.SignInViewModel
 import com.moi.lime.ui.splash.SplashViewModel
 import com.moi.lime.viewmodel.LimeViewModelFactory
@@ -33,6 +34,12 @@ abstract class ViewModelModule {
     @IntoMap
     @ViewModelKey(ProfileFragmentViewModel::class)
     abstract fun bindProfileFragmentViewModel(profileFragmentViewModel: ProfileFragmentViewModel): ViewModel
+
+    @Binds
+    @IntoMap
+    @ViewModelKey(PlayPageFragmentViewModel::class)
+    abstract fun bindPlayPageFragmentViewModel(playPageFragmentViewModel: PlayPageFragmentViewModel): ViewModel
+
 
     @Binds
     abstract fun bindViewModelFactory(factory: LimeViewModelFactory): ViewModelProvider.Factory

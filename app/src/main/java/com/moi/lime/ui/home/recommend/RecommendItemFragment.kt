@@ -7,6 +7,7 @@ import android.view.ViewGroup
 import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.Fragment
 import androidx.navigation.fragment.findNavController
+import com.lime.testing.OpenForTesting
 import com.moi.lime.R
 import com.moi.lime.databinding.FragmentRecommendItemBinding
 import com.moi.lime.di.Injectable
@@ -16,6 +17,7 @@ import com.moi.lime.util.toBean
 import com.moi.lime.util.toJson
 import com.moi.lime.vo.MusicInformation
 
+@OpenForTesting
 class RecommendItemFragment : Fragment(), Injectable {
 
     companion object {
@@ -43,7 +45,11 @@ class RecommendItemFragment : Fragment(), Injectable {
                 inflater, R.layout.fragment_recommend_item, container, false
         )
         binding.imageAlbum.setOnClickListener {
-            navController().navigate(HomeFragmentDirections.actionHomeFragmentToPlayPageFragment())
+            musicInformation?.limeMusic?.let {
+                navController()
+                        .navigate(HomeFragmentDirections.actionHomeFragmentToPlayPageFragment(it.id))
+
+            }
         }
         return binding.root
     }
@@ -55,9 +61,10 @@ class RecommendItemFragment : Fragment(), Injectable {
 
     private fun initBinding() {
         binding.music = musicInformation?.limeMusic
-        binding.album =musicInformation?.limeAlbum?.firstOrNull()
+        binding.album = musicInformation?.limeAlbum?.firstOrNull()
         binding.artist = musicInformation?.limeArtist?.firstOrNull()
     }
+
     /**
      * Created to be able to override in tests
      */
