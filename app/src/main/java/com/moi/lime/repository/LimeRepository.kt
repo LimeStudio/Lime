@@ -5,6 +5,7 @@ import androidx.lifecycle.liveData
 import com.lime.testing.OpenForTesting
 import com.moi.lime.api.MoiService
 import com.moi.lime.core.dispatch.Dispatchers
+import com.moi.lime.core.exception.NoDataFindException
 import com.moi.lime.core.user.UserManager
 import com.moi.lime.db.LimeDb
 import com.moi.lime.util.MusicMapper
@@ -62,9 +63,19 @@ class LimeRepository @Inject constructor(
         }
     }
 
-    fun fetchMusicInfoById(id: String):LiveData<Resource<MusicInformation>>{
-        return resourceLiveData {
-            db.musicInformationDao().getMusicInformationFromMusicId(id)
+    fun fetchMusicInfoById(id: String): LiveData<Resource<MusicInformation>> {
+        return liveData(dispatchers.provideIO()) {
+            try {
+                emit(Resource.loading(null))
+                val result = db.musicInformationDao().getMusicInformationFromMusicId(id)
+                if (result == null) {
+                    emit(Resource.error(NoDataFindException("Can't found MusicInformationFromMusic"), null))
+                } else {
+                    emit(Resource.success(result))
+                }
+            } catch (e: Exception) {
+                emit(Resource.error(e, null))
+            }
         }
     }
 

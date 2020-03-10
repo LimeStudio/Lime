@@ -2,6 +2,7 @@ package com.moi.lime.repository
 
 import androidx.arch.core.executor.testing.InstantTaskExecutorRule
 import com.moi.lime.api.MoiService
+import com.moi.lime.core.exception.NoDataFindException
 import com.moi.lime.core.user.UserManager
 import com.moi.lime.db.LimeDb
 import com.moi.lime.db.MusicInformationDao
@@ -62,20 +63,22 @@ class LimeRepositoryTest {
         }
     }
 
-//    @ExperimentalCoroutinesApi
-//    @Test
-//    fun testFetchMusicInfoByIdFailure() = testDispatchersRule.testScope.runBlockingTest {
-//
-//        val testException = Cl
-//        `when`(service.fetchUserPlayLists(ArgumentMatchers.anyString())).thenThrow(testException)
-//
-//        val subject = limeRepository.fetchUserList()
-//        subject.observeForTesting {
-//            assertEquals(Resource.error(testException, null), subject.value)
-//            verify(service).fetchUserPlayLists(ArgumentMatchers.anyString())
-//        }
-//
-//    }
+    @ExperimentalCoroutinesApi
+    @Test
+    fun testFetchMusicInfoByIdFailure() = testDispatchersRule.testScope.runBlockingTest {
+
+        val musicInformationDao: MusicInformationDao = mock()
+        `when`(musicInformationDao.getMusicInformationFromMusicId(anyString())).thenReturn(null)
+        `when`(db.musicInformationDao()).thenReturn(musicInformationDao)
+
+        val subject = limeRepository.fetchMusicInfoById("test")
+        subject.observeForTesting {
+            assert(subject.value?.throwable is NoDataFindException)
+            verify(musicInformationDao).getMusicInformationFromMusicId("test")
+
+        }
+
+    }
 
     @ExperimentalCoroutinesApi
     @Test
