@@ -33,15 +33,6 @@ android {
         targetCompatibility = JavaVersion.VERSION_1_8
     }
 
-    signingConfigs {
-        val keystoreUtils = KeystoreUtils(project)
-        create("default") {
-            keyAlias = keystoreUtils.keystoreProperties["keyAlias"].toString()
-            keyPassword = keystoreUtils.keystoreProperties["keyPwd"].toString()
-            storeFile = keystoreUtils.keyStoreFile
-            storePassword = keystoreUtils.keystoreProperties["storePwd"].toString()
-        }
-    }
     buildTypes {
         getByName("release") {
             multiDexEnabled = true
