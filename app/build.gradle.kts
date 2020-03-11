@@ -18,6 +18,7 @@ allOpen {
 }
 android {
     compileSdkVersion(AndroidVersion.COMPILE_VERSION)
+    buildToolsVersion(AndroidVersion.BUILD_TOOLS)
 
     defaultConfig {
         applicationId = "com.moi.lime"
