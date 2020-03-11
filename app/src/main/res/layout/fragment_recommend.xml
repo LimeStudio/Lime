@@ -1,0 +1,76 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <data>
+
+
+        <import type="com.moi.lime.vo.Status" />
+
+        <import type="com.moi.lime.vo.Resource" />
+
+        <import type="com.moi.lime.vo.MusicInformation" />
+
+        <import type="java.util.List" />
+
+        <import type="androidx.lifecycle.LiveData" />
+
+        <variable
+            name="musicInformation"
+            type="LiveData&lt;Resource&lt;List&lt;MusicInformation>>>" />
+
+        <variable
+            name="adapter"
+            type="androidx.viewpager.widget.PagerAdapter" />
+
+        <variable
+            name="onViewClick"
+            type="com.moi.lime.ui.callback.ViewClickCallback" />
+    </data>
+
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/layout_recommend"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_marginBottom="16dp"
+        android:orientation="vertical"
+        android:paddingTop="@dimen/margin_normal">
+
+        <TextView
+            android:id="@+id/textView3"
+            style="@style/TextOnPrimarySubtitle1"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="@dimen/margin_normal"
+            android:gravity="center"
+            android:text="@string/recommend"
+            android:textStyle="bold"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <androidx.viewpager.widget.ViewPager
+            android:id="@+id/recommend_view_pager"
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            android:clipToPadding="false"
+            android:paddingStart="@dimen/margin_middle"
+            android:paddingEnd="@dimen/margin_middle"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/textView3"
+            app:viewPagerAdapter="@{adapter}" />
+
+        <include
+            layout="@layout/loading_layout"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            app:layout_constraintBottom_toBottomOf="@+id/recommend_view_pager"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="@+id/recommend_view_pager"
+            app:onViewClick="@{onViewClick::click}"
+            app:resource="@{(Resource) musicInformation}" />
+    </androidx.constraintlayout.widget.ConstraintLayout>
+</layout>

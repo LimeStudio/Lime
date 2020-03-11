@@ -1,0 +1,189 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <data>
+        <import type="com.moi.lime.vo.Resource" />
+
+        <variable
+            name="viewModel"
+            type="com.moi.lime.ui.home.profile.ProfileFragmentViewModel" />
+
+        <variable
+            name="adapter"
+            type="androidx.viewpager.widget.PagerAdapter" />
+
+        <variable
+            name="onViewClick"
+            type="com.moi.lime.ui.callback.ViewClickCallback" />
+    </data>
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/layoutProfile"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical">
+
+        <TextView
+            android:id="@+id/textView3"
+            style="@style/TextOnPrimarySubtitle1"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="@dimen/margin_normal"
+            android:layout_marginTop="@dimen/margin_normal"
+            android:gravity="center"
+            android:text="@string/my_profile_title"
+            android:textStyle="bold"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <com.google.android.material.card.MaterialCardView
+            android:id="@+id/materialCardView"
+            android:layout_width="@dimen/avatar_size_big"
+            android:layout_height="@dimen/avatar_size_big"
+            android:layout_marginStart="@dimen/margin_middle"
+            android:layout_marginTop="@dimen/margin_large"
+            app:cardCornerRadius="@dimen/avatar_radius_big"
+            app:cardElevation="0dp"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/textView3">
+
+            <androidx.appcompat.widget.AppCompatImageView
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                app:imageUrl="@{viewModel.profile.avatarUrl}" />
+        </com.google.android.material.card.MaterialCardView>
+
+        <TextView
+            android:id="@+id/textName"
+            style="@style/TextOnPrimaryBody1"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="@dimen/margin_normal"
+            android:text="@{viewModel.profile.nickName}"
+            android:textStyle="bold"
+            app:layout_constraintBottom_toTopOf="@+id/textCity"
+            app:layout_constraintStart_toEndOf="@+id/materialCardView"
+            app:layout_constraintTop_toTopOf="@+id/materialCardView"
+            app:layout_constraintVertical_chainStyle="spread"
+            tools:text="Blanche Reyes" />
+
+        <TextView
+            android:id="@+id/textCity"
+            style="@style/TextGreyBody3"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@{viewModel.profile.city}"
+            app:layout_constraintBottom_toTopOf="@+id/textView5"
+            app:layout_constraintStart_toStartOf="@+id/textName"
+            app:layout_constraintTop_toBottomOf="@+id/textName"
+            tools:text="china sichuan" />
+
+        <TextView
+            android:id="@+id/textView5"
+            style="@style/TextGreyBody3"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/followers"
+            app:layout_constraintBottom_toBottomOf="@+id/materialCardView"
+            app:layout_constraintStart_toStartOf="@+id/textCity"
+            app:layout_constraintTop_toBottomOf="@+id/textCity" />
+
+        <TextView
+            android:id="@+id/followers_count"
+            style="@style/TextGreyBody3"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="@dimen/margin_small"
+            android:text='@{viewModel.profile.followeds+""}'
+            app:layout_constraintBottom_toBottomOf="@+id/textView5"
+            app:layout_constraintStart_toEndOf="@+id/textView5"
+            app:layout_constraintTop_toTopOf="@+id/textView5"
+            tools:text="5" />
+
+        <TextView
+            android:id="@+id/textView7"
+            style="@style/TextGreyBody3"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="@dimen/margin_normal"
+            android:text="@string/following"
+            app:layout_constraintBottom_toBottomOf="@+id/followers_count"
+            app:layout_constraintStart_toEndOf="@+id/followers_count"
+            app:layout_constraintTop_toTopOf="@+id/followers_count"
+            app:layout_constraintVertical_bias="1.0" />
+
+
+        <TextView
+            android:id="@+id/following_count"
+            style="@style/TextGreyBody3"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="@dimen/margin_small"
+            android:text='@{viewModel.profile.follows+""}'
+            app:layout_constraintBottom_toBottomOf="@+id/textView5"
+            app:layout_constraintStart_toEndOf="@+id/textView7"
+            app:layout_constraintTop_toTopOf="@+id/textView5"
+            app:layout_goneMarginStart="@dimen/margin_small"
+            tools:text="23" />
+
+        <androidx.appcompat.widget.AppCompatImageView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginEnd="@dimen/margin_middle"
+            app:layout_constraintBottom_toBottomOf="@+id/materialCardView"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toTopOf="@+id/materialCardView"
+            app:srcCompat="@drawable/ic_settings_black" />
+
+        <TextView
+            android:id="@+id/textView8"
+            style="@style/TextDarkGreyH5"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/margin_middle"
+            android:text="@string/play_list_i_created"
+            android:textStyle="bold"
+            app:layout_constraintStart_toStartOf="@+id/materialCardView"
+            app:layout_constraintTop_toBottomOf="@+id/materialCardView" />
+
+        <com.google.android.material.button.MaterialButton
+            android:id="@+id/materialButton"
+            style="@style/Widget.MaterialComponents.Button.TextButton"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginEnd="@dimen/margin_normal"
+            android:text="@string/view_all"
+            android:textAllCaps="false"
+            app:layout_constraintBaseline_toBaselineOf="@+id/textView8"
+            app:layout_constraintEnd_toEndOf="parent" />
+
+        <androidx.viewpager.widget.ViewPager
+            android:id="@+id/view_pager"
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            android:layout_marginTop="@dimen/margin_normal"
+            android:clipToPadding="false"
+            android:paddingStart="@dimen/margin_x_large"
+            android:paddingEnd="@dimen/margin_x_large"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/materialButton"
+            app:viewPagerAdapter="@{adapter}">
+
+        </androidx.viewpager.widget.ViewPager>
+
+        <include
+            layout="@layout/loading_layout"
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="@+id/view_pager"
+            app:onViewClick="@{onViewClick::click}"
+            app:resource="@{(Resource) viewModel.profilePlaylists}" />
+    </androidx.constraintlayout.widget.ConstraintLayout>
+</layout>

@@ -1,0 +1,74 @@
+language: android
+jdk: oraclejdk8
+sudo: required
+env:
+  global:
+  - ANDROID_API=29
+  - EMULATOR_API=21
+  - ANDROID_BUILD_TOOLS=29.0.3
+  - ADB_INSTALL_TIMEOUT=5
+  - secure: GVd0umbBBzfmPCSrBdUbh4EEwdlvM3o07Q3DPhUGqy2Bn6X8V2lSdTJT71JJ8rb9bM2JAnNotw9XEID0RDZ9SDtyfPqwBoPTmc2xmaIS3vq8w8XX1GLnF1lTZPcmThI3sVWbzMJmsBpsoorvqL62JVTvu16+HIvmmaXyWrSgXbd41fB0BwUeOZX8uQXaPtl7YQ5Pm/VRhqlNi2NUJCYg73stQYGSpGU7Sdd16v1I0Jm+GU2y7zmSVx1aq8pkyH5JoApVcH6r9flSb9dyRh1YIOreDvCaLvGweLjnSssfq09gx3aKlT3oYD4C5cnAiCO4EhbCuWfEqKtN3fkizHsSDoi8wBEYtfSS+tve4y2ciYhkjvpCw3lO6+xn5DIzHobuZC3Vo2PcrxzNhfb+8QnxEuYClE6B5Mx0EXAdPZYocd7g7RnPRQoEev+JOyXYo8U06jBGAWCU2P3jCQ/dIFVMrDsdz/C3IKyCx83mFCptCBA8JLusFmVFwtVVbv3nh4Ci3leyOYhHe1/I5B/WgVtevctLM3dOjHo+n/Kq6HVAryfCILr3KAHZVeo8rIa7L+/VmvdlujjVSuY9GsGHUHipDkGibq1QE9ojOGzMOGtetVXu1mSmzjSYcAZRxP0L+P+qEL0apOH7GP99a/PNenACYgB9Obj8+S0sSxW7ktDtvfA=
+  - secure: B8jyL4CLGL1rNdjnUzZ13DxMTUJQ7Ehe/bEggnYFjbUesxCNIQZB71xCkeuXA011Y4LbidQ9DsAjG4kn3H5A7PGbHQ1qpyOeck4niDz0p/DCS+QODtHULui37ImCvX/r/TzbVZai9OOwewCpXhHSYp30xurZIeNJ462Fi9MTxIXxyjnj6wn7UzySw7xhftw0/x8yiUAo3yVnKA0rvF19XU/v5iwN377P9dO/8nM80w4Q6SZ/kiAdg0qAjxFKR2uIISG2Ja0gUV4DB+i0NUYZ2aodTDrQ0RM3NY8Ogf+iMhldMNDuHZ44SJ67tmpFK7yrOUE2ryb4+NaTbAnPj/+xojewM409XwM1Iw1xbCFpSp3MSfxaFDm9HlXDXtewPz4f4NRQgVMRxZ/ERtumWwiXvP2EspWup4y5OGDzGWVlVL9mHGfNP3a0/+jc87conjo9uTGwHypyJ5aQMwZ91v/sq6BEsxv1vgErnBe5G2wCPtyWVhUZBp1IPH6QGqTj0jDBDWsnkr6pt6XEJHHiQW2izpEjm5fAwWDaIr23Ei0xfi0ZiKezP4TLZxB99pkGcWTxJiaDGqtWdRGPBw8IbGQ55iB+dBryuFP+5e+G2WdPHAp+aBKkk5sbsS+p3/Nf7X+fYwjzBzdE6uVpHfYHskrsOvdokSCWedX2YhFq4Dgn3Rg=
+android:
+  components:
+  - tools
+  - platform-tools
+  - build-tools-$ANDROID_BUILD_TOOLS
+  - android-$ANDROID_API
+  - android-$EMULATOR_API
+  - extra-google-m2repository
+  - extra-android-m2repository
+  - sys-img-armeabi-v7a-android-$EMULATOR_API
+  licenses:
+  - android-sdk-preview-license-.+
+  - android-sdk-license-.+
+  - google-gdk-license-.+
+before_cache:
+- rm -f  $HOME/.gradle/caches/modules-2/modules-2.lock
+- rm -fr $HOME/.gradle/caches/*/plugin-resolution/
+cache:
+  directories:
+  - $HOME/.gradle/caches/
+  - $HOME/.gradle/wrapper/
+  - $HOME/.android/build-cache
+before_script:
+- echo no | android create avd --force -n test -t android-$EMULATOR_API --abi armeabi-v7a
+- emulator -avd test -no-skin -no-audio -no-window &
+  - android-wait-for-emulator
+  - adb shell input keyevent 82 &
+before_install:
+- openssl aes-256-cbc -K $encrypted_b05b3cd5a93c_key -iv $encrypted_b05b3cd5a93c_iv -in keystore.properties.enc -out keystore.properties -d
+- openssl aes-256-cbc -K $encrypted_8ff20515eeac_key -iv $encrypted_8ff20515eeac_iv -in appkey.jks.enc -out appkey.jks -d
+- chmod +x gradlew
+- cd $TRAVIS_BUILD_DIR
+- wget -c https://raw.githubusercontent.com/Pgyer/TravisFile/master/pgyer_upload.sh
+  -O pgyer_upload.sh
+- chmod +x pgyer_upload.sh
+script:
+#  - ./gradlew test
+#  - ./gradlew connectedCheck
+- ./gradlew jacocoUnitTestReport --stacktrace
+- ./gradlew createDebugCoverageReport --stacktrace
+- ./gradlew assembleRelease --stacktrace
+#after_success:
+#- cp $TRAVIS_BUILD_DIR/appkey.jks $HOME
+#- cd $TRAVIS_BUILD_DIR/app/build/outputs/apk/release
+#- jarsigner -verbose -sigalg SHA1withRSA -digestalg SHA1 -keystore $HOME/appkey.jks
+#  - storepass $storepass -keypass $keypass app-release-unsigned.apk lime
+#- jarsigner -verify app-release.apk
+#- "${ANDROID_HOME}/build-tools/28.0.2/zipalign -v 4 app-release.apk lime.apk"
+#after_script:
+#- set -e
+#- $TRAVIS_BUILD_DIR/pgyer_upload.sh "${TRAVIS_BUILD_DIR}/app/build/outputs/apk/release/app-release.apk"
+#    "318e91cdb7e069286d1dcc56acfe203a"
+#- rm $TRAVIS_BUILD_DIR/pgyer_upload.sh
+#- bash <(curl -s https://codecov.io/bash) -t d81700f5-9e56-4c39-8a8c-963640934898
+#
+#
+#before_deploy:
+#- ls app/build/outputs/apk/
+
+# safelist
+branches:
+  only:
+  - feature/1.0

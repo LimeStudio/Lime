@@ -1,3 +1,21 @@
 <resources>
     <string name="app_name">Lime</string>
+    <string name="sign_in" translatable="false">Sign in</string>
+    <string name="mobile">Mobile</string>
+    <string name="password">Password</string>
+
+    <string name="recommend">RECOMMEND</string>
+    <string name="like">LIKE</string>
+    <string name="comments">COMMENTS</string>
+    <string name="retry">RETRY</string>
+    <string name="my_profile_title">MY PROFILE</string>
+    <string name="following">Following</string>
+    <string name="followers">Followers</string>
+    <string name="play_list_i_created">Personal playlists</string>
+    <string name="view_all">View all</string>
+    <string name="playing_from">Playing from</string>
+
+
+
+
 </resources>
