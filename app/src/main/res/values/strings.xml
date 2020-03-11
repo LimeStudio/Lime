@@ -13,6 +13,9 @@
     <string name="followers">Followers</string>
     <string name="play_list_i_created">Personal playlists</string>
     <string name="view_all">View all</string>
+    <string name="playing_from">Playing from</string>
+
+
 
 
 </resources>
