@@ -140,6 +140,11 @@ dependencies {
     //cookie
     implementation(deps.other.persistentCookieJar)
 
+    //appcenter
+    implementation(deps.appCenter.analytics)
+    implementation(deps.appCenter.crashes)
+
+
     //test
     testImplementation(deps.kotlin.test)
     testImplementation(deps.other.junit)

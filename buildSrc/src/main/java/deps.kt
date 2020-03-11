@@ -26,9 +26,15 @@ object deps {
     private const val androidxTestCoreVersion = "1.2.0"
     private const val googleTruthVersion = "0.42"
     private const val coroutinesVersion = "1.3.2"
+    private const val appCenterVersion = "3.0.0"
 
     object plugin {
         val gradle = "com.android.tools.build:gradle:$androidGradlePluginVersion"
+    }
+
+    object appCenter {
+        val analytics = "com.microsoft.appcenter:appcenter-analytics:${appCenterVersion}"
+        val crashes = "com.microsoft.appcenter:appcenter-crashes:${appCenterVersion}"
     }
 
     object kotlin {
