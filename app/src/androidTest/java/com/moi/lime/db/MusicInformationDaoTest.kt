@@ -2,6 +2,7 @@ package com.moi.lime.db
 
 import androidx.arch.core.executor.testing.InstantTaskExecutorRule
 import com.moi.lime.util.TestDispatchersRule
+import com.moi.lime.util.observeForTesting
 import com.moi.lime.vo.*
 import kotlinx.coroutines.ExperimentalCoroutinesApi
 import kotlinx.coroutines.test.runBlockingTest
@@ -55,6 +56,25 @@ class MusicInformationDaoTest : LimeDbTest() {
     fun testFindByIdWithNull() = testDispatchersRule.testScope.runBlockingTest {
         val musicInformation = db.musicInformationDao().getMusicInformationFromMusicId("2")
         assertNull(musicInformation)
+
+    }
+
+    @Test
+    fun testGetAllMusicInformationLiveData() {
+        createAndInsertData()
+        val liveData = db.musicInformationDao().getAllMusicInformationLiveData()
+        liveData.observeForTesting {
+            assertEquals(1, liveData.value?.size)
+        }
+
+    }
+
+    @Test
+    fun testGetAllMusicInformationLiveDataWithNull() {
+        val liveData = db.musicInformationDao().getAllMusicInformationLiveData()
+        liveData.observeForTesting {
+            assertEquals(0, liveData.value?.size)
+        }
 
     }
 

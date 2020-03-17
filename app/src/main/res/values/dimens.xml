@@ -3,14 +3,23 @@
 <dimen name="margin_tiny">4dp</dimen>
 <dimen name="margin_small">8dp</dimen>
 <dimen name="margin_normal">16dp</dimen>
+<dimen name="margin_middle_normal">24dp</dimen>
 <dimen name="margin_middle">32dp</dimen>
 <dimen name="margin_large">48dp</dimen>
 <dimen name="margin_x_large">64dp</dimen>
 <dimen name="margin_xx_large">82dp</dimen>
+
+<dimen name="padding_tiny">4dp</dimen>
+<dimen name="padding_small">8dp</dimen>
+<dimen name="padding_normal">12dp</dimen>
+
+
 <dimen name="image_size_small">16dp</dimen>
 <dimen name="image_size_normal">24dp</dimen>
 <dimen name="image_size_middle">32dp</dimen>
 <dimen name="image_size_large">48dp</dimen>
+<dimen name="image_size_x_large">64dp</dimen>
+<dimen name="image_size_xx_large">96dp</dimen>
 
 <dimen name="card_corner_middle_radius">16dp</dimen>
 

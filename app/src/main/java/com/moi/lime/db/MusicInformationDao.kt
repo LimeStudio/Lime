@@ -1,5 +1,6 @@
 package com.moi.lime.db
 
+import androidx.lifecycle.LiveData
 import androidx.room.Dao
 import androidx.room.Query
 import com.moi.lime.vo.MusicInformation
@@ -12,6 +13,10 @@ interface MusicInformationDao {
 
     @Query("SELECT * FROM lime_music WHERE id == :musicId")
     suspend fun getMusicInformationFromMusicId(musicId: String): MusicInformation?
+
+
+    @Query("SELECT * from lime_music")
+    fun getAllMusicInformationLiveData(): LiveData<List<MusicInformation>>
 
 
 }

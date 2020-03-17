@@ -21,7 +21,6 @@ class RecommendFragment : Fragment(), Injectable {
 
     private var binding by autoCleared<FragmentRecommendBinding>()
 
-
     private val viewModel by lazy(LazyThreadSafetyMode.NONE) {
         ViewModelProvider(this, viewModelFactory)
                 .get(RecommendFragmentViewModel::class.java)

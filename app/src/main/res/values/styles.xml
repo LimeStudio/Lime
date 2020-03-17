@@ -251,4 +251,10 @@
         <item name="android:textSize">10sp</item>
     </style>
 
+    <style name="CustomProgressBarHorizontal" parent="android:Widget.ProgressBar.Horizontal">
+        <item name="android:minHeight">3dp</item>
+        <item name="android:progressBackgroundTint">@color/white</item>
+        <item name="android:progressTint">@color/colorAccent</item>
+    </style>
+
 </resources>
