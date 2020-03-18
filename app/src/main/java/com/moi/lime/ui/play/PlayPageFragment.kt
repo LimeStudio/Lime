@@ -63,7 +63,12 @@ class PlayPageFragment : Fragment(), Injectable {
                 it.musicImageUrl
             }
             val adapter = PlayPageViewPagerAdapter(childFragmentManager, urls)
-            binding.adapter = adapter
+            val currentPosition = list.indexOfFirst {
+                it.id == viewModel.currentMusicId.value
+            }
+            binding.viewPager.adapter = adapter
+            binding.viewPager.setCurrentItem(currentPosition, false)
+
         })
 
     }
