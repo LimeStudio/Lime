@@ -27,6 +27,7 @@ object deps {
     private const val googleTruthVersion = "0.42"
     private const val coroutinesVersion = "1.3.2"
 
+
     object plugin {
         val gradle = "com.android.tools.build:gradle:$androidGradlePluginVersion"
     }
@@ -52,6 +53,8 @@ object deps {
         val legacySupportV4 = "androidx.legacy:legacy-support-v4:$supportVersion"
         val cardview = "androidx.cardview:cardview:$supportVersion"
         val ktx = "androidx.core:core-ktx:$supportVersion"
+        val palette = "androidx.palette:palette:$supportVersion"
+
     }
 
     object lifecycle {

@@ -41,6 +41,10 @@ class PlayPageViewModel(limeRepository: LimeRepository, var currentMusicId: Muta
 
     }
 
+    fun getMusicImageUrlByPosition(position: Int): String? {
+        return playPageDataLists.value?.get(position)?.musicImageUrl
+    }
+
 
     private fun mapToPlayPageData(musicInformationList: List<MusicInformation>): List<PlayPageData> {
 

@@ -121,6 +121,7 @@ dependencies {
     implementation(deps.support.legacySupportCoreUtils)
     implementation(deps.support.legacySupportV4)
     implementation(deps.support.ktx)
+    implementation(deps.support.palette)
     //glide
     implementation(deps.glide.core)
     kapt(deps.glide.compiler)

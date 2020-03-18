@@ -1,5 +1,8 @@
 package com.moi.lime.ui.play
 
+import android.graphics.Bitmap
+import android.graphics.Color
+import android.graphics.drawable.Drawable
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
@@ -9,13 +12,20 @@ import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.Observer
+import androidx.lifecycle.lifecycleScope
 import androidx.navigation.fragment.navArgs
+import androidx.palette.graphics.Palette
 import androidx.viewpager.widget.ViewPager
+import com.bumptech.glide.Glide
+import com.bumptech.glide.request.target.CustomTarget
+import com.bumptech.glide.request.target.SimpleTarget
+import com.bumptech.glide.request.transition.Transition
 import com.moi.lime.R
 import com.moi.lime.databinding.FragmentPlayPageBinding
 import com.moi.lime.di.Injectable
 import com.moi.lime.util.autoCleared
 import com.moi.lime.viewmodel.PlayPageViewModelFactory
+import kotlinx.coroutines.launch
 import javax.inject.Inject
 
 class PlayPageFragment : Fragment(), Injectable {
@@ -55,6 +65,7 @@ class PlayPageFragment : Fragment(), Injectable {
 
             override fun onPageSelected(position: Int) {
                 viewModel.currentMusicIdChange(position)
+                changeBackground(position)
             }
 
         })
@@ -68,8 +79,33 @@ class PlayPageFragment : Fragment(), Injectable {
             }
             binding.viewPager.adapter = adapter
             binding.viewPager.setCurrentItem(currentPosition, false)
-
+            if (currentPosition == 0) {
+                changeBackground(0)
+            }
         })
+
+    }
+
+    private fun changeBackground(position: Int) {
+        val url = viewModel.getMusicImageUrlByPosition(position)
+        if (url != null) {
+            Glide.with(context!!)
+                    .asBitmap()
+                    .load(url)
+                    .into(object : CustomTarget<Bitmap>() {
+                        override fun onLoadCleared(placeholder: Drawable?) {
+                        }
+
+                        override fun onResourceReady(resource: Bitmap, transition: Transition<in Bitmap>?) {
+                            val palette = Palette.from(resource)
+                            palette.generate { pt ->
+                                val color = pt?.getDarkMutedColor(Color.DKGRAY) ?: Color.DKGRAY
+                                binding.background.setBackgroundColor(color)
+                            }
+                        }
+
+                    })
+        }
 
     }
 }

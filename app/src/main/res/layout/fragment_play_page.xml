@@ -17,9 +17,10 @@
     </data>
 
     <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/background"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:background="@android:color/holo_blue_light">
+        android:background="@android:color/darker_gray">
 
         <TextView
             android:id="@+id/textView2"
