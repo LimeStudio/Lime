@@ -8,7 +8,6 @@ import com.moi.lime.core.dispatch.Dispatchers
 import com.moi.lime.core.exception.NoDataFindException
 import com.moi.lime.core.user.UserManager
 import com.moi.lime.db.LimeDb
-import com.moi.lime.ui.play.PlayPageViewModel
 import com.moi.lime.util.MusicMapper
 import com.moi.lime.util.resourceLiveData
 import com.moi.lime.vo.MusicInformation
@@ -81,14 +80,8 @@ class LimeRepository @Inject constructor(
         }
     }
 
-    fun fetchPlayPageDataById(musicId: String): LiveData<PlayPageViewModel.PlayPageData> {
-        return liveData(dispatchers.provideIO()) {
 
-            val result = mapToPlayPageData(musicId, db.musicInformationDao().getAllMusicInformation())
-            emit(result)
-
-        }
-    }
+    suspend fun getAllMusicInformation() = db.musicInformationDao().getAllMusicInformation()
 
     private fun cleanRecommendDb() {
         with(db) {
@@ -97,32 +90,6 @@ class LimeRepository @Inject constructor(
             limeUrlDao().deleteAll()
             limeMusicDao().deleteAll()
         }
-    }
-
-    private fun mapToPlayPageData(musicId: String, musicInformationList: List<MusicInformation>): PlayPageViewModel.PlayPageData {
-        val musicInformation = musicInformationList.find { it.limeMusic?.id == musicId }
-                ?: throw IllegalArgumentException("The music didn't found in db")
-        val musicUrl = musicInformation.limeUrls
-        val musicName: String = musicInformation?.limeMusic?.name ?: "unknown"
-
-        val artists = musicInformation.limeArtist
-        val musicArtist = artists
-                .map {
-                    it.name ?: "unknown"
-                }
-                .reduce { acc, name ->
-                    "${acc}/${name}"
-                }
-        val musicImageUrl: String = musicInformation.limeAlbum.firstOrNull()?.picUrl ?: ""
-
-        val musicAlbum: String = musicInformation.limeAlbum
-                .map {
-                    it.name ?: "unknown"
-                }
-                .reduce { acc, name ->
-                    "${acc}/${name}"
-                }
-        return PlayPageViewModel.PlayPageData(musicUrl, musicName, musicArtist, musicImageUrl, musicAlbum)
     }
 
 

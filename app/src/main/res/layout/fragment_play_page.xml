@@ -9,6 +9,10 @@
             name="viewModel"
             type="com.moi.lime.ui.play.PlayPageViewModel" />
 
+        <variable
+            name="adapter"
+            type="androidx.viewpager.widget.PagerAdapter" />
+
 
     </data>
 
@@ -41,14 +45,17 @@
             app:layout_constraintTop_toBottomOf="@+id/textView2" />
 
         <androidx.viewpager.widget.ViewPager
-            android:id="@+id/viewPager2"
+            android:id="@+id/viewPager"
             android:layout_width="0dp"
             android:layout_height="0dp"
-            android:background="@color/colorPrimary"
+            android:clipToPadding="false"
+            android:paddingStart="48dp"
+            android:paddingEnd="48dp"
             app:layout_constraintBottom_toTopOf="@+id/musicName"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/textView4" />
+            app:layout_constraintTop_toBottomOf="@+id/textView4"
+            app:viewPagerAdapter="@{adapter}" />
 
 
         <TextView

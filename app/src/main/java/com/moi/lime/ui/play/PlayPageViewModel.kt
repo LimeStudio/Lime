@@ -1,18 +1,76 @@
 package com.moi.lime.ui.play
 
-import androidx.lifecycle.ViewModel
-import androidx.lifecycle.map
+import androidx.lifecycle.*
+import com.moi.lime.core.dispatch.Dispatchers
 import com.moi.lime.repository.LimeRepository
-import com.moi.lime.util.Logger
 import com.moi.lime.vo.LimeUrl
 import com.moi.lime.vo.MusicInformation
-import com.moi.lime.vo.Resource
-import com.moi.lime.vo.Status
-import javax.inject.Inject
 
-class PlayPageViewModel(limeRepository: LimeRepository, private val currentMusicId: String) : ViewModel() {
+class PlayPageViewModel(limeRepository: LimeRepository, var currentMusicId: MutableLiveData<String>, dispatchers: Dispatchers) : ViewModel() {
 
-    val currentMusic = limeRepository.fetchPlayPageDataById(currentMusicId)
+    val playPageDataLists = liveData(dispatchers.provideIO()) {
+        val result = mapToPlayPageData(limeRepository.getAllMusicInformation())
+        emit(result)
+    }
 
-    data class PlayPageData(val musicUrl: List<LimeUrl>, val musicName: String, val musicArtist: String, val musicImageUrl: String, val musicAlbum: String)
+    val currentMusic = MediatorLiveData<PlayPageData>()
+
+    init {
+        currentMusic.apply {
+            addSource(playPageDataLists) { list ->
+                currentMusic.value = list.find {
+                    it.id == currentMusicId.value
+                }
+            }
+            addSource(currentMusicId) {
+                val list = playPageDataLists.value
+                if (list != null) {
+                    currentMusic.value = list.find {
+                        it.id == currentMusicId.value
+                    }
+                }
+            }
+        }
+    }
+
+    fun currentMusicIdChange(position: Int) {
+        val list = playPageDataLists.value
+        if (list != null) {
+            currentMusicId.value = list[position].id
+        }
+
+    }
+
+    private fun mapToPlayPageData(musicInformationList: List<MusicInformation>): List<PlayPageData> {
+
+        return musicInformationList.map {
+            val musicUrl = it.limeUrls
+            val musicName: String = it.limeMusic?.name ?: "unknown"
+
+            val artists = it.limeArtist
+            val musicArtist = artists
+                    .map { limeArtist ->
+                        limeArtist.name ?: "unknown"
+                    }
+                    .reduce { acc, name ->
+                        "${acc}/${name}"
+                    }
+            val musicImageUrl: String = it.limeAlbum.firstOrNull()?.picUrl ?: ""
+
+            val musicAlbum: String = it.limeAlbum
+                    .map { limeArtist ->
+                        limeArtist.name ?: "unknown"
+                    }
+                    .reduce { acc, name ->
+                        "${acc}/${name}"
+                    }
+            PlayPageData(it.limeMusic?.id
+                    ?: "-1", musicUrl, musicName, musicArtist, musicImageUrl, musicAlbum)
+        }
+
+
+    }
+
+
+    data class PlayPageData(val id: String, val musicUrl: List<LimeUrl>, val musicName: String, val musicArtist: String, val musicImageUrl: String, val musicAlbum: String)
 }
