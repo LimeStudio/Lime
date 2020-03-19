@@ -19,6 +19,9 @@ class PlayPageViewModel(limeRepository: LimeRepository, var currentMusicId: Muta
 
     val currentMusic = MediatorLiveData<PlayPageData>()
 
+    val backgroundColor = MutableLiveData<Int>()
+    val textColor = MutableLiveData<Int>()
+
     init {
         currentMusic.apply {
             addSource(playPageDataLists) { list ->

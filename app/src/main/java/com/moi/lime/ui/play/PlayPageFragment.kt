@@ -99,8 +99,11 @@ class PlayPageFragment : Fragment(), Injectable {
                         override fun onResourceReady(resource: Bitmap, transition: Transition<in Bitmap>?) {
                             val palette = Palette.from(resource)
                             palette.generate { pt ->
-                                val color = pt?.getDarkMutedColor(Color.DKGRAY) ?: Color.DKGRAY
-                                binding.background.setBackgroundColor(color)
+                                val color = pt?.getDominantColor(Color.DKGRAY) ?: Color.DKGRAY
+                                viewModel.backgroundColor.value = color
+                                val swatch = pt?.dominantSwatch
+                                val textColor = swatch?.bodyTextColor ?: Color.WHITE
+                                viewModel.textColor.value = textColor
                             }
                         }
 

@@ -20,7 +20,8 @@
         android:id="@+id/background"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:background="@android:color/darker_gray">
+        android:background="@android:color/darker_gray"
+        app:backgroundColorInt="@{viewModel.backgroundColor}">
 
         <TextView
             android:id="@+id/textView2"
@@ -31,7 +32,8 @@
             android:text="@string/playing_from"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent" />
+            app:layout_constraintTop_toTopOf="parent"
+            app:textColorInt="@{viewModel.textColor}" />
 
         <TextView
             android:id="@+id/textView4"
@@ -43,7 +45,8 @@
             android:textStyle="bold"
             app:layout_constraintEnd_toEndOf="@+id/textView2"
             app:layout_constraintStart_toStartOf="@+id/textView2"
-            app:layout_constraintTop_toBottomOf="@+id/textView2" />
+            app:layout_constraintTop_toBottomOf="@+id/textView2"
+            app:textColorInt="@{viewModel.textColor}" />
 
         <androidx.viewpager.widget.ViewPager
             android:id="@+id/viewPager"
@@ -73,6 +76,7 @@
             app:layout_constraintBottom_toTopOf="@+id/textView10"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
+            app:textColorInt="@{viewModel.textColor}"
             tools:text="WANTED" />
 
         <TextView
@@ -88,6 +92,7 @@
             app:layout_constraintBottom_toTopOf="@+id/progressBar"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
+            app:textColorInt="@{viewModel.textColor}"
             tools:text="by troye sivan" />
 
         <androidx.appcompat.widget.AppCompatImageView
@@ -98,6 +103,7 @@
             android:layout_marginBottom="@dimen/margin_middle_normal"
             android:background="?android:attr/selectableItemBackgroundBorderless"
             android:scaleType="center"
+            app:iconColorInt="@{viewModel.textColor}"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:srcCompat="@drawable/ic_shuffle_black_24dp" />
@@ -110,6 +116,7 @@
             android:layout_marginBottom="@dimen/margin_middle_normal"
             android:background="?android:attr/selectableItemBackgroundBorderless"
             android:scaleType="center"
+            app:iconColorInt="@{viewModel.textColor}"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:srcCompat="@drawable/ic_repeat_white_24dp" />
@@ -172,7 +179,8 @@
             android:layout_marginTop="@dimen/margin_tiny"
             android:text="0:12"
             app:layout_constraintStart_toStartOf="@+id/progressBar"
-            app:layout_constraintTop_toBottomOf="@+id/progressBar" />
+            app:layout_constraintTop_toBottomOf="@+id/progressBar"
+            app:textColorInt="@{viewModel.textColor}" />
 
         <TextView
             style="@style/TextOnAccentBody3"
@@ -181,7 +189,8 @@
             android:layout_marginTop="@dimen/margin_tiny"
             android:text="4:12"
             app:layout_constraintEnd_toEndOf="@+id/progressBar"
-            app:layout_constraintTop_toBottomOf="@+id/progressBar" />
+            app:layout_constraintTop_toBottomOf="@+id/progressBar"
+            app:textColorInt="@{viewModel.textColor}" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 </layout>
