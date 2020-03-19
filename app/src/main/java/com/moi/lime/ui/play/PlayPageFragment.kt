@@ -1,7 +1,10 @@
 package com.moi.lime.ui.play
 
+import android.animation.ArgbEvaluator
+import android.animation.ValueAnimator
 import android.graphics.Bitmap
 import android.graphics.Color
+import android.graphics.drawable.ColorDrawable
 import android.graphics.drawable.Drawable
 import android.os.Bundle
 import android.view.LayoutInflater
@@ -12,21 +15,19 @@ import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.Observer
-import androidx.lifecycle.lifecycleScope
 import androidx.navigation.fragment.navArgs
 import androidx.palette.graphics.Palette
 import androidx.viewpager.widget.ViewPager
 import com.bumptech.glide.Glide
 import com.bumptech.glide.request.target.CustomTarget
-import com.bumptech.glide.request.target.SimpleTarget
 import com.bumptech.glide.request.transition.Transition
 import com.moi.lime.R
 import com.moi.lime.databinding.FragmentPlayPageBinding
 import com.moi.lime.di.Injectable
 import com.moi.lime.util.autoCleared
 import com.moi.lime.viewmodel.PlayPageViewModelFactory
-import kotlinx.coroutines.launch
 import javax.inject.Inject
+
 
 class PlayPageFragment : Fragment(), Injectable {
 
@@ -82,6 +83,15 @@ class PlayPageFragment : Fragment(), Injectable {
             if (currentPosition == 0) {
                 changeBackground(0)
             }
+        })
+
+        viewModel.backgroundColor.observe(this, Observer {
+            val colorFrom = (binding.background.background as ColorDrawable).color
+            val colorTo = it
+            val colorAnimation = ValueAnimator.ofObject(ArgbEvaluator(), colorFrom, colorTo)
+            colorAnimation.duration = 250 // milliseconds
+            colorAnimation.addUpdateListener { animator -> binding.background.setBackgroundColor(animator.animatedValue as Int) }
+            colorAnimation.start()
         })
 
     }
