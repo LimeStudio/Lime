@@ -1,0 +1,84 @@
+[
+  {
+    "limeAlbum": [
+      {
+        "albumId": 94,
+        "blurPicUrl": "http://p1.music.126.net/BUFZLieG5a6E3ZVpkHP6fA\u003d\u003d/109951163402069754.jpg",
+        "company": "海蝶音乐",
+        "id": "71747023",
+        "musicId": "573384240",
+        "name": "寻宝游戏",
+        "picId": "109951163402069760",
+        "picUrl": "http://p1.music.126.net/BUFZLieG5a6E3ZVpkHP6fA\u003d\u003d/109951163402069754.jpg",
+        "size": 9,
+        "type": "专辑"
+      }
+    ],
+    "limeArtist": [
+      {
+        "artistId": "5771",
+        "id": 118,
+        "img1vUrl": "http://p1.music.126.net/6y-UleORITEDbvrOLV0Q8A\u003d\u003d/5639395138885805.jpg",
+        "musicId": "573384240",
+        "name": "许嵩",
+        "picUrl": "http://p1.music.126.net/6y-UleORITEDbvrOLV0Q8A\u003d\u003d/5639395138885805.jpg"
+      }
+    ],
+    "limeMusic": {
+      "duration": 255708,
+      "id": "573384240",
+      "name": "如约而至",
+      "reason": "根据你的口味"
+    },
+    "limeUrls": [
+      {
+        "br": "913072",
+        "id": 112,
+        "musicId": "573384240",
+        "size": "29185068",
+        "url": "http://m8.music.126.net/20200319143730/ea85427e4c09e89726c312f8b0bf85d1/ymusic/050f/1f08/81ee/c6326249cde554def94b604feac95cdc.flac"
+      }
+    ]
+  },
+  {
+    "limeAlbum": [
+      {
+        "albumId": 95,
+        "blurPicUrl": "http://p1.music.126.net/X0EDfXzxMQJiQ-71JFGdZw\u003d\u003d/3238061746556733.jpg",
+        "company": "华纳唱片",
+        "id": "3056951",
+        "musicId": "29850683",
+        "name": "新地球",
+        "picId": "3238061746556733",
+        "picUrl": "http://p1.music.126.net/X0EDfXzxMQJiQ-71JFGdZw\u003d\u003d/3238061746556733.jpg",
+        "size": 13,
+        "type": "专辑"
+      }
+    ],
+    "limeArtist": [
+      {
+        "artistId": "3684",
+        "id": 119,
+        "img1vUrl": "http://p1.music.126.net/6y-UleORITEDbvrOLV0Q8A\u003d\u003d/5639395138885805.jpg",
+        "musicId": "29850683",
+        "name": "林俊杰",
+        "picUrl": "http://p1.music.126.net/6y-UleORITEDbvrOLV0Q8A\u003d\u003d/5639395138885805.jpg"
+      }
+    ],
+    "limeMusic": {
+      "duration": 272512,
+      "id": "29850683",
+      "name": "浪漫血液",
+      "reason": "根据你的口味"
+    },
+    "limeUrls": [
+      {
+        "br": "939125",
+        "id": 121,
+        "musicId": "29850683",
+        "size": "31990413",
+        "url": "http://m8.music.126.net/20200319143730/f8b91768b034da9e32e20680b6f0029e/ymusic/528c/4e98/772c/91929fbf6b06079e88a1980fe1a48744.flac"
+      }
+    ]
+  }
+]

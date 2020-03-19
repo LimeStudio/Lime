@@ -148,5 +148,17 @@ class LimeRepositoryTest {
 
     }
 
+    @ExperimentalCoroutinesApi
+    @Test
+    fun testGetAllMusicInformation() = testDispatchersRule.testScope.runBlockingTest {
+        val result = MusicInformation()
+        val musicInformationDao: MusicInformationDao = mock()
+        `when`(musicInformationDao.getAllMusicInformation()).thenReturn(listOf(result))
+        `when`(db.musicInformationDao()).thenReturn(musicInformationDao)
+
+        val musicInformation = limeRepository.getAllMusicInformation()
+        assertEquals(result, musicInformation.first())
+    }
+
 
 }

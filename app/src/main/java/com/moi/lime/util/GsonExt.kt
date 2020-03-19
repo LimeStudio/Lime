@@ -1,5 +1,7 @@
 package com.moi.lime.util
 
+import com.google.gson.reflect.TypeToken
+
 fun <T> T.toJson(): String {
     val gson = GsonTools.gson
     return gson.toJson(this)
@@ -8,4 +10,10 @@ fun <T> T.toJson(): String {
 inline fun <reified T> String.toBean(): T? {
     val gson = GsonTools.gson
     return gson.fromJson(this, T::class.java)
+}
+
+inline fun <reified T> String.toList(): List<T>? {
+    val gson = GsonTools.gson
+    val type = object : TypeToken<List<T>>() {}.type
+    return gson.fromJson(this, type)
 }

@@ -1,11 +1,15 @@
 package com.moi.lime.ui.play
 
+import android.util.Log
 import androidx.lifecycle.*
+import com.lime.testing.OpenForTesting
 import com.moi.lime.core.dispatch.Dispatchers
 import com.moi.lime.repository.LimeRepository
+import com.moi.lime.util.toJson
 import com.moi.lime.vo.LimeUrl
 import com.moi.lime.vo.MusicInformation
 
+@OpenForTesting
 class PlayPageViewModel(limeRepository: LimeRepository, var currentMusicId: MutableLiveData<String>, dispatchers: Dispatchers) : ViewModel() {
 
     val playPageDataLists = liveData(dispatchers.provideIO()) {
@@ -47,7 +51,7 @@ class PlayPageViewModel(limeRepository: LimeRepository, var currentMusicId: Muta
 
 
     private fun mapToPlayPageData(musicInformationList: List<MusicInformation>): List<PlayPageData> {
-
+        val json = musicInformationList.take(2).toJson()
         return musicInformationList.map {
             val musicUrl = it.limeUrls
             val musicName: String = it.limeMusic?.name ?: "unknown"
