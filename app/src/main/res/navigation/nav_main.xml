@@ -39,6 +39,12 @@
             app:launchSingleTop="true"
             app:popUpTo="@id/sign_in_fragment"
             app:popUpToInclusive="true" />
+        <action
+            android:id="@+id/go_to_demo_fragment_from_sign"
+            app:destination="@id/DemoFragment"
+            app:launchSingleTop="true"
+            app:popUpTo="@id/sign_in_fragment"
+            app:popUpToInclusive="true" />
     </fragment>
 
     <fragment
@@ -61,5 +67,10 @@
         <argument
             android:name="musicId"
             app:argType="string" />
+    </fragment>
+    <fragment
+        android:id="@+id/DemoFragment"
+        android:name="com.moi.lime.ui.DemoFragment"
+        android:label="DemoFragment">
     </fragment>
 </navigation>

@@ -2,6 +2,7 @@ package com.moi.lime.di
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
+import com.moi.lime.ui.DemoFragmentViewModel
 import com.moi.lime.ui.home.profile.ProfileFragmentViewModel
 import com.moi.lime.ui.home.recommend.RecommendFragmentViewModel
 import com.moi.lime.ui.play.PlayPageViewModel
@@ -34,6 +35,11 @@ abstract class ViewModelModule {
     @IntoMap
     @ViewModelKey(ProfileFragmentViewModel::class)
     abstract fun bindProfileFragmentViewModel(profileFragmentViewModel: ProfileFragmentViewModel): ViewModel
+
+    @Binds
+    @IntoMap
+    @ViewModelKey(DemoFragmentViewModel::class)
+    abstract fun bindDemoFragmentViewModel(demoFragmentViewModel: DemoFragmentViewModel): ViewModel
 
 
     @Binds

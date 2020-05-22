@@ -118,6 +118,17 @@
             app:layout_constraintTop_toTopOf="parent"
             app:visibleInvisible="@{signInViewModel.loginResource.status == Status.LOADING}" />
 
+
+        <Button
+            android:id="@+id/demo"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            app:layout_constraintEnd_toEndOf="@+id/signInButton"
+            app:layout_constraintStart_toStartOf="@+id/signInButton"
+            app:layout_constraintTop_toBottomOf="@+id/signInButton">
+
+        </Button>
+
     </androidx.constraintlayout.widget.ConstraintLayout>
 
 </layout>

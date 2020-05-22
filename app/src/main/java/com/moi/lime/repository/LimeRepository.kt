@@ -11,8 +11,10 @@ import com.moi.lime.db.LimeDb
 import com.moi.lime.util.MusicMapper
 import com.moi.lime.util.resourceLiveData
 import com.moi.lime.vo.MusicInformation
+import com.moi.lime.vo.Product
 import com.moi.lime.vo.Resource
 import com.moi.lime.vo.UserPlayLists
+import kotlinx.coroutines.delay
 import javax.inject.Inject
 
 @OpenForTesting
@@ -92,5 +94,34 @@ class LimeRepository @Inject constructor(
         }
     }
 
+    fun getProducts(): LiveData<Resource<List<Product>>> {
+        return liveData(dispatchers.provideIO()) {
+            emit(Resource.loading(null))
+            delay(3000)
+            emit(Resource.success(listOf(
+                    Product("product1", 0),
+                    Product("product2", 0),
+                    Product("product3", 0),
+                    Product("product4", 0)
+            )))
 
+
+        }
+    }
+
+    fun addProducts(id: String): LiveData<Resource<Product>> {
+        return liveData {
+            emit(Resource.loading(null))
+            delay(3000)
+            emit(Resource.success(Product("new", 0)))
+        }
+    }
+
+    fun addProductsToCart(name: String): LiveData<Resource<Product>> {
+        return liveData {
+            emit(Resource.loading(null))
+            delay(3000)
+            emit(Resource.success(Product(name, 0)))
+        }
+    }
 }

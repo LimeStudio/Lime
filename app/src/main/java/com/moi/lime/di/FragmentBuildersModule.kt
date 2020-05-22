@@ -1,5 +1,6 @@
 package com.moi.lime.di
 
+import com.moi.lime.ui.DemoFragment
 import com.moi.lime.ui.home.HomeFragment
 import com.moi.lime.ui.home.profile.ProfileFragment
 import com.moi.lime.ui.home.recommend.RecommendFragment
@@ -32,5 +33,8 @@ abstract class FragmentBuildersModule {
 
     @ContributesAndroidInjector
     abstract fun contributePlayPageFragment(): PlayPageFragment
+
+    @ContributesAndroidInjector
+    abstract fun contributeDemoFragment(): DemoFragment
 
 }

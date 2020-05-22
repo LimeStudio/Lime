@@ -52,6 +52,10 @@ class SignInFragment : Fragment(), Injectable {
                         .navigate(SignInFragmentDirections.goToHomeFragmentFromSign())
             }
         })
+        binding.demo.setOnClickListener {
+            navController()
+                    .navigate(SignInFragmentDirections.goToDemoFragmentFromSign())
+        }
     }
 
     /**

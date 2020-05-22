@@ -70,7 +70,7 @@ class PlayPageFragment : Fragment(), Injectable {
             }
 
         })
-        viewModel.playPageDataLists.observe(this, Observer { list ->
+        viewModel.playPageDataLists.observe(viewLifecycleOwner, Observer { list ->
             val urls = list.map {
                 it.musicImageUrl
             }
@@ -85,7 +85,7 @@ class PlayPageFragment : Fragment(), Injectable {
             }
         })
 
-        viewModel.backgroundColor.observe(this, Observer {
+        viewModel.backgroundColor.observe(viewLifecycleOwner, Observer {
             val colorFrom = (binding.background.background as ColorDrawable).color
             val colorTo = it
             val colorAnimation = ValueAnimator.ofObject(ArgbEvaluator(), colorFrom, colorTo)
